@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ARRAY
 
 db = SQLAlchemy()
 
@@ -25,8 +26,8 @@ class Mascot(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(20), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
-    species = db.Column(db.String(20), default=['canine', 'feline'], nullable=False) 
-    sex = db.Column(db.String(20), default=['male', 'female'])
+    species = db.Column(db.ARRAY(String), default=['canine', 'feline'], nullable=False) 
+    sex = db.Column(db.ARRAY(String), default=['male', 'female'])
     breed = db.Column(db.String(80)) # TO-DO: Add a default with the breeds provided by the API. default=<callable function>
     colour = db.Column(db.String(20))
     caracteristics = db.Column(db.String(400))
