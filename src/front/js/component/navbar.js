@@ -1,10 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import VectorLogo_Pets_APP from "../../img/VectorLogo_Pets_APP.png";
+import "../../styles/home.css";
+
 
 export const Navbar = () => {
 	return (
-		<nav class="navbar navbar-expand-lg px-3 text-dark" id="menu-navbar">
-		<a class="menu-title navbar-brand px-3" href="#">Pets name app</a>
+		<nav class="navbar navbar-expand-lg px-5 text-dark" id="menu-navbar">
+			<a class="navbar-brand" href="#">
+    		<img src={VectorLogo_Pets_APP} width="45" class="d-inline-block align-top" alt="" />
+  			</a>
+			<a class="menu-title navbar-brand" href="#">Pets name app</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
