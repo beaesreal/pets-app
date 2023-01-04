@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+import re
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -10,8 +11,9 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from sqlalchemy import or_
 from api.utils import APIException, generate_sitemap
-from api.models import db, User, Mascot, Mascot_img, Diet, Medicine, Appointment
+from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinarian
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -72,37 +74,55 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
+regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     body = request.get_json()
     print(body)
+
+    if re.fullmatch(regex, body['email']):
+        print("Valid email")
     
-    user = User(
-        username = body['username'],
-        email = body['email'],
-        password = body['password'],
-        is_active = True
-    )
+        user = User(
+            username = body['username'],
+            email = body['email'],
+            password = body['password'],
+            is_active = True
+        )
 
-    db.session.add(user)
-    db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
-    response_body = {
-        "msg": "Hello, user added successfully!"
-        }
+        response_body = {
+            "msg": "Hello, user added successfully!"
+            }
 
-    return jsonify(response_body), 200
+        return jsonify(response_body), 200
+
+    else:
+        response_body = {
+            "msg": "Invalid email!"
+            }
+
+        return jsonify(response_body), 400
 
 # METODO PARA LOGIN Y TOKEN
 
 @app.route('/login', methods=['POST'])
 def handle_login():
     body = request.get_json()
-    
-    email = body['email']
-    password = body['password']
 
-    user = User.query.filter_by(email=email, password=password).first()
+    if body['username']:
+        username = body['username']
+        password = body['password']
+        user = User.query.filter_by(username=username, password=password).first()
+
+    if body['email']:
+        email = body['email']
+        password = body['password']
+        user = User.query.filter_by(email=email, password=password).first()
+
 
     if user is None:
         return jsonify({"msg": "Bad username or password"}), 401

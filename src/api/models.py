@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy import Enum
+import enum
 
 db = SQLAlchemy()
 
@@ -16,21 +18,33 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "username": self.id,
+            "username": self.username,
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
+class Species(enum.Enum):
+    canine = "Canine"
+    feline = "Feline"
+
+class Gender(enum.Enum):
+    male = "Male"
+    female = "Female"
 
 class Mascot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(20), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
-    species = db.Column(db.ARRAY(String), default=['canine', 'feline'], nullable=False) 
-    sex = db.Column(db.ARRAY(String), default=['male', 'female'])
-    breed = db.Column(db.String(80)) # TO-DO: Add a default with the breeds provided by the API. default=<callable function>
+    species = db.Column(db.Enum(Species))
+    gender = db.Column(db.Enum(Gender))
+    breed = db.Column(db.String(80)) 
     colour = db.Column(db.String(20))
     caracteristics = db.Column(db.String(400))
+    img_1 = db.Column(db.String(120))
+    img_2 = db.Column(db.String(120))
+    img_3 = db.Column(db.String(120))
+    img_mimetype = db.Column(db.String(10))
 
     def serialize(self):
         return {
@@ -39,27 +53,43 @@ class Mascot(db.Model):
             "name": self.name,
             "date_of birth": self.date_of_birth,
             "species": self.species,
-            "sex": self.sex
+            "gender": self.gender
             # do not serialize the password, its a security breach
         }
 
-class Mascot_img(db.Model):
+class Veterinarian(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    mascot_id = db.Column(db.Integer, db.ForeignKey('mascot.id'))
-    img = db.Column(db.String(80), nullable=False)
-    name = db.Column(db.String(80), nullable=False)
-    mymetype = db.Column(db.String(10), nullable=False)
-    
+    clinic_name = db.Column(db.String(120), unique=True, nullable=False)
+    adress = db.Column(db.String(280), unique=True, nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.email}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "mascot_id": self.mascot_id,
-            "img": self.img,
-            "name": self.name,
-            "mimetype": self.mimetype,
+            "clinic_name": self.clinic_name,
+            "adress": self.adress,
             # do not serialize the password, its a security breach
         }
+
+#class Mascot_img(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    mascot_id = db.Column(db.Integer, db.ForeignKey('mascot.id'))
+#    img = db.Column(db.String(80), nullable=False)
+#    name = db.Column(db.String(80), nullable=False)
+#    mimetype = db.Column(db.String(10), nullable=False)
+    
+
+#    def serialize(self):
+#        return {
+#            "id": self.id,
+#            "mascot_id": self.mascot_id,
+#            "img": self.img,
+#            "name": self.name,
+#            "mimetype": self.mimetype,
+            # do not serialize the password, its a security breach
+#        }
 
 class Diet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -112,5 +142,3 @@ class Appointment(db.Model):
             "date": self.date,
             # do not serialize the password, its a security breach
         }
-
-#### TO-DO: Migrate and upgrade database
