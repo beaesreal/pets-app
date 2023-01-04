@@ -41,13 +41,50 @@
     border-color: #150d29;
 }
 
-
 .btn-primary{
     background-color: #251749;
     color: white;
+    border: none;
 }
 
 .btn-primary:hover{
     background-color: #150d29;
     color: white;
+}
+
+.footer-bg{
+    background-color: #100B1B;
+}
+.yellow-text{
+    color: #F6F6C9;
+}
+
+
+
+.header-bg{
+    background-color: #F6F6C9;
+    height: 550px;
+}
+
+h1{
+    font-size: 45px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #251749;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+.section-separator{
+    background-color: #495579;
+    height: 220px;
 }
