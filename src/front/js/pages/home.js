@@ -3,6 +3,8 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import header_img_1 from "../../img/header_img_1.jpg";
+import Rectangle_mockup from "../../img/Rectangle_mockup.png";
+import Rectangle_small from "../../img/Rectangle_small.png";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -53,7 +55,7 @@ export const Home = () => {
 				<div class="container">
 					<div class="row">
 						<div class="col-sm py-5 m-3">
-						<img className="d-block w-100 pb-4" src={header_img_1} />
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis
 							</h5>
@@ -65,7 +67,7 @@ export const Home = () => {
 							</a>
 						</div>
 						<div class="col-sm py-5 m-3">
-						<img className="d-block w-100 pb-4" src={header_img_1} />
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis
 							</h5>
@@ -77,7 +79,7 @@ export const Home = () => {
 							</a>
 						</div>
 						<div class="col-sm py-5 m-3">
-						<img className="d-block w-100 pb-4" src={header_img_1} />
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis
 							</h5>
@@ -95,6 +97,71 @@ export const Home = () => {
 						Section 2
 					</div>
 
+					<div class="container-fluid photo-text-section">
+					<div class="row align-items-center">
+						<div class="col-sm py-5 m-5">
+						<img className="d-block w-100 pb-4" src={Rectangle_mockup} />
+
+						</div>
+						<div class="col-sm py-5 m-3">
+							<h5><b>
+								Sed ut perspiciatis unde omnis
+							</b></h5>
+							<p>
+								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem.
+							</p>
+						</div>
+					</div>
+					</div>
+
+					<div className="container ">
+						<div className="row text-center mt-4 pt-5">
+							<h2>How to start?</h2>
+							<h4>Four simple steps to follow</h4>
+						</div>
+						<div className="container text-center">
+							<div className="row py-5 px-2">
+							<div class="col-3">
+							<img className="d-block w-100 pb-4" src={Rectangle_small} />
+								<h5>
+									Sed ut perspiciatis
+								</h5>
+								<p>
+									Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
+								</p>
+							</div>
+							<div class="col-3">
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
+							<h5>
+								Sed ut perspiciatis
+							</h5>
+							<p>
+								Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
+							</p>
+						</div>
+						<div class="col-3">
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
+							<h5>
+								Sed ut perspiciatis
+							</h5>
+							<p>
+								Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
+							</p>
+						</div>
+						<div class="col-3">
+						<img className="d-block w-100 pb-4" src={Rectangle_small} />
+							<h5>
+								Sed ut perspiciatis
+							</h5>
+							<p>
+								Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
+							</p>
+						</div>
+						</div>
+						</div>
+					</div>
+
+			
 				</div>
 			
 	);

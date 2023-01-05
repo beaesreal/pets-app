@@ -88,3 +88,9 @@ body{
     background-color: #495579;
     height: 220px;
 }
+
+.photo-text-section{
+    background-color: #F0F0E2;
+    padding-left: 200px;
+    padding-right: 200px;
+}
