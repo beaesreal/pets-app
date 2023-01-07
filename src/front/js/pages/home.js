@@ -6,6 +6,7 @@ import header_img_1 from "../../img/header_img_1.jpg";
 import Rectangle_mockup from "../../img/Rectangle_mockup.png";
 import Rectangle_small from "../../img/Rectangle_small.png";
 
+
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
@@ -22,14 +23,14 @@ export const Home = () => {
 				<div className="carousel-inner header-bg px-5">
 					<div className="carousel-item active px-5">
 						<div className="row">
-						<div className="col-4 p-5">
+						<div className="col-lg-4 col-sm-1">
 							<h1 className="py-5">
 							Sed ut perspiciatis unde omnis
 							</h1>
 							<button class="btn btn-primary my-sm-0 px-4" type="submit">Join Today</button>
 						</div>
 						
-						<div className="col-8 p-5">
+						<div className="col-lg-8 col-sm-none">
 						<img className="d-block w-100" src={header_img_1} alt="First slide"/>
 						</div>
 						</div>
@@ -121,7 +122,7 @@ export const Home = () => {
 						</div>
 						<div className="container text-center">
 							<div className="row py-5 px-2">
-							<div class="col-3">
+							<div class="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Rectangle_small} />
 								<h5>
 									Sed ut perspiciatis
@@ -130,7 +131,7 @@ export const Home = () => {
 									Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
 								</p>
 							</div>
-							<div class="col-3">
+							<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis
@@ -139,7 +140,7 @@ export const Home = () => {
 								Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
 							</p>
 						</div>
-						<div class="col-3">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis
@@ -148,7 +149,7 @@ export const Home = () => {
 								Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
 							</p>
 						</div>
-						<div class="col-3">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4" src={Rectangle_small} />
 							<h5>
 								Sed ut perspiciatis

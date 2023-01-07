@@ -94,3 +94,11 @@ body{
     padding-left: 200px;
     padding-right: 200px;
 }
+
+.navbar-toggler{
+    color: #150d29;
+}
+
+#menu-icon{
+    background-color: #251749;
+}
