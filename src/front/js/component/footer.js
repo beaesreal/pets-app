@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import APP_Logo_Footer from "../../img/APP_Logo_Footer.png";
 import "../../styles/index.css";
 import Ellipse from "../../img/Ellipse.png";
+import Github_icon from "../../img/Github_icon.png";
 
 export const Footer = () => (
 	<div className="footer-bg container-fluid p-5">
@@ -15,7 +16,7 @@ export const Footer = () => (
 		<div className="col mb-3">
 
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Quick menu</h5>
 			<ul className="nav flex-column">
 				<li className="nav-item-mb-2">Home</li>
@@ -27,7 +28,7 @@ export const Footer = () => (
 				<li className="nav-item-mb-2">My account</li>
 			</ul>
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Community</h5>
 			<ul className="nav flex-column">
 				<li className="nav-item-mb-2">About us</li>
@@ -39,13 +40,13 @@ export const Footer = () => (
 				<li className="nav-item-mb-2">Faq's</li>
 			</ul>
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Follow us</h5>
 			<ul className="nav flex-column">
 				<li>
-				<img src={Ellipse} width="50"></img>
-				<img className="mx-2" src={Ellipse} width="50"></img>
-				<img src={Ellipse} width="50"></img>
+				<img src={Github_icon} width="40"></img>
+				<img className="mx-2" src={Github_icon} width="40"></img>
+				<img src={Github_icon} width="40"></img>
 				</li>
 			</ul>
 		</div>
