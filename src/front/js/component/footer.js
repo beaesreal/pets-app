@@ -3,7 +3,9 @@ import APP_Logo_Footer from "../../img/APP_Logo_Footer.png";
 import "../../styles/index.css";
 import Ellipse from "../../img/Ellipse.png";
 
-export const Footer = () => (
+export const Footer = () => {
+
+	return (
 	<div className="footer-bg container-fluid p-5">
 	<footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 pb-5 mb-4 footer-bg">
 		<div className="col mb-3">
@@ -53,9 +55,10 @@ export const Footer = () => (
 	</footer>
 
 	<div className="d-flex flex-column flex-sm-row justify-content-between py-2 my-2 border-top yellow-text">
-		<p className="p-2"> © App Name, 2022. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
+		<p className="p-2"> © App Name, 2023. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
 		<p className="p-2 d-flex"> 4Geeks Academy - Final Project</p>
 	</div>
 
 	</div>
-);
+	)
+};
