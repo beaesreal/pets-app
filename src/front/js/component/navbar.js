@@ -16,9 +16,10 @@ export const Navbar = () => {
 			<a className="navbar-brand" href="#">
     		<img src={VectorLogo_Pets_APP} width="45" className="d-inline-block align-top" alt="" />
   			</a>
-			<a className="menu-title navbar-brand" href="#">Pets name app</a>
-		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span className="navbar-toggler-icon"></span>
+
+			<a class="menu-title navbar-brand" href="#">Pets name app</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon" id="menu-icon"></span>
 		</button>
 
 		<div className="collapse navbar-collapse" id="navbarSupportedContent">
