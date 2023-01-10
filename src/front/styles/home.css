@@ -99,3 +99,23 @@ body{
 #menu-icon{
     background-color: #251749;
 }
+
+.profile-section{
+    background-color:#e5e8f5;
+}
+
+.pet-card{
+    width: 12rem;
+}
+
+.my-profile-info{
+    background-color: #263159;
+}
+
+a{
+    color: #593ea0;
+}
+
+a:hover{
+    color: #263159;
+}
