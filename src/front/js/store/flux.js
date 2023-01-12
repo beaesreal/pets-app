@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleCreateUser: async (username, email, pass) => {
 				console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
 				const response = await fetch(
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io/signup",
+				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/signup",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -47,7 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Welcome, new user!!")
-				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io')
+				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
 				}
 				
 			},
@@ -65,7 +65,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
   
 				const resp = await fetch(
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io/login",
+					//process.env.BACKEND_URL+"/login"
+				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -76,7 +77,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 			  
 				if (!resp.ok){
-				  console.log(resp.body)
+				  console.log(resp.body);
+				  document.getElementById("email").style.borderColor = "red";
+				  document.getElementById("pass").style.borderColor = "red";
+				  document.getElementById("loginError").style.display = "block";
 				  const message = `An error has occured: ${resp.status}`;
 				  throw new Error(message);
 				  
@@ -86,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				localStorage.setItem("jwt-token", data.token);
 			  
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io')
+				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
 			  
 				return data
 				
@@ -96,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				localStorage.removeItem('jwt-token');
 			
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io/login')
+				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
 			  
 			},
 

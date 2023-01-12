@@ -1,12 +1,21 @@
-import React, {useContext} from "react";
+import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
 import PetImage from "../../img/Pet-image.png";
 
 export const Login = () => {
     const { actions } = useContext(Context);
+    const [togglePassword, settogglePassword] = useState("password");
 
     const input_email = document.getElementById('email');
     const input_pass = document.getElementById('pass');
+
+    const showPassword = () => {
+        if (togglePassword === "password"){
+            settogglePassword("text");
+        }
+        else {settogglePassword("password")}
+    }
+    
 
     return (
         <div>
@@ -36,14 +45,26 @@ export const Login = () => {
                             <li>
                                 <input 
                                     id="pass" 
-                                    type="text" 
+                                    type={togglePassword} 
                                     name="fpass" 
                                     placeholder="Password" 
                                     size="40" 
                                     style={{textAlign: "center"}} 
                                     required/>
+                                    <i class="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
                             </li>
                             <br></br>
+                            <a 
+                                id="loginError" 
+                                className="text-center" 
+                                style={{
+                                    display: "none", 
+                                    textDecoration: "none", 
+                                    fontSize: "0.875em", 
+                                    color: "red"}}>
+                                
+                                {"E-mail/Username or Password incorrect"}
+                            </a>
                         </ul>
                     </div>
                     <div className="d-flex justify-content-center">
