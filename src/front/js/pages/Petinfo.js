@@ -1,70 +1,157 @@
-import React, {useState} from 'react'
+import { object } from 'prop-types';
+import React, {useContext, useState, Fragment} from 'react'
+import { Context } from "../store/appContext.js";
 
 const PetInfo = () => {
+    
+    const {store, actions} = useContext(Context)
 
-    const [name, setName] = useState('');
-    const [species, setSpecies] = useState('');
-    const [breed, setBreed] = useState('');
-    const [gender, setGender] = useState('');
-    const [birthday, setBirthday] = useState('');
-    const [color, setcolor] = useState('');
-    const [features, setFeatures] = useState('');
-    const [clinicname, setClinicname] = useState('')
-    const [adress, setAdress] = useState('')
+    const [petinfo, setPetinfo] = useState({
+        petname:'',
+        species:'',
+        breed:'',
+        gender:'',
+        birthday:'',
+        color:'',
+        features:'',
+        clinicname:'',
+        adress:''
+    })
+
+    const handleInputChange= (event) => {
+        // console.log(event.target.value)
+        setPetinfo({
+            ...petinfo, 
+            [event.target.name] : event.target.value
+        })
+    }
+
+    const sendPetData = async (event) => {
+        event.preventDefault()
+        const new
+
+            try {
+                // let config = {
+                //     method: 'POST',
+                //     headers: {
+                //         'Accept': 'aplication/json',
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify
+                 }
+        
+        console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
+
+    }
+	// getMessage: async () => {
+    //     try{
+    //         // fetching data from the backend
+    //         const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+    //         const data = await resp.json()
+    //         setStore({ message: data.message })
+    //         // don't forget to return something, that is how the async resolves
+    //         return data;
+    //     }catch(error){
+    //         console.log("Error loading message from backend", error)
+    //     }
 
   return (
 
          
-        <form>
+        <Fragment>
             <div className='container' style={{marginTop:"5%"}}>  
                 <div className='row justify-content-center'>
                     <div className='col-9'>
-                        <div>
-                            <h2>Pet Info</h2>
-                            <input style={{marginTop:'2%'}} className='form-control' type='text' name='name' placeholder='Name' onChange={(e)=>setName(e.target.value)}></input>
-                            <input style={{marginTop:'2%'}} className='form-control' list='datalistOptions' name='species' placeholder='Species' onChange={(e)=>setSpecies(e.target.value)}></input>
-                                <datalist id='species'>
-                                    <option value='dog'/>
-                                    <option value='cat'/>
-                                </datalist>
-                            
-                            <input style={{marginTop:'2%'}} className='form-control' type='text' name='breed' placeholder='Breed' onChange={(e)=>setBreed(e.target.value)}></input>
-                            <input style={{marginTop:'2%'}} className='form-control' list='datalistOptions' name='gender' placeholder='Gender' onChange={(e)=>setGender(e.target.value)}></input>
-                                <datalist id='datalistOptions'>
-                                    <option value='male'/>
-                                    <option value='female'/>
-                                </datalist>
-                            <input style={{marginTop:'2%'}} className='form-control' type='date' name='birthday' placeholder='Date of Birth' onChange={(e)=>setBirthday(e.target.value)}></input>
-                            <input style={{marginTop:'2%'}} className='form-control' type='text' name='color' placeholder='Color' onChange={(e)=>setcolor(e.target.value)}></input>
-                            
-                            <input style={{marginTop:'2%'}} className='form-control' type='text' rows='3' name='features' placeholder='Any notable or dicernable features or characteristics' onChange={(e)=>setFeatures(e.target.value)}></input>
-                        
-                        </div>  
-                        <div style={{marginTop:'7%'}}>
-                            <label for="formFile" class="form-label"><strong>Upload image</strong></label>
-                            <input className="form-control" type="file" id="formFile"/>
-                        </div>
-                        <div style={{marginTop:'7%'}}> 
-                            <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
-                            <p>Find your vet clini on Google</p>
-                            <p>Can't find it? No proble, add it manually bellow</p> 
-                            <input style={{marginTop:'2%'}}  className='form-control' type='text' name='clinicname' placeholder='Clinic Name' onChange={(e)=>setClinicname(e.target.value)}></input>
-                            <input style={{marginTop:'2%'}}  className='form-control' type='text' name='adress' placeholder='Adress' onChange={(e)=>setAdress(e.target.value)}></input>
-                        </div>
-                        <div style={{marginTop:'7%', textAlign:'center'}}>
+                        <form onSubmit={sendPetData}>
                             <div>
-                                <input type="checkbox" class="btn-check" id="btn-check-2" checked autocomplete="off"/>
-                                <label class="btn btn-primary" for="btn-check-2"> ✓ Save</label>
+                                <h2>Pet Info</h2>
+                                <input  style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        type='text' 
+                                        name='petname' 
+                                        placeholder='Name'
+                                        required
+
+                        
+                                        onChange={handleInputChange}/>
+                                <select style={{marginTop:'2%'}} 
+                                        name='species' 
+                                        className='form-select' 
+                                        onChange={handleInputChange}>
+                                        required
+                                    <option selected>Species</option> 
+                                    <option value='dog' >Dog</option>
+                                    <option value='cat'>Cat</option>
+                                </select>
+                                
+                                <input  style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        type='text' 
+                                        name='breed' 
+                                        placeholder='Breed' 
+                                        onChange={handleInputChange}/>
+                                <select style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        name='gender' 
+                                        placeholder='Gender' 
+                                        onChange={handleInputChange}>
+                                    <option  selected>Gender</option>
+                                        <option value='male'>Male</option>
+                                        <option value='female'>Female</option>
+                                </select>
+                                <input style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        type='date' 
+                                        name='birthday' 
+                                        placeholder='Date of Birth' 
+                                        onChange={handleInputChange}/>
+                                <input style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        type='text' name='color' 
+                                        placeholder='Color' 
+                                        onChange={handleInputChange}/>
+                                
+                                <input style={{marginTop:'2%'}} 
+                                        className='form-control' 
+                                        type='text' 
+                                        name='features' 
+                                        placeholder='Any notable or dicernable features or characteristics' 
+                                        onChange={handleInputChange}/>
+                            
+                            </div>  
+                            <div style={{marginTop:'7%'}}>
+                                <label for="formFile" class="form-label"><strong>Upload image</strong></label>
+                                <input className="form-control" type="file" id="formFile"/>
                             </div>
-                            <div style={{marginTop:'3%'}}>
-                                <input type="checkbox" class="btn-check" id="btn-check-2" checked autocomplete="off"/>
-                                <label class="btn btn-secondary" for="btn-check-2">+ Add another pet</label>
+                            <div style={{marginTop:'7%'}}> 
+                                <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
+                                <p>Find your vet clini on Google</p>
+                                <p>Can't find it? No proble, add it manually bellow</p> 
+                                <input  style={{marginTop:'2%'}}  
+                                        className='form-control' 
+                                        type='text' name='clinicname' 
+                                        placeholder='Clinic Name' 
+                                        onChange={handleInputChange}></input>
+                                <input  style={{marginTop:'2%'}}  
+                                        className='form-control' 
+                                        type='text' 
+                                        name='adress' 
+                                        placeholder='Adress' 
+                                        onChange={handleInputChange}></input>
                             </div>
-                        </div>
+                            <div style={{marginTop:'7%', textAlign:'center'}}>
+                                <div>
+                                    <button className='btn btn-primary' type='submit'>✓ Save</button>
+                                </div>
+                                {/* <div style={{marginTop:'3%'}}>
+                                    <button className='btn btn-secondary' type='submit' >+ Add another pet</button> */}
+                                {/* </div> */}
+                            </div>
+                        </form>    
                     </div>
                 </div>
             </div>    
-        </form>
+        </Fragment>
             
 
 

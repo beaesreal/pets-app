@@ -10,6 +10,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import PetInfo from "./pages/Petinfo";
+import Petname from "./pages/Petname";
 
 //create your first component
 const Layout = () => {
