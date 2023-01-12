@@ -2,11 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 import Ellipse from "../../img/Ellipse.png";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css'
 
 import { Context } from "../store/appContext";
 
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
+    const [ date, setDate] = useState(new Date());
+    const onChange = date => {
+        setDate(date);
+    };
 
 	return (
 		<div className="container-fluid">
@@ -88,6 +94,8 @@ export const Profile = () => {
                                 <p><strong>
                                     Appointments this month
                                 </strong></p>
+                                <Calendar onChange={onChange} value={date}/>
+                                {console.log(date)}
                             </div>
                             <div className="col">
                                 <p><strong>
