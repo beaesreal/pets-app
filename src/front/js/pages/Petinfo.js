@@ -57,7 +57,36 @@ const PetInfo = () => {
 
   return (
 
+
+			// handleCreateUser: async (username, email, pass) => {
+			// 	console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
+			// 	const response = await fetch(
+			// 	  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io/signup",
+			// 	  {
+			// 		method: "POST",
+			// 		mode: 'cors',
+			// 		credentials: 'omit',
+			// 		headers: {"Content-Type": "application/json"},
+			// 		body: JSON.stringify({'username': username, 'email': email, 'password': pass}),
+			// 	  }
+			// 	)
+			  
+			// 	if (!response.ok){
+			// 	  console.log(response.body)
+			// 	  const message = `An error has occured: ${response.status}`;
+			// 	  throw new Error(message);
+				  
+			// 	}
+			  
+			// 	else {
+			// 	  alert("Welcome, new user!!")
+			// 	  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu81.gitpod.io')
+			// 	}
+				
+			// },
          
+
+
         <Fragment>
             <div className='container' style={{marginTop:"5%"}}>  
                 <div className='row justify-content-center'>
