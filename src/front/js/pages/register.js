@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
 import RegisterImage from "../../img/Register-image.png";
 
@@ -8,6 +8,44 @@ export const Register = () => {
     const input_username = document.getElementById('username');
     const input_email = document.getElementById('email');
     const input_pass = document.getElementById('password');
+
+    const regexUsername = /^[\w]{6,}$/g
+    const regexPass = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/g
+    const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
+
+    const checkInputs = (username, email, pass) => {
+        if (regexUsername.test(username)) {
+            document.getElementById("username").style.borderColor = "green"
+            document.getElementById("usernameAnchor").style.display = "none";
+        }
+
+        else if (!regexUsername.test(username)) {
+            document.getElementById("username").style.borderColor = "red"
+            document.getElementById("usernameAnchor").style.display = "block";
+        }
+
+        if (regexEmail.test(email)) {
+            document.getElementById("email").style.borderColor = "green"
+            document.getElementById("emailAnchor").style.display = "none";
+        }
+
+        else if (!regexEmail.test(email)) {
+            document.getElementById("email").style.borderColor = "red"
+            document.getElementById("emailAnchor").style.display = "block";
+        }
+
+        if (regexPass.test(pass)) {
+            document.getElementById("password").style.borderColor = "green"
+            document.getElementById("passwordAnchor").style.display = "none";
+        }
+
+        else if (!regexPass.test(pass)) {
+            document.getElementById("password").style.borderColor = "red"
+            document.getElementById("passwordAnchor").style.display = "block";
+        }
+
+        else {actions.handleCreateUser(username, email, pass)}
+    }
     
     return (
         <div>
@@ -18,7 +56,7 @@ export const Register = () => {
                         name="registerUser" 
                         onSubmit={(e) => {
                             e.preventDefault();
-                            actions.handleCreateUser(input_username.value, input_email.value, input_pass.value)
+                            checkInputs(input_username.value, input_email.value, input_pass.value)
                         }}>
 
                         <ul className="p-0" style={{listStyleType: "none"}}>
@@ -31,6 +69,7 @@ export const Register = () => {
                                     size="60" 
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem"}} 
                                     required/>
+                                <a id="usernameAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Username must contain at least 6 characters"}</a>
                             </li>
                             <br></br>
                             <li>
@@ -42,6 +81,7 @@ export const Register = () => {
                                     size="60"
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem"}}  
                                     required/>
+                                <a id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</a>
                             </li>
                             <br></br>
                             <li>
@@ -53,6 +93,7 @@ export const Register = () => {
                                     size="60" 
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem"}} 
                                     required/>
+                                <a id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</a>
                             </li>
                         </ul>
                         
