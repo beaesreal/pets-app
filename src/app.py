@@ -65,7 +65,12 @@ def serve_any_other_file(path):
 
 # añadir la nueva ruta
 
-
+@app.route('/pet/:create', methods=['POST'])
+def handle_create_pet():
+    petname = body['petname']
+    species = body['species']
+# añadir las que faltan
+    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

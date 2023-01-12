@@ -22,6 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 // esribir aqui el codigo
+			
 
 
 
