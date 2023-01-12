@@ -42,6 +42,19 @@ const PetInfo = () => {
         
         console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
 
+        let jsonBody;
+
+        jsonBody = {'name': petinfo.petname, 'campo2': 'valor2', 'campo3': 'valor3'}
+
+        const resp = await fetch(
+            process.env.BACKEND_URL + "/pet/create",
+            {
+              method: "POST",
+              headers: {"Content-Type": "application/json",},
+              body: JSON.stringify(jsonBody),
+            }
+          )
+
     }
 	// getMessage: async () => {
     //     try{

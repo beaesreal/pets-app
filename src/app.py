@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, Mascot
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -65,11 +65,28 @@ def serve_any_other_file(path):
 
 # añadir la nueva ruta
 
-@app.route('/pet/:create', methods=['POST'])
+@app.route('/pet/create', methods=['POST'])
 def handle_create_pet():
-    petname = body['petname']
-    species = body['species']
-# añadir las que faltan
+    body = request.get_json()
+    print(body)
+
+    mascot = Mascot(
+        # puede faltar id y user id
+        name = body['petname'],
+        date_of_birth = body['date_of_birth'],
+        species = body['species'],
+        gender = body['gender'],
+        breed = body['breed'],
+        colour = body['colour'],
+        caracteristics = body['caracteristics'],
+        img_1 = body['img_1'],
+        img_2 = body['img_2'],
+        img_3 = body['img_3'],
+        img_mimetype = body['img_mimetype'],
+    )
+
+    db.session.add(mascot)
+    db.session.commit()
     
 
 # this only runs if `$ python src/main.py` is executed
