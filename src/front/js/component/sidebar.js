@@ -3,6 +3,18 @@ import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+// CSS Styles for Sidebar
+import "../../styles/sidebar.css";
+
+// SVG Icons
+import Calendar from "./icons/calendar";
+import Email from "./icons/email";
+import Logout from "./icons/logout";
+import Pet from "./icons/pet";
+import Settings from "./icons/settings";
+import User from "./icons/user";
+
+
 
 export const Sidebar = () => {
 	const { store, actions } = useContext(Context);
@@ -10,27 +22,27 @@ export const Sidebar = () => {
     const menuItems = [
        {
             text: "Username",
-            icon: "icons/user.svg",
+            icon: <User height="50" width="50" />,
         },
         {
             text: "Email",
-            icon: "icons/sms.svg",
+            icon: <Email height="50" width="50" />,
         },
         {
             text: "Pets",
-            icon: "icons/pet.svg",
+            icon: <Pet height="50" width="50" />,
         },
         {
             text: "Events",
-            icon: "icons/calendar.svg",
+            icon: <Calendar height="50" width="50" />,
         },
         {
             text: "Settings",
-            icon: "icons/settings.svg",
+            icon: <Settings height="50" width="50" />,
         },
         {
             text: "Log out",
-            icon: "icons/logout.svg",
+            icon: <Logout height="50" width="50" />,
         },
     ];
 
@@ -54,7 +66,7 @@ export const Sidebar = () => {
                 </div>
                 <div className="nav-menu">{menuItems.map(({text, icon}) => (
                     <a href="#" className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}>
-                        <img src={icon} alt=""  srcSet="" />
+                        {icon}
                         {isExpanded && <p>{text}</p>}
                         {!isExpanded && <div className="tooltip">{text}</div>}
                     </a>
