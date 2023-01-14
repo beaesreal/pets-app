@@ -7,6 +7,10 @@ import 'react-calendar/dist/Calendar.css'
 
 import { Context } from "../store/appContext";
 
+import { Sidebar } from "../component/sidebar";
+
+
+
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
     const [ date, setDate] = useState(new Date());
@@ -15,52 +19,25 @@ export const Profile = () => {
     };
 
 	return (
-		<div className="container-fluid">
 
+		<div className="container-fluid p-0">
+            <Sidebar />
             <div className="row">
+            
 
-                <div className="col-lg-4 col-md-4 col-sm-1 text-light p-5 my-profile-info">
-                    <div>
-                        <h2>
-                            My profile
-                        </h2>
-                        <p className="pt-4">
-                            <FaUser/> Username
-                        </p>
-                        <p>
-                            <FaEnvelope/> Email address
-                        </p>
-                        <p>
-                            <FaHeart/> Number of pets
-                        </p>
-                    </div>
-                    <div>
-                        <Link to="/">
-                            <button className="btn btn-light mt-5">Settings</button>
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/">
-                            <button className="btn btn-danger my-2">Delete account</button>
-                        </Link>
-                    </div>
 
-                    <div className="pt-4">
-                        Log out
-                    </div>
-                    
-                </div>
 
-                <div className="col-lg-8 col-md-8 col-sm-1 p-5 profile-section pt-5">
+
+                <div className="container text-center px-5">
                     <div className="">
                         <h5><strong>
                             My pets
                         </strong></h5>
                     </div>
-                    <div className="d-flex">
-                        <div className="card pet-card m-2">
+                    <div className="d-flex text-center">
+                        <div className="card pet-card m-2 text-center">
                             <img className="card-img-top w-50 h-50" src="https://www.helpguide.org/wp-content/uploads/king-charles-spaniel-resting-head.jpg" class="d-inline-block align-top" alt="" />
-                            <div className="card-body">
+                            <div className="card-body text-center">
                                 <h5 className="card-title">Pet name</h5>
                                 <a href="#" class="btn btn-primary">More details</a>
                             </div>
