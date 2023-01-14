@@ -21,11 +21,11 @@ export const Sidebar = () => {
     const [ isExpanded, setExpandState ] = useState (false);
     const menuItems = [
        {
-            text: "Username",
+            text: "Personal data",
             icon: <User height="50" width="50" />,
         },
         {
-            text: "Email",
+            text: "Notifications",
             icon: <Email height="50" width="50" />,
         },
         {
@@ -40,20 +40,15 @@ export const Sidebar = () => {
             text: "Settings",
             icon: <Settings height="50" width="50" />,
         },
-        {
-            text: "Log out",
-            icon: <Logout height="50" width="50" />,
-        },
     ];
 
 	return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
 			<div className="nav-upper">
-                <div className="nav-heading">
+                <div className="nav-heading text-center">
                     {isExpanded && (<div className="nav-brand">
-                        <img></img>
-                        <h5>
-                            My profile
+                        <h5 className="p-4">
+                            My account
                         </h5>
                     </div>)}
                     <button className={isExpanded ? "hamburger hamburger-in" : "hamburger hamburger-out"}
@@ -75,7 +70,6 @@ export const Sidebar = () => {
             </div>
             <div className="nav-footer">
                 {isExpanded && (<div className="nav-details">
-                    <img src="icons/pet.svg"/>
                     <div className="nav-footer-info">
                         <p className="nav-footer-user-name">
                             Username
@@ -85,7 +79,9 @@ export const Sidebar = () => {
                         </p>
                     </div>
                 </div>)}
-                <img className="logout-icon" src="icons/logout.svg"/>
+                    <div className="logout-icon">
+                    <Logout />
+                    </div>
             </div>
 		</div>
 	);
