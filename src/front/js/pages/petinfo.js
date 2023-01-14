@@ -19,6 +19,11 @@ const PetInfo = () => {
         adress:''
     })
 
+    const [clinic, setClinic] = useState({
+        clinicname:'',
+        adress:''
+    })
+
     const handleInputChange= (event) => {
         // console.log(event.target.value)
         setPetinfo({
@@ -27,6 +32,24 @@ const PetInfo = () => {
         })
     }
 
+
+    // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
+    const handleInputImage = (event) => {
+        setPetinfo({
+            ...petinfo,
+            [event.target.name] : event.target.type
+        }) 
+    }
+
+
+    const handleInputVeterinary = (event) => {
+        setClinic({
+            ...clinic,
+            [event.target.name] : event.target.value
+        })
+    }
+
+
     const sendPetData = async (event) => {
         event.preventDefault()
         
@@ -34,22 +57,30 @@ const PetInfo = () => {
 
         let jsonBody;
 
-        jsonBody = {'name': petinfo.petname, 
-                    'date_of_birth': petinfo.birthday, 
-                    'species': petinfo.species,
-                    'gender' : petinfo.gender,
-                    'breed': petinfo.breed,
-                    'colour': petinfo.colour,
-                    'caracteristics': petinfo.features,
-                    'img_1': petinfo.image
-                
-                }
+        jsonBody = {
+            'name': petinfo.petname, 
+            'date_of_birth': petinfo.birthday, 
+            'species': petinfo.species,
+            'gender' : petinfo.gender,
+            'breed': petinfo.breed,
+            'colour': petinfo.colour,
+            'caracteristics': petinfo.features,
+            'img_1': petinfo.image,
+            'img_2' : petinfo.image,
+            'img_3' : petinfo.image,
+            'img_mimeType': petinfo.image,
+            
+            'clinic_name' : clinic.clinicname,
+            'adress' : clinic.adress,
+            
+            
+            }
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/pet/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json",},
+              headers: {"Content-Type": "application/json"},
               body: JSON.stringify(jsonBody),
             }
           )
@@ -81,8 +112,8 @@ const PetInfo = () => {
                                         onChange={handleInputChange}>
                                         required
                                     <option selected>Species</option> 
-                                    <option value='dog' >Dog</option>
-                                    <option value='cat'>Cat</option>
+                                    <option value='canine' >Dog</option>
+                                    <option value='feline'>Cat</option>
                                 </select>
                                 
                                 <input  style={{marginTop:'2%'}} 
@@ -122,7 +153,12 @@ const PetInfo = () => {
                             </div>  
                             <div style={{marginTop:'7%'}}>
                                 <label for="formFile" class="form-label"><strong>Upload image</strong></label>
-                                <input className="form-control" type="file" name="image" id="formFile" onChange={handleInputChange}/>
+                                <input 
+                                    className="form-control" 
+                                    type="file" 
+                                    name="image" 
+                                    id="formFile" 
+                                    onChange={handleInputImage}/>
                             </div>
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
@@ -130,15 +166,16 @@ const PetInfo = () => {
                                 <p>Can't find it? No proble, add it manually bellow</p> 
                                 <input  style={{marginTop:'2%'}}  
                                         className='form-control' 
-                                        type='text' name='clinicname' 
+                                        type='text' 
+                                        name='clinicname' 
                                         placeholder='Clinic Name' 
-                                        onChange={handleInputChange}></input>
+                                        onChange={handleInputVeterinary}></input>
                                 <input  style={{marginTop:'2%'}}  
                                         className='form-control' 
                                         type='text' 
                                         name='adress' 
                                         placeholder='Adress' 
-                                        onChange={handleInputChange}></input>
+                                        onChange={handleInputVeterinary}></input>
                             </div>
                             <div style={{marginTop:'7%', textAlign:'center'}}>
                                 <div>
