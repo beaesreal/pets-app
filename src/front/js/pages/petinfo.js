@@ -12,8 +12,9 @@ const PetInfo = () => {
         breed:'',
         gender:'',
         birthday:'',
-        color:'',
+        colour:'',
         features:'',
+        image:'',
         clinicname:'',
         adress:''
     })
@@ -33,7 +34,16 @@ const PetInfo = () => {
 
         let jsonBody;
 
-        jsonBody = {'name': petinfo.petname, 'campo2': 'valor2', 'campo3': 'valor3'}
+        jsonBody = {'name': petinfo.petname, 
+                    'date_of_birth': petinfo.birthday, 
+                    'species': petinfo.species,
+                    'gender' : petinfo.gender,
+                    'breed': petinfo.breed,
+                    'colour': petinfo.colour,
+                    'caracteristics': petinfo.features,
+                    'img_1': petinfo.image
+                
+                }
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/pet/create",
@@ -98,8 +108,8 @@ const PetInfo = () => {
                                         onChange={handleInputChange}/>
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
-                                        type='text' name='color' 
-                                        placeholder='Color' 
+                                        type='text' name='colour' 
+                                        placeholder='Colour' 
                                         onChange={handleInputChange}/>
                                 
                                 <input style={{marginTop:'2%'}} 
@@ -112,7 +122,7 @@ const PetInfo = () => {
                             </div>  
                             <div style={{marginTop:'7%'}}>
                                 <label for="formFile" class="form-label"><strong>Upload image</strong></label>
-                                <input className="form-control" type="file" id="formFile"/>
+                                <input className="form-control" type="file" name="image" id="formFile" onChange={handleInputChange}/>
                             </div>
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
