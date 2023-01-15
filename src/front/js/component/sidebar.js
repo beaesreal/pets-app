@@ -24,10 +24,10 @@ export const Sidebar = () => {
             text: <a className="link-menu" href="/profile">Profile</a>,
             icon: <a className="link-menu" href="/profile"><User height="50" width="50" /></a>,
         },
-        // {
-            // text: <a className="link-menu" href="/notifications">Notifications</a>,
-            // <a className="link-menu" href="/notifications"><Email height="50" width="50" /></a>,
-        // },
+        /*{
+            text: <a className="link-menu" href="/notifications">Notifications</a>,
+            <a className="link-menu" href="/notifications"><Email height="50" width="50" /></a>,
+        },*/
         {
             text: <a className="link-menu" href="/pets">Pets</a>,
             icon: <a className="link-menu" href="/pets"><Pet height="50" width="50" /></a>,
