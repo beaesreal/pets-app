@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleCreateUser: async (username, email, pass) => {
 				console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
 				const response = await fetch(
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/signup",
+				  process.env.BACKEND_URL+"/signup",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -66,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 				const resp = await fetch(
 					//process.env.BACKEND_URL+"/login"
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login",
+				  process.env.BACKEND_URL+"/login",
 				  {
 					method: "POST",
 					mode: 'cors',

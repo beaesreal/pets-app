@@ -50,7 +50,7 @@ export const Register = () => {
     return (
         <div>
             <div className="row">
-                <div className="col-6 m-5 p-5">
+                <div className="col m-5 p-5">
                     <h3 className="my-4">Create account</h3>
                     <form 
                         name="registerUser" 
@@ -102,7 +102,7 @@ export const Register = () => {
                         </div>
                     </form>
                 </div>
-                <div className="col" style={{width: "auto"}}>
+                <div className="col d-flex justify-content-end" style={{width: "auto"}}>
                     <img src={RegisterImage} />
                 </div>
             </div>
