@@ -172,6 +172,47 @@ def handle_create_pet():
     return jsonify({"message": "Mascota creada con exito" }), 200
 
 
+
+# GET Pet info
+# Error --> TypeError: 'Gender' object is not iterable
+
+@app.route('/pet', methods=['GET'])
+def handle_pet():
+
+    if request.method == 'GET':
+        all_mascot = Mascot.query.all()
+        all_mascot =list(map(lambda x: x.serialize(), all_mascot))
+        response_body = all_mascot
+        return jsonify(response_body), 200
+
+
+# Get User info
+
+@app.route('/user', methods=['GET'])
+def handle_user():
+
+    if request.method == 'GET':
+        all_user = User.query.all()
+        all_user =list(map(lambda x: x.serialize(), all_user))
+        response_body = all_user
+        return jsonify(response_body), 200
+
+
+# Get Vet info
+
+@app.route('/veterinarian', methods=['GET'])
+def handle_veterinarian():
+
+    if request.method == 'GET':
+        all_veterinarian = Veterinarian.query.all()
+        all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
+        response_body = all_veterinarian
+        return jsonify(response_body), 200
+
+
+
+# ------------------- LAST LINES -------------------->>
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))

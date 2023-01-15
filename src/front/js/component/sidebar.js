@@ -42,7 +42,25 @@ export const Sidebar = () => {
         },
     ];
 
-	return (
+
+    // GET User info to show on sidebar
+
+    const [users, setUsers] = useState ([])
+
+    useEffect (() => {
+        const fetchData = async () => {
+            const result = await fetch ('https://3001-beaesreal-petsapp-gv2cy79x3sh.ws-eu82.gitpod.io/user')
+            const jsonResult = await result.json()
+
+            setUsers(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
+
+
+    return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
 			<div className="nav-upper">
                 <div className="nav-heading text-center">
@@ -71,12 +89,15 @@ export const Sidebar = () => {
             <div className="nav-footer">
                 {isExpanded && (<div className="nav-details">
                     <div className="nav-footer-info">
-                        <p className="nav-footer-user-name">
-                            Username
-                        </p>
-                        <p className="nav-footer-user-pets">
-                            Number of pets
-                        </p>
+                        {users.map (user =>
+                        <div key={user.id}>
+                            <p className="nav-footer-user-name">
+                                {user.username}
+                            </p>
+                            <p className="nav-footer-user-pets">
+                                {user.email}
+                            </p>
+                        </div>)}
                     </div>
                 </div>)}
                     <div className="logout-icon">
