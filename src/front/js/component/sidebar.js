@@ -21,24 +21,24 @@ export const Sidebar = () => {
     const [ isExpanded, setExpandState ] = useState (false);
     const menuItems = [
        {
-            text: "Personal data",
-            icon: <User height="50" width="50" />,
+            text: <a className="link-menu" href="/profile">Profile</a>,
+            icon: <a className="link-menu" href="/profile"><User height="50" width="50" /></a>,
+        },
+        // {
+            // text: <a className="link-menu" href="/notifications">Notifications</a>,
+            // <a className="link-menu" href="/notifications"><Email height="50" width="50" /></a>,
+        // },
+        {
+            text: <a className="link-menu" href="/pets">Pets</a>,
+            icon: <a className="link-menu" href="/pets"><Pet height="50" width="50" /></a>,
         },
         {
-            text: "Notifications",
-            icon: <Email height="50" width="50" />,
+            text: <a className="link-menu" href="/events">Events</a>,
+            icon: <a className="link-menu" href="/events"><Calendar height="50" width="50" /></a>,
         },
         {
-            text: "Pets",
-            icon: <Pet height="50" width="50" />,
-        },
-        {
-            text: "Events",
-            icon: <Calendar height="50" width="50" />,
-        },
-        {
-            text: "Settings",
-            icon: <Settings height="50" width="50" />,
+            text: <a className="link-menu" href="/settings">Settings</a>,
+            icon: <a className="link-menu" href="/settings"><Settings height="50" width="50" /></a>,
         },
     ];
 
@@ -80,7 +80,7 @@ export const Sidebar = () => {
                     </div>
                 </div>)}
                     <div className="logout-icon">
-                    <Logout />
+                    <a className="link-menu" href="/logout"><Logout height="50" width="50" /></a>
                     </div>
             </div>
 		</div>

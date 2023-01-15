@@ -6,11 +6,12 @@
 .side-nav-container {
     background-color: #251749;
     width: 300px;
-    height: 100vh;
-    position: fixed;
+    height: 100%;
+    position: relative;
     color: #fff;
 
     transition: 0.4s;
+    z-index: 10;
 }
 
 .nav-upper, .nav-heading{
@@ -169,10 +170,11 @@ menu-item {
 
 .nav-footer{
     position: absolute;
+    width: 100%;
     bottom: 0;
     grid-template-columns: 2fr 1fr;
     background-color: #495579;
-    padding-top: 30px;
+    padding-top: 40px;
     padding-bottom: 100px;
 }
 
@@ -221,4 +223,15 @@ menu-item {
     margin-left: 15x;
 
     
+}
+
+
+.link-menu{
+    text-decoration: none;
+    color: white;
+}
+
+.link-menu:hover{
+    color: white;
+    font-weight: 600;
 }

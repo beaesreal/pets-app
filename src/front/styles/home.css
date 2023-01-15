@@ -120,3 +120,9 @@ a:hover{
     color: #263159;
 }
 
+.react-calendar{
+    width: 100% !important;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}
