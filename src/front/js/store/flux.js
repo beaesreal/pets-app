@@ -102,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				localStorage.removeItem('jwt-token');
 			
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
+				location.replace("/")
 			  
 			},
 

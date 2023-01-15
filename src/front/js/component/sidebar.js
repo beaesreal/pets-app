@@ -49,7 +49,7 @@ export const Sidebar = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch ('https://3001-beaesreal-petsapp-gv2cy79x3sh.ws-eu82.gitpod.io/user')
+            const result = await fetch (process.env.BACKEND_URL + "/user")
             const jsonResult = await result.json()
 
             setUsers(jsonResult)
@@ -100,9 +100,9 @@ export const Sidebar = () => {
                         </div>)}
                     </div>
                 </div>)}
-                    <div className="logout-icon">
-                    <a className="link-menu" href="/logout"><Logout height="50" width="50" /></a>
-                    </div>
+                    <button className="logout-icon btn-primary" onClick={actions.handleLogout}>
+                        <Logout height="50" width="50" />
+                    </button>
             </div>
 		</div>
 	);

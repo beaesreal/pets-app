@@ -174,8 +174,8 @@ menu-item {
     bottom: 0;
     grid-template-columns: 2fr 1fr;
     background-color: #495579;
-    padding-top: 40px;
-    padding-bottom: 100px;
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
 
 .nav-details {
@@ -200,6 +200,7 @@ menu-item {
 }
 
 .logout-icon{
+    color: #150d29;
     width: 30px;
     border-radius: 90px;
     padding: 20px;
@@ -224,7 +225,6 @@ menu-item {
 
     
 }
-
 
 .link-menu{
     text-decoration: none;
