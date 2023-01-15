@@ -16,7 +16,7 @@ const PetInfo = () => {
         features:'',
         image:'',
         clinicname:'',
-        adress:''
+        adress:'',
     })
 
     const [clinic, setClinic] = useState({

@@ -55,7 +55,7 @@ class Mascot(db.Model):
             "name": self.name,
             "date_of birth": self.date_of_birth,
             "species": self.species,
-            "gender": self.gender
+            "gender": [gender.name for gender in self.gender],
             # do not serialize the password, its a security breach
         }
 

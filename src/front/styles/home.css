@@ -55,6 +55,18 @@
 .footer-bg{
     background-color: #100B1B;
 }
+
+.footer-links{
+    text-decoration: none;
+    color: white;
+}
+
+.footer-links:hover{
+    color: #F6F6C9;
+    font-weight: 600;
+}
+
+
 .yellow-text{
     color: #F6F6C9;
 }
@@ -100,4 +112,29 @@ body{
     background-color: #251749;
 }
 
+.profile-section{
+    background-color:#e5e8f5;
+}
 
+.pet-card{
+    width: 12rem;
+}
+
+.my-profile-info{
+    background-color: #263159;
+}
+
+a{
+    color: #593ea0;
+}
+
+a:hover{
+    color: #263159;
+}
+
+.react-calendar{
+    width: 100% !important;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}

@@ -21,28 +21,46 @@ export const Sidebar = () => {
     const [ isExpanded, setExpandState ] = useState (false);
     const menuItems = [
        {
-            text: "Personal data",
-            icon: <User height="50" width="50" />,
+            text: <a className="link-menu" href="/profile">Profile</a>,
+            icon: <a className="link-menu" href="/profile"><User height="50" width="50" /></a>,
+        },
+        /*{
+            text: <a className="link-menu" href="/notifications">Notifications</a>,
+            <a className="link-menu" href="/notifications"><Email height="50" width="50" /></a>,
+        },*/
+        {
+            text: <a className="link-menu" href="/pets">Pets</a>,
+            icon: <a className="link-menu" href="/pets"><Pet height="50" width="50" /></a>,
         },
         {
-            text: "Notifications",
-            icon: <Email height="50" width="50" />,
+            text: <a className="link-menu" href="/events">Events</a>,
+            icon: <a className="link-menu" href="/events"><Calendar height="50" width="50" /></a>,
         },
         {
-            text: "Pets",
-            icon: <Pet height="50" width="50" />,
-        },
-        {
-            text: "Events",
-            icon: <Calendar height="50" width="50" />,
-        },
-        {
-            text: "Settings",
-            icon: <Settings height="50" width="50" />,
+            text: <a className="link-menu" href="/settings">Settings</a>,
+            icon: <a className="link-menu" href="/settings"><Settings height="50" width="50" /></a>,
         },
     ];
 
-	return (
+
+    // GET User info to show on sidebar
+
+    const [users, setUsers] = useState ([])
+
+    useEffect (() => {
+        const fetchData = async () => {
+            const result = await fetch (process.env.BACKEND_URL + "/user")
+            const jsonResult = await result.json()
+
+            setUsers(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
+
+
+    return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
 			<div className="nav-upper">
                 <div className="nav-heading text-center">
@@ -71,17 +89,20 @@ export const Sidebar = () => {
             <div className="nav-footer">
                 {isExpanded && (<div className="nav-details">
                     <div className="nav-footer-info">
-                        <p className="nav-footer-user-name">
-                            Username
-                        </p>
-                        <p className="nav-footer-user-pets">
-                            Number of pets
-                        </p>
+                        {users.map (user =>
+                        <div key={user.id}>
+                            <p className="nav-footer-user-name">
+                                {user.username}
+                            </p>
+                            <p className="nav-footer-user-pets">
+                                {user.email}
+                            </p>
+                        </div>)}
                     </div>
                 </div>)}
-                    <div className="logout-icon">
-                    <Logout />
-                    </div>
+                    <button className="logout-icon btn-primary" onClick={actions.handleLogout}>
+                        <Logout height="50" width="50" />
+                    </button>
             </div>
 		</div>
 	);
