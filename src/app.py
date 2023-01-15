@@ -139,6 +139,38 @@ def handle_private():
     
     return jsonify({"id": user.id, "username": user.email }), 200
 
+@app.route('/pet/create', methods=['POST'])
+def handle_create_pet():
+    body = request.get_json()
+    print(body)
+
+    mascot = Mascot(
+        # puede faltar id y user id
+        name = body['name'],
+        date_of_birth = body['date_of_birth'],
+        species = body['species'],
+        gender = body['gender'],
+        breed = body['breed'],
+        colour = body['colour'],
+        caracteristics = body['caracteristics'],
+        img_1 = body['img_1'],
+        img_2 = body['img_2'],
+        img_3 = body['img_3'],
+        img_mimetype = body['img_mimeType'],
+    )
+
+    db.session.add(mascot)
+    db.session.commit()
+    
+    veterinarian = Veterinarian(
+        clinic_name = body['clinic_name'],
+        adress = body['adress']
+    )
+    db.session.add(veterinarian)
+    db.session.commit()
+
+    return jsonify({"message": "Mascota creada con exito" }), 200
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
