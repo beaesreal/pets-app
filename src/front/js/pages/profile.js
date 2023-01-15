@@ -57,7 +57,7 @@ export const Profile = () => {
                             </div>
                         </div>
                         <div className="pt-5">
-                            <a href="/pet/create"><strong>Do you want to add another pet? Click here</strong></a>
+                            <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
                         <hr className="mt-5"></hr>
                     </div>

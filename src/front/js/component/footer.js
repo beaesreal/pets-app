@@ -21,13 +21,13 @@ export const Footer = () => {
 		<div className="col mb-3 py-2 text-light">
 			<h5>Quick menu</h5>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">Home</li>
+				<a href="/" className="footer-links"><li className="nav-item-mb-2">Home</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">Features</li>
+			<a href="/" className="footer-links"><li className="nav-item-mb-2">Features</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">My account</li>
+			<a href="/profile" className="footer-links"><li className="nav-item-mb-2">My account</li></a>
 			</ul>
 		</div>
 		<div className="col mb-3 py-2 text-light">
@@ -46,9 +46,9 @@ export const Footer = () => {
 			<h5>Follow us</h5>
 			<ul className="nav flex-column">
 				<li>
-				<img src={Github_icon} width="40"></img>
-				<img className="mx-2" src={Github_icon} width="40"></img>
-				<img src={Github_icon} width="40"></img>
+				<a href="https://github.com/beaesreal"><img src={Github_icon} width="40"></img></a>
+				<a href="https://github.com/Gleonag"><img className="mx-2" src={Github_icon} width="40"></img></a>
+				<a href="https://github.com/m4hidalgo"><img src={Github_icon} width="40"></img></a>
 				</li>
 			</ul>
 		</div>
