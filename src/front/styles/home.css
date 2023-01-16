@@ -141,4 +141,13 @@ a:hover{
 
 .pet-info-container{
     max-width: 40rem;
+    padding-left: 20px;
+}
+
+.pet-card-details{
+    background-color: #d9dff1;
+}
+
+.pet-card-button{
+    background-color: #95a1c0;
 }

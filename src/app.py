@@ -139,6 +139,22 @@ def handle_private():
     
     return jsonify({"id": user.id, "username": user.email }), 200
 
+@app.route('/delete_user', methods=['DELETE'])
+@jwt_required()
+def handle_delete_user():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+        
+    User.query.filter_by(id=user.id).delete()
+    db.session.commit()
+
+    response_body = {
+        "msg": "Hello, user deleted successfully!",
+    }
+
+    return jsonify(response_body), 200
+
 @app.route('/pet/create', methods=['POST'])
 def handle_create_pet():
     body = request.get_json()

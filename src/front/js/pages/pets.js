@@ -44,12 +44,12 @@ export const Detail = () => {
 
                 <div className="col-11 text-center justify-content-center py-5 px-5">
                     <div className="my-pets">
-                    <h2 className="pb-5">My pets</h2>
+                    <h1 className="pb-5">Pets</h1>
                         
                             
 
                             {pets.map ( pets => (
-                            <div className="pet-info-container py-4 mx-3">
+                            <div className="pet-info-container py-4 mx-auto rounded">
                                 <PetDetails 
                                     key= {pets.id}
                                     title= {pets.name}
@@ -60,8 +60,8 @@ export const Detail = () => {
                                     id= {pets.id}
                                     //preguntar cómo poner imagen cuando es null
                                     //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://www.gannett-cdn.com/media/2020/02/18/USATODAY/usatsports/imageforentry18-itm.jpg?crop=1365,768,x0,y0&width=1365&height=768&format=pjpg&auto=webp"}
-                                    buttonLabel= "Edit my pet"
+                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
+                                    buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
                                 />
                             </div>))}

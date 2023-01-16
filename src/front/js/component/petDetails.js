@@ -9,15 +9,16 @@ const PetDetails = (props) => {
 	// 1) replace the hard-coded image, description, link, etc. With their property variable.
 	return (
         <div className="petList container m-0 p-0">
-            <div key={props.id} className="petDetaPetDetails card text-center mobile-space">
+            <div key={props.id} className="PetDetails card mobile-space">
             <img className="card-img-top" src={props.img} alt="Card image cap"></img>
-            <div className="card-body py-4">
-                <h5 className="card-title">{props.title}</h5>
-                <p className="card-text m-0 py-2">Date of birth: {props.birth}</p>
-                <p className="card-text">Colour: {props.colour}</p>
-                <p className="card-text">Id: {props.id}</p>
+            <div className="card-body pet-card-details py-4">
+                <h4 className="card-title pt-3 pb-4"><strong>{props.title}</strong></h4>
+                <p className="card-text"><b>Id:</b> {props.id}</p>
+                <p className="card-text"><b>Date of birth:</b> {props.birth}</p>
+                <p className="card-text"><b>Colour:</b> {props.colour}</p>
+                
             </div>
-            <div className="p-2">
+            <div className="py-4 pet-card-button">
                 <a href={props.buttonUrl} className="btn btn-outline-primary p-2">{props.buttonLabel}</a>
                 </div>
             </div>

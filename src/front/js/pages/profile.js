@@ -44,7 +44,8 @@ export const Profile = () => {
 
                 <div className="col-11 text-center justify-content-center py-5 px-5">
                     <div className="my-pets">
-                    <h2 className="pb-5">My pets</h2>
+                    <h1 className="pb-5">Profile</h1>
+                    <h2>My pets</h2>
                         <div className="row">
                             
 
