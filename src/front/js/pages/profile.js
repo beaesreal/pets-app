@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
-import Ellipse from "../../img/Ellipse.png";
+// import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
+// import Ellipse from "../../img/Ellipse.png";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
@@ -60,7 +60,7 @@ export const Profile = () => {
                                     //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "More info"
-                                    buttonUrl= "/details"                        
+                                    buttonUrl= "/pets"                        
                                 />
                             </div>))}
 
