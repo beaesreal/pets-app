@@ -53,9 +53,12 @@ class Mascot(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
-            "date_of birth": self.date_of_birth,
-            "species": self.species,
-            "gender": [gender.name for gender in self.gender],
+            "date_of_birth": self.date_of_birth,
+            "colour": self.colour,
+            "img": self.img_mimetype,
+            # Género y Especie están desactivados porque da error al hacer GET
+            # "species": self.species,
+            # "gender": [gender.name for gender in self.gender],
             # do not serialize the password, its a security breach
         }
 
