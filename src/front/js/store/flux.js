@@ -30,7 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleCreateUser: async (username, email, pass) => {
 				console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
 				const response = await fetch(
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/signup",
+				  process.env.BACKEND_URL+"/signup",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Welcome, new user!!")
-				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
+				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
 				}
 				
 			},
@@ -68,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 				const resp = await fetch(
 					//process.env.BACKEND_URL+"/login"
-				  "https://3001-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login",
+				  process.env.BACKEND_URL+"/login",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				localStorage.setItem("jwt-token", data.token);
 			  
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
+				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/')
 			  
 				return data
 				
@@ -104,6 +104,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				location.replace("/")
 			  
+			},
+
+			handleDeleteUser: async () => {
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_user",
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				
+				  else {
+					getActions().handleLogout();
+					location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io');
+				  }
 			},
 
 			getMessage: async () => {

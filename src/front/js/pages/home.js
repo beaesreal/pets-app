@@ -19,7 +19,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
+		<div className="container-fluid p-5 header-bg pt-5 p-sm-4">
 
 			<div className="container-fluid header-bg">
 				<div className="container p-4">
@@ -28,7 +28,7 @@ export const Home = () => {
 						<h1 className="m-lg-5">
 							The website you need for your pets.
 						</h1>
-						<a href="/signup"><button class="btn m-lg-5 btn-primary px-4 my-4" type="submit">Join Today</button></a>
+						<a href="/signup"><button className="btn m-lg-5 btn-primary px-4 my-4" type="submit">Join Today</button></a>
 					</div>
 					<div className="col-lg-5 col-sm-1">
 						<img className="h-100 w-100" src={Dog_header} alt="First slide"/>
@@ -40,9 +40,9 @@ export const Home = () => {
 			
 				
 
-				<div class="container">
-					<div class="row py-5 px-3">
-						<div class="col-sm py-5 m-lg-3">
+				<div className="container">
+					<div className="row py-5 px-3">
+						<div className="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_1} />
 							<h5>
 								Veterinary appointments
@@ -54,7 +54,7 @@ export const Home = () => {
 								Learn more
 							</b></a>
 						</div>
-						<div class="col-sm py-lg-5 m-lg-3">
+						<div className="col-sm py-lg-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_2} />
 							<h5>
 								Save your walks
@@ -66,7 +66,7 @@ export const Home = () => {
 								Learn more
 							</b></a>
 						</div>
-						<div class="col-sm py-5 m-lg-3">
+						<div className="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_3} />
 							<h5>
 								Add all your pets
@@ -89,6 +89,27 @@ export const Home = () => {
 						</div>
 					</div>
 
+					<div className="container-fluid photo-text-section py-5 px-5">
+						<div className="container-md p-lg-5">
+							<div className="row align-items-center p-lg-5">
+								<div class="col-sm p-3">
+								<img className="d-block w-100 pb-4" src={Dalmatian} />
+								</div>
+							<div className="col-sm p-lg-3">
+								<h4 ><b>
+									Did you know that...?
+								</b></h4>
+								<p>
+								Dalmatian dogs are hyperactive. Hence their potential, originally developed to accompany the carriage coach, something reserved for powerful animals such as horses. They are also very intelligent, domestic and servile. In fact, the Dalmatian is known as a "human dog". There is a reason for this.
+								They are also stubborn. Very stubborn. And this could cause him to become dominant. Be very careful when he is a puppy or he will end up making fun of you. As we have told you, he is very intelligent. You could say this breed makes good the popular saying: "all he needs to do is talk".
+								From his heritage as a carriage driver and faithful companion to humans, another very important aspect of this breed is that he cannot stand loneliness and inactivity.
+								
+								</p>
+							</div>
+						</div>
+						</div>
+					</div>
+
 					<div className="container ">
 						<div className="row text-center mt-4 pt-5">
 							<h2>How to start?</h2>
@@ -96,7 +117,7 @@ export const Home = () => {
 						</div>
 						<div className="container text-center">
 						<div className="row py-5 px-2">
-						<div class="col-lg-3 col-md-2 col-sm-1">
+						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_4} />
 								<a href="/signup"><h5>
 									Register
@@ -105,7 +126,7 @@ export const Home = () => {
 									We will only need your username and an email address.
 								</p>
 							</div>
-						<div class="col-lg-3 col-md-2 col-sm-1">
+						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_5} />
 								<a href="/login"><h5>
 									Log in
@@ -114,7 +135,7 @@ export const Home = () => {
 									Log in to your account and add further details if necessary.
 								</p>
 						</div>
-						<div class="col-lg-3 col-md-2 col-sm-1">
+						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_6} />
 								<a href="/create"><h5>
 									Add your animals
@@ -123,7 +144,7 @@ export const Home = () => {
 								You can add their profile picture, age, weight and much more.
 								</p>
 						</div>
-						<div class="col-lg-3 col-md-2 col-sm-1">
+						<div className="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4" src={Img_7} />
 							<a href="/"><h5>
 								Enjoy the website

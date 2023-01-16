@@ -1,5 +1,4 @@
-import React, {useEffect, useContext} from "react";
-import { Link } from "react-router-dom";
+import React, {useContext} from "react";
 import { Context } from "../store/appContext";
 import { LogoutButton } from "./logoutButton.js";
 import { LoginButtons } from "./loginButtons.js";
@@ -10,7 +9,7 @@ import "../../styles/home.css";
 export const Navbar = () => {
 	const { actions } = useContext(Context);
 	const userToken = localStorage.getItem("jwt-token");
-	console.log(actions.checkToken(userToken))
+	//console.log(actions.checkToken(userToken))
 
 	return (
 		<nav className="navbar position-sticky navbar-expand-lg px-5 text-dark" id="menu-navbar">
