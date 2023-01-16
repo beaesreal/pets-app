@@ -47,7 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Welcome, new user!!")
-				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
+				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
 				}
 				
 			},
@@ -90,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				localStorage.setItem("jwt-token", data.token);
 			  
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io')
+				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/')
 			  
 				return data
 				
@@ -102,6 +102,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
 			  
+			},
+
+			handleDeleteUser: async () => {
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_user",
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				
+				  else {
+					getActions().handleLogout();
+					location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io');
+				  }
 			},
 
 			getMessage: async () => {
