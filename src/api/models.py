@@ -45,6 +45,8 @@ class Mascot(db.Model):
     img_2 = db.Column(db.String(120))
     img_3 = db.Column(db.String(120))
     img_mimetype = db.Column(db.String(10))
+    rel_user = db.relationship(User)
+    
 
     def serialize(self):
         return {
@@ -53,7 +55,7 @@ class Mascot(db.Model):
             "name": self.name,
             "date_of birth": self.date_of_birth,
             "species": self.species,
-            "gender": self.gender
+            "gender": [gender.name for gender in self.gender],
             # do not serialize the password, its a security breach
         }
 
@@ -61,6 +63,7 @@ class Veterinarian(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clinic_name = db.Column(db.String(120), unique=True, nullable=False)
     adress = db.Column(db.String(280), unique=True, nullable=False)
+
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -97,6 +100,7 @@ class Diet(db.Model):
     foodname = db.Column(db.String(80), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     times_a_day = db.Column(db.Integer, nullable=False)
+    rel_mascot = db.relationship(Mascot)
     
 
     def serialize(self):
@@ -115,6 +119,8 @@ class Medicine(db.Model):
     name = db.Column(db.String(80), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     times_a_day = db.Column(db.Integer, nullable=False)
+    rel_mascot = db.relationship(Mascot)
+
     
 
     def serialize(self):
@@ -132,7 +138,8 @@ class Appointment(db.Model):
     mascot_id = db.Column(db.Integer, db.ForeignKey('mascot.id'))
     center_id = db.Column(db.Integer, db.ForeignKey('veterinarian.id'))
     date = db.Column(db.DateTime, nullable=False)
-    
+    rel_mascot = db.relationship(Mascot)
+    rel_veterinarian = db.relationship(Veterinarian)
 
     def serialize(self):
         return {

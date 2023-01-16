@@ -12,11 +12,11 @@ export const Navbar = () => {
 	//console.log(actions.checkToken(userToken))
 
 	return (
-		<nav className="navbar navbar-expand-lg px-5 text-dark" id="menu-navbar">
-			<a className="navbar-brand" href="#">
+		<nav className="navbar position-sticky navbar-expand-lg px-5 text-dark" id="menu-navbar">
+			<a className="navbar-brand" href="/">
     		<img src={VectorLogo_Pets_APP} width="45" className="d-inline-block align-top" alt="" />
   			</a>
-			<a className="menu-title navbar-brand" href="#">Pets name app</a>
+			<a className="menu-title navbar-brand" href="/">Pets name app</a>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span className="navbar-toggler-icon" id="menu-icon"></span>
 		</button>

@@ -15,6 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			]
 		},
+		
+
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
@@ -100,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				localStorage.removeItem('jwt-token');
 			
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
+				location.replace("/")
 			  
 			},
 
@@ -154,7 +156,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+
+			getItems: async (resource) => {
+				const store = getStore();
+				const response = await fetch (process.env.BACKEND_URL + "/create");
+				const body = await response.json();
+				setStore({
+					[resource]: body.results.map((item)=>{
+						return {
+							...item, resource
+						}
+					}),
+				});
+			},
+
+			getDetails: async (resource, uid) => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + "/create");
+				const body = await response.json();
+				if (!response.ok) return;
+				setStore({
+					currentItem: body.result,
+				});
+			},
 		}
 	};
 };

@@ -28,7 +28,7 @@ export const Home = () => {
 						<h1 className="m-lg-5">
 							The website you need for your pets.
 						</h1>
-						<button className="btn m-lg-5 btn-primary px-4 my-4" type="submit">Join Today</button>
+						<a href="/signup"><button className="btn m-lg-5 btn-primary px-4 my-4" type="submit">Join Today</button></a>
 					</div>
 					<div className="col-lg-5 col-sm-1">
 						<img className="h-100 w-100" src={Dog_header} alt="First slide"/>
@@ -92,7 +92,7 @@ export const Home = () => {
 					<div className="container-fluid photo-text-section py-5 px-5">
 						<div className="container-md p-lg-5">
 							<div className="row align-items-center p-lg-5">
-								<div className="col-sm p-3">
+								<div class="col-sm p-3">
 								<img className="d-block w-100 pb-4" src={Dalmatian} />
 								</div>
 							<div className="col-sm p-lg-3">
@@ -119,36 +119,36 @@ export const Home = () => {
 						<div className="row py-5 px-2">
 						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_4} />
-								<h5>
+								<a href="/signup"><h5>
 									Register
-								</h5>
+								</h5></a>
 								<p>
 									We will only need your username and an email address.
 								</p>
 							</div>
 						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_5} />
-								<h5>
+								<a href="/login"><h5>
 									Log in
-								</h5>
+								</h5></a>
 								<p>
 									Log in to your account and add further details if necessary.
 								</p>
 						</div>
 						<div className="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4" src={Img_6} />
-								<h5>
+								<a href="/create"><h5>
 									Add your animals
-								</h5>
+								</h5></a>
 								<p>
 								You can add their profile picture, age, weight and much more.
 								</p>
 						</div>
 						<div className="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4" src={Img_7} />
-							<h5>
+							<a href="/"><h5>
 								Enjoy the website
-							</h5>
+							</h5></a>
 							<p>
 								Enjoy discovering all the features it offers... it's free!
 							</p>
@@ -156,6 +156,33 @@ export const Home = () => {
 						</div>
 						</div>
 					</div>
+
+					<div className="container-fluid photo-text-section py-5 px-5">
+						<div className="container-md p-lg-5">
+							<div className="row align-items-center p-lg-5">
+								<div class="col-sm p-3">
+								<img className="d-block w-100 pb-4" src={Dalmatian} />
+								</div>
+							<div className="col-sm p-lg-3">
+								<h4 className="pb-2"><b>
+									Did you know that...?
+								</b></h4>
+								<p>
+									Dalmatian dogs are hyperactive. Hence their potential, originally developed to accompany the carriage coach, something reserved for powerful animals such as horses.
+								</p>
+								<p>
+									They are also very intelligent, domestic and servile. In fact, the Dalmatian is known as a "human dog". There is a reason for this.
+									They are also stubborn. Very stubborn. And this could cause him to become dominant. Be very careful when he is a puppy or he will end up making fun of you. As we have told you, he is very intelligent. You could say this breed makes good the popular saying: "all he needs to do is talk".
+								</p>
+								<p>
+									From his heritage as a carriage driver and faithful companion to humans, another very important aspect of this breed is that he cannot stand loneliness and inactivity.
+								</p>
+							</div>
+						</div>
+						</div>
+					</div>
+
+					
 
 			
 				</div>
