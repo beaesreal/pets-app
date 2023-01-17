@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Welcome, new user!!")
-				  location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/login')
+				  location.replace('/login')
 				}
 				
 			},
@@ -93,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				localStorage.setItem("jwt-token", data.token);
 			  
-				location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io/')
+				location.replace("/profile")
 			  
 				return data
 				
@@ -103,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				localStorage.removeItem('jwt-token');
 			
-				location.replace("/")
+				location.replace("/");
 			  
 			},
 
@@ -128,7 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				  else {
 					getActions().handleLogout();
-					location.replace('https://3000-beaesreal-petsapp-sonqzrrpgm8.ws-eu82.gitpod.io');
+					location.replace('/');
 				  }
 			},
 
