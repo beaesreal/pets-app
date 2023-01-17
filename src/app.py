@@ -178,16 +178,12 @@ def handle_create_pet():
     db.session.add(mascot)
     db.session.commit()
     
-    veterinarian = Veterinarian.query.filter_by(
-        clinic_name = body['clinic_name'] 
-    ).first()
-    if not veterinarian:
-        veterinarian = Veterinarian(
-            clinic_name = body['clinic_name'],
-            adress = body['adress']
-        )
-        db.session.add(veterinarian)
-        db.session.commit()
+    veterinarian = Veterinarian(
+        clinic_name = body['clinic_name'],
+        adress = body['adress']
+    )
+    db.session.add(veterinarian)
+    db.session.commit()
 
     return jsonify({"message": "Mascota creada con exito" }), 200
 
