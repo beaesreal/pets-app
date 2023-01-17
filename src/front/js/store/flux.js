@@ -56,13 +56,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleLogin:  async (email, pass) => {
 
+				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g;
 				let jsonBody;
 
-				if (email.includes("@")){
+				if (regexEmail.test(email)){
 					jsonBody = {'username': null, 'email': email, 'password': pass}
 				}
 
-				if (!email.includes("@")){
+				else {
 					jsonBody = {'username': email, 'email': null, 'password': pass}
 				}
   

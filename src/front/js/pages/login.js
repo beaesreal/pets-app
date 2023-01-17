@@ -15,6 +15,12 @@ export const Login = () => {
         }
         else {settogglePassword("password")}
     }
+
+    const keyLogin = (e) => {
+        if (e.key === 'Enter'){
+            actions.handleLogin(input_email.value, input_pass.value)
+        }
+    }
     
 
     return (
@@ -50,6 +56,7 @@ export const Login = () => {
                                     placeholder="Password" 
                                     size="40" 
                                     style={{textAlign: "center"}} 
+                                    onKeyUp={() => {keyLogin}}
                                     required/>
                                     <i class="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
                             </li>
