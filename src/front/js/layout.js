@@ -15,6 +15,8 @@ import { Sidebar } from "./component/sidebar";
 import { Footer } from "./component/footer";
 import PetInfo from "./pages/petinfo";
 import { Detail } from "./pages/pets";
+import { Calendar } from "./component/calendar";
+import Modal from "./component/addEventModal"
 
 
 //create your first component
@@ -32,6 +34,8 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Sidebar />} path="/sidebar" />
+                        <Route element={<Calendar />} path="/calendar" />
+                        <Route element={<Modal />} path="/modal" />
                         <Route element={<Register />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Single />} path="/single/:theid" />
