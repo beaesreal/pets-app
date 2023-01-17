@@ -15,6 +15,8 @@ import Img_6 from "../../img/Img_6.png";
 import Img_7 from "../../img/Img_7.png";
 import Dalmatian from "../../img/Dalmatian.jpg";
 
+
+
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
