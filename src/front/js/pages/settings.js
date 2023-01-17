@@ -20,15 +20,16 @@ export const Settings = () => {
         setDate(date);
     };
 
-    // Show pet info on Cards
-    const [pets, setPets] = useState ([])
+    // GET User info to show on Settings page
+
+    const [users, setUsers] = useState ([])
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet")
+            const result = await fetch (process.env.BACKEND_URL + "/user")
             const jsonResult = await result.json()
 
-            setPets(jsonResult)
+            setUsers(jsonResult)
         }
 
         fetchData();
@@ -43,67 +44,104 @@ export const Settings = () => {
                     <Sidebar />
                 </div>
 
-                <div className="col-11 text-center justify-content-center py-5 px-5">
-                    <div className="my-pets">
-                    <h1 className="pb-5">Settings</h1>
-                    <h2>Personal data</h2>
-                        <div className="row">
-                            
-                            <Calendar />
+                <div className="col-11 justify-content-center py-5 px-5">
+                    <div className="settings">
+                    <h1 className="pb-5 px-5 text-center">Settings</h1>
 
-                            {pets.map ( pets => (
-                            <div className="pet-info-col col-sm py-4 mx-3">
-                                <PetCard 
-                                    key= {pets.id}
-                                    title= {pets.name}
-                                    //preguntar cómo poner año de nacimiento únicamente o edad del animal
-                                    birth= {pets.date_of_birth}
-                                    colour= {pets.colour}
-                                    //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
-                                    buttonLabel= "More info"
-                                    buttonUrl= "/pets"                        
-                                />
-                            </div>))}
+                        <div className="row px-5">
 
-                        </div>
-                        <div className="pt-5 mx-4">
-                            <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
-                        </div>
-                        <hr className="mt-5"></hr>
-                    </div>
-                    <div className="appointments">
-                    <h2 className="py-5">Appointments</h2>
-                        <div className="row">
-                            <div className="col-sm align-items-center">
-                                <h5>Calendar</h5>
-                                <Calendar onChange={onChange} value={date}/>
-                                {console.log(date)}
+                            <div className="col">
+                                <h4>Basic info</h4>                             
                             </div>
-                            <div className="col-sm">
-                                <h5>Next appointments</h5>
-                                <p>Appointment 1</p>
-                                <p>Appointment 2</p>
-                            </div>
+                              
+                            <hr className="my-3"></hr>
+
                         </div>
 
-                    </div>
-                    <hr className="mt-5"></hr>
-                    <div className="diets">
-                    <h2 className="py-5">Diets</h2>
-                        <div class="dropdown">
-                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Diet for Pet 1
-                                </button>
+                        <div className="container px-5 pt-4">       
+                        <form>
+                            {users.map (user =>
+                            <div class="form-group">
                                 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Diet for Pet 2</a>
-                                    <a class="dropdown-item" href="#">Diet for Pet 3</a>
-                                    <a class="dropdown-item" href="#">Diet for Pet 4</a>
+                                <div className="py-2">
+                                    <label for="exampleInputEmail1">Username</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={user.username} />
                                 </div>
+                                <div className="py-2">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={user.email} />
+                                </div>
+                                <div className="py-2">
+                                    <small id="emailHelp" class="form-text text-muted">Write another name and then, press the button below "Save" to update your changes.</small>
+                                </div>
+
+                            </div>)}
+                            <div className="py-4">
+                                <button type="submit" class="btn btn-primary">Save changes</button> 
+                            </div>
+                        </form>
                         </div>
+
+
+                        <div className="visualization pt-5">
+                            <div className="row px-5">
+                                <div className="">
+                                    <h4>Visualization</h4>                             
+                                </div>                               
+                                <hr className="my-3"></hr>
+                            </div>
+                        </div>
+
+                        <div className="row px-3">
+                            <div className="col-8 px-5 pt-4">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1"/><p>Dark Mode</p>
+                            </div>
+                        </div>
+
+                        <div className="visualization pt-5">
+                            <div className="row px-5">
+                                <div className="">
+                                    <h4>Security</h4>                             
+                                </div>                               
+                                <hr className="my-3"></hr>
+                            </div>
+                            <div className="container px-5 pt-4">       
+                        <form>
+                            {users.map (user =>
+                            <div class="form-group">
+                                
+                                <div className="py-2">
+                                    <label for="exampleInputEmail1">Password</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="**********" />
+                                </div>
+
+                            </div>)}
+                            <div className="py-4">
+                                <button type="submit" class="btn btn-primary">Set new password</button> 
+                            </div>
+                        </form>
+                        </div>
+
+
+                        </div>
+
+
+                        <div className="visualization pt-5">
+                            <div className="row px-5">
+                                <div className="">
+                                    <h4>Delete account</h4>                             
+                                </div>                               
+                                <hr className="my-3"></hr>
+                            </div>
+                            <div className="px-5">
+                            <button className="btn btn-danger" onClick={actions.handleDeleteUser}>Click here to delete your account</button>
+
+                            </div>
+                            
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 		</div>

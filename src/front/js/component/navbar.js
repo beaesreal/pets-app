@@ -32,7 +32,7 @@ export const Navbar = () => {
 			<li className="nav-item px-2 mx-2">
 				<a className="nav-link" href="#">Pets</a>
 			</li>
-			<li className="nav-item px-3 mx-2">
+			<li className="nav-item px-2 mx-2">
 				<a className="nav-link" href="#">About us</a>
 			</li>
 			</ul>
