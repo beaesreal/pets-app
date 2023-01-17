@@ -5,6 +5,8 @@ import { LoginButtons } from "./loginButtons.js";
 import VectorLogo_Pets_APP from "../../img/VectorLogo_Pets_APP.png";
 import "../../styles/home.css";
 
+import { FaBars } from 'react-icons/fa'
+
 
 export const Navbar = () => {
 	const { actions } = useContext(Context);
@@ -18,11 +20,11 @@ export const Navbar = () => {
   			</a>
 			<a className="menu-title navbar-brand" href="/">Pets name app</a>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span className="navbar-toggler-icon" id="menu-icon"></span>
+			<FaBars className="menu-icon"/>
 		</button>
 
 		<div className="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul className="navbar-nav ms-auto">
+			<ul className="navbar-nav ms-auto pt-3">
 
 			<li className="nav-item px-2 mx-2">
 				<a className="nav-link" href="#">Features</a>
