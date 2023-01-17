@@ -56,6 +56,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleLogin:  async (email, pass) => {
 
+				console.log("email: "+email)
+				console.log("pass: "+pass)
 				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g;
 				let jsonBody;
 
