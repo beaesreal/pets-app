@@ -15,10 +15,121 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			]
 		},
+		
+
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
+			},
+
+			checkToken: (token) => {
+				return token
+			},
+
+			handleCreateUser: async (username, email, pass) => {
+				console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
+				const response = await fetch(
+				  process.env.BACKEND_URL+"/signup",
+				  {
+					method: "POST",
+					mode: 'cors',
+					credentials: 'omit',
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({'username': username, 'email': email, 'password': pass}),
+				  }
+				)
+			  
+				if (!response.ok){
+				  console.log(response.body)
+				  const message = `An error has occured: ${response.status}`;
+				  throw new Error(message);
+				  
+				}
+			  
+				else {
+				  alert("Welcome, new user!!")
+				  location.replace('/login')
+				}
+				
+			},
+
+			handleLogin:  async (email, pass) => {
+
+				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g;
+				let jsonBody;
+
+				if (regexEmail.test(email)){
+					jsonBody = {'username': null, 'email': email, 'password': pass}
+				}
+
+				else {
+					jsonBody = {'username': email, 'email': null, 'password': pass}
+				}
+  
+				const resp = await fetch(
+					//process.env.BACKEND_URL+"/login"
+				  process.env.BACKEND_URL+"/login",
+				  {
+					method: "POST",
+					mode: 'cors',
+					credentials: 'omit',
+					headers: {"Content-Type": "application/json",},
+					body: JSON.stringify(jsonBody),
+				  }
+				)
+			  
+				if (!resp.ok){
+				  console.log(resp.body);
+				  document.getElementById("email").style.borderColor = "red";
+				  document.getElementById("pass").style.borderColor = "red";
+				  document.getElementById("loginError").style.display = "block";
+				  const message = `An error has occured: ${resp.status}`;
+				  throw new Error(message);
+				  
+				}
+			  
+				const data = await resp.json()
+				
+				localStorage.setItem("jwt-token", data.token);
+			  
+				location.replace("/profile")
+			  
+				return data
+				
+			  },
+
+			handleLogout: () => {
+			
+				localStorage.removeItem('jwt-token');
+			
+				location.replace("/");
+			  
+			},
+
+			handleDeleteUser: async () => {
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_user",
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				
+				  else {
+					getActions().handleLogout();
+					location.replace('/');
+				  }
 			},
 
 			getMessage: async () => {
@@ -46,7 +157,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+
+			getItems: async (resource) => {
+				const store = getStore();
+				const response = await fetch (process.env.BACKEND_URL + "/create");
+				const body = await response.json();
+				setStore({
+					[resource]: body.results.map((item)=>{
+						return {
+							...item, resource
+						}
+					}),
+				});
+			},
+
+			getDetails: async (resource, uid) => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + "/create");
+				const body = await response.json();
+				if (!response.ok) return;
+				setStore({
+					currentItem: body.result,
+				});
+			},
 		}
 	};
 };

@@ -5,10 +5,17 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Profile } from "./pages/profile";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
+import { Sidebar } from "./component/sidebar";
 import { Footer } from "./component/footer";
+import PetInfo from "./pages/petinfo";
+import { Detail } from "./pages/pets";
+
 
 //create your first component
 const Layout = () => {
@@ -24,7 +31,13 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
+                        <Route element={<Sidebar />} path="/sidebar" />
+                        <Route element={<Register />} path="/signup" />
+                        <Route element={<Login />} path="/login" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Profile />} path="/profile" />
+                        <Route element={<Detail />} path="/pets" />
+                        <Route element={<PetInfo/>} path="/create"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

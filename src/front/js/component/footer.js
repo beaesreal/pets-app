@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import APP_Logo_Footer from "../../img/APP_Logo_Footer.png";
 import "../../styles/index.css";
 import Ellipse from "../../img/Ellipse.png";
+import Github_icon from "../../img/Github_icon.png";
 
-export const Footer = () => (
+export const Footer = () => {
+
+	return (
 	<div className="footer-bg container-fluid p-5">
 	<footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 pb-5 mb-4 footer-bg">
 		<div className="col mb-3">
@@ -15,19 +18,19 @@ export const Footer = () => (
 		<div className="col mb-3">
 
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Quick menu</h5>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">Home</li>
+				<a href="/" className="footer-links"><li className="nav-item-mb-2">Home</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">Features</li>
+			<a href="/" className="footer-links"><li className="nav-item-mb-2">Features</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">My account</li>
+			<a href="/profile" className="footer-links"><li className="nav-item-mb-2">My account</li></a>
 			</ul>
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Community</h5>
 			<ul className="nav flex-column">
 				<li className="nav-item-mb-2">About us</li>
@@ -39,13 +42,13 @@ export const Footer = () => (
 				<li className="nav-item-mb-2">Faq's</li>
 			</ul>
 		</div>
-		<div className="col mb-3 text-light">
+		<div className="col mb-3 py-2 text-light">
 			<h5>Follow us</h5>
 			<ul className="nav flex-column">
 				<li>
-				<img src={Ellipse} width="50"></img>
-				<img className="mx-2" src={Ellipse} width="50"></img>
-				<img src={Ellipse} width="50"></img>
+				<a href="https://github.com/beaesreal"><img src={Github_icon} width="40"></img></a>
+				<a href="https://github.com/Gleonag"><img className="mx-2" src={Github_icon} width="40"></img></a>
+				<a href="https://github.com/m4hidalgo"><img src={Github_icon} width="40"></img></a>
 				</li>
 			</ul>
 		</div>
@@ -53,9 +56,10 @@ export const Footer = () => (
 	</footer>
 
 	<div className="d-flex flex-column flex-sm-row justify-content-between py-2 my-2 border-top yellow-text">
-		<p className="p-2"> © App Name, 2022. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
+		<p className="p-2"> © App Name, 2023. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
 		<p className="p-2 d-flex"> 4Geeks Academy - Final Project</p>
 	</div>
 
 	</div>
-);
+	)
+};

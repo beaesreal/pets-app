@@ -29,6 +29,18 @@
     font-weight: 500;
 }
 
+.navbar-toggler:hover{
+    background-color: #150d29;
+}
+
+.menu-icon{
+    color: #150d29;
+}
+
+.menu-icon:hover{
+    color: white;
+}
+
 .btn-outline-primary{
     background-color: rgba(255, 255, 255, 0.589);
     color: #251749;
@@ -41,13 +53,111 @@
     border-color: #150d29;
 }
 
-
 .btn-primary{
     background-color: #251749;
     color: white;
+    border: none;
 }
 
 .btn-primary:hover{
     background-color: #150d29;
     color: white;
+}
+
+.footer-bg{
+    background-color: #100B1B;
+}
+
+.footer-links{
+    text-decoration: none;
+    color: white;
+}
+
+.footer-links:hover{
+    color: #F6F6C9;
+    font-weight: 600;
+}
+
+
+.yellow-text{
+    color: #F6F6C9;
+}
+
+
+
+.header-bg{
+    background-color: #F6F6C9;
+    height: 550px;
+}
+
+h1{
+    font-size: 45px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #251749;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+.section-separator{
+    background-color: #495579;
+}
+
+.photo-text-section{
+    background-color: #F0F0E2;
+}
+
+.navbar-toggler{
+    color: #150d29;
+}
+
+
+
+.profile-section{
+    background-color:#e5e8f5;
+}
+
+.pet-card{
+    width: 12rem;
+}
+
+.my-profile-info{
+    background-color: #263159;
+}
+
+a{
+    color: #593ea0;
+}
+
+a:hover{
+    color: #263159;
+}
+
+.react-calendar{
+    width: 100% !important;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.pet-info-container{
+    max-width: 40rem;
+    padding-left: 20px;
+}
+
+.pet-card-details{
+    background-color: #d9dff1;
+}
+
+.pet-card-button{
+    background-color: #95a1c0;
 }
