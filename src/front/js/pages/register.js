@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { Context } from "../store/appContext";
 import RegisterImage from "../../img/Register-image.png";
 import { Alert_Popup } from "../component/alert_popup";
@@ -6,9 +6,18 @@ import { Alert_Popup } from "../component/alert_popup";
 export const Register = () => {
     const { actions } = useContext(Context);
 
-    const input_username = document.getElementById('username');
-    const input_email = document.getElementById('email');
-    const input_pass = document.getElementById('password');
+    const [inputData, setinputData] = useState({
+        username: '',
+        email: '',
+        password: '',
+    })
+
+    const handleInputChange = (event) => {
+        setinputData({
+            ...inputData, 
+            [event.target.name] : event.target.value
+        })
+    }
 
     const regexUsername = /^[\w]{6,}$/g
     const regexPass = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/g
@@ -57,15 +66,16 @@ export const Register = () => {
                         name="registerUser" 
                         onSubmit={(e) => {
                             e.preventDefault();
-                            checkInputs(input_username.value, input_email.value, input_pass.value)
+                            checkInputs(inputData['username'], inputData['email'], inputData['password'])
                         }}>
 
                         <div className="form-group row" style={{listStyleType: "none"}}>
                                 <input 
                                     id="username" 
                                     type="text" 
-                                    name="newUserName" 
-                                    placeholder="Username"  
+                                    name="username" 
+                                    placeholder="Username"
+                                    onChange={handleInputChange}  
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                     required/>
                                 <small id="usernameAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Username must contain at least 6 characters"}</small>
@@ -76,9 +86,9 @@ export const Register = () => {
                                 <input 
                                     id="email" 
                                     type="text" 
-                                    name="newEmail" 
+                                    name="email" 
                                     placeholder="Email" 
-                                    size="60"
+                                    onChange={handleInputChange}
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}}  
                                     required/>
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
@@ -88,9 +98,9 @@ export const Register = () => {
                                 <input 
                                     id="password" 
                                     type="text" 
-                                    name="newPassword" 
+                                    name="password" 
                                     placeholder="Password" 
-                                    size="60" 
+                                    onChange={handleInputChange} 
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                     required/>
                                 <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
