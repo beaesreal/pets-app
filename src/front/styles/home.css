@@ -29,6 +29,18 @@
     font-weight: 500;
 }
 
+.navbar-toggler:hover{
+    background-color: #150d29;
+}
+
+.menu-icon{
+    color: #150d29;
+}
+
+.menu-icon:hover{
+    color: white;
+}
+
 .btn-outline-primary{
     background-color: rgba(255, 255, 255, 0.589);
     color: #251749;
@@ -108,9 +120,7 @@ body{
     color: #150d29;
 }
 
-#menu-icon{
-    background-color: #251749;
-}
+
 
 .profile-section{
     background-color:#e5e8f5;
@@ -137,4 +147,17 @@ a:hover{
     padding: 30px;
     margin: 20px;
     border-radius: 10px;
+}
+
+.pet-info-container{
+    max-width: 40rem;
+    padding-left: 20px;
+}
+
+.pet-card-details{
+    background-color: #d9dff1;
+}
+
+.pet-card-button{
+    background-color: #95a1c0;
 }
