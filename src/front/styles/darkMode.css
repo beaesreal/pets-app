@@ -1,0 +1,24 @@
+#darkMode{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(229, 229, 236);
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+#darkMode:hover{
+    background-color: #495579;;
+}
+
+.moon-icon{
+    color: #251749;
+}
+
+.moon-icon:active, .moon-icon:hover{
+    color: rgb(235, 199, 80);
+}
+
+.dm-active{
+    background-color: blueviolet;
+}

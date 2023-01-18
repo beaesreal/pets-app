@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-// import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
-// import Ellipse from "../../img/Ellipse.png";
-import 'react-calendar/dist/Calendar.css'
+import { FaTrash } from 'react-icons/fa'
 import "../../styles/home.css";
 
 import { Context } from "../store/appContext";
-
 import { Sidebar } from "../component/sidebar";
-import { Calendar } from "../component/calendar";
-
-import PetCard from "../component/petCard";
+import DarkMode from "../component/darkMode";
 
 
 export const Settings = () => {
@@ -93,8 +88,11 @@ export const Settings = () => {
                         </div>
 
                         <div className="row px-3">
-                            <div className="col-8 px-5 pt-4">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1"/><p>Dark Mode</p>
+                            <div className="d-flex p-5">
+                            <DarkMode />
+                            <div className="px-3 pt-2">
+                                <p>Click the button to switch between light and dark mode.</p>
+                            </div>
                             </div>
                         </div>
 
@@ -134,7 +132,7 @@ export const Settings = () => {
                                 <hr className="my-3"></hr>
                             </div>
                             <div className="px-5">
-                            <button className="btn btn-danger" onClick={actions.handleDeleteUser}>Click here to delete your account</button>
+                            <button className="btn btn-danger px-3" onClick={actions.handleDeleteUser}><FaTrash className="mx-2 my-2" />Click here to delete your account</button>
 
                             </div>
                             

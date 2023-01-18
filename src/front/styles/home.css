@@ -6,6 +6,29 @@
     on that page only (the ones not reused in other pages).
 */
 
+body{
+    background-color: #fff;
+    color: var(--text-color);
+    font-weight: var(--font-weight);
+    transition: background-color 0.3s ease-in-out, color 0.6s ease-in-out;
+}
+
+
+body.light {
+    background-color: white;
+}
+
+
+body.dark {
+    background-color: #06040c;
+    color: white;
+    font-weight: 500;
+}
+
+body.dark h1{
+    color: white;
+}
+
 #menu-navbar{
     background-color: #F6F6C9;
 }
