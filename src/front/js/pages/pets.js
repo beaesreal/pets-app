@@ -34,6 +34,25 @@ export const Detail = () => {
 
     }, [])
 
+
+    const getAge = (dateString) => {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+        }
+
+        return age
+    }
+    
+    // const dateNoTime = (birthday) => {
+    //     let newBirthdayDate = birthday.toDateString()
+
+    //     return newBirthdayDate
+    // }
+
 	return (
 
 		<div className="container-fluid p-0">
@@ -54,7 +73,11 @@ export const Detail = () => {
                                     key= {pets.id}
                                     title= {pets.name}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
-                                    birth= {pets.date_of_birth}
+                                    age= {getAge(pets.date_of_birth)}
+                                    // birth={dateNoTime(pets.date_of_birth)}
+                                   
+                            
+
                                     colour= {pets.colour}
                                     gender= {pets.gender}
                                     id= {pets.id}

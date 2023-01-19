@@ -14,7 +14,8 @@ const PetDetails = (props) => {
             <div className="card-body pet-card-details py-4">
                 <h4 className="card-title pt-3 pb-4"><strong>{props.title}</strong></h4>
                 <p className="card-text"><b>Id:</b> {props.id}</p>
-                <p className="card-text"><b>Date of birth:</b> {props.birth}</p>
+                <p className="card-text"><b>Age:</b> {props.age}</p>
+                <p className="card-text"><b>Date of Birth: </b>{props.birth}</p>
                 <p className="card-text"><b>Colour:</b> {props.colour}</p>
                 
             </div>
@@ -33,6 +34,7 @@ PetDetails.propTypes = {
     id: PropType.string,
 	title: PropType.string,
 	img: PropType.string,
+    age: PropType.string,
     birth: PropType.string,
 	colour: PropType.string,
     gender: PropType.string,
