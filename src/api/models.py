@@ -49,6 +49,7 @@ class Mascot(db.Model):
     
 
     def serialize(self):
+        
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -56,9 +57,8 @@ class Mascot(db.Model):
             "date_of_birth": self.date_of_birth,
             "colour": self.colour,
             "img": self.img_mimetype,
-            # Género y Especie están desactivados porque da error al hacer GET
-            # "species": self.species,
-            # "gender": [gender.name for gender in self.gender],
+            "species": self.species.value,
+            "gender": self.gender.value,
             # do not serialize the password, its a security breach
         }
 

@@ -226,6 +226,41 @@ def handle_veterinarian():
         return jsonify(response_body), 200
 
 
+# Update USER Info
+
+@app.route('/user/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    body = request.get_json()
+    print(body)
+
+    if re.fullmatch(regex, body['email']):
+        print("Valid email")
+    
+        user = User(
+            username = body['username'],
+            email = body['email'],
+            password = body['password'],
+            is_active = True
+        )
+
+        db.session.merge(user)
+        db.session.commit()
+
+        response_body = {
+            "msg": "User updated correctly!"
+            }
+
+        return jsonify(response_body), 200
+
+    else:
+        response_body = {
+            "msg": "Invalid email!"
+            }
+
+        return jsonify(response_body), 400
+
+
+
 
 # ------------------- LAST LINES -------------------->>
 
