@@ -24,7 +24,14 @@ export const Settings = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/user")
+            const result = await fetch (process.env.BACKEND_URL + "/user",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setUsers(jsonResult)
@@ -130,13 +137,12 @@ export const Settings = () => {
                         <div className="visualization pt-5">
                             <div className="row px-5">
                                 <div className="">
-                                    <h4><AlertDeleteUser /></h4>                             
+                                    <h4>Delete account</h4>                             
                                 </div>                               
                                 <hr className="my-3"></hr>
                             </div>
                             <div className="px-5">
-                            <button className="btn btn-danger px-3" onClick={actions.handleDeleteUser}><FaTrash className="mx-2 my-2" />Click here to delete your account</button>
-
+                                <AlertDeleteUser />
                             </div>
                             
                         </div>
