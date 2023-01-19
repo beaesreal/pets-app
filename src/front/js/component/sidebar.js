@@ -60,6 +60,8 @@ export const Sidebar = () => {
     }, [])
 
 
+    const mailStorage = localStorage.getItem("email")
+
     return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
 			<div className="nav-upper">
@@ -89,6 +91,9 @@ export const Sidebar = () => {
             <div className="nav-footer">
                 {isExpanded && (<div className="nav-details">
                     <div className="nav-footer-info">
+                        <p className="nav-footer-user-pets">
+                            {mailStorage}
+                        </p>
                         {users.map (user =>
                         <div key={user.id}>
                             <p className="nav-footer-user-name">

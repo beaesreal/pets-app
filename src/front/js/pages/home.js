@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
@@ -19,6 +19,16 @@ import Dalmatian from "../../img/Dalmatian.jpg";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+
+	const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
 
 	return (
 		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">

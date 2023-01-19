@@ -11,6 +11,8 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import PetCard from "../component/petCard";
 
+import DarkMode from "../component/darkMode";
+
 
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
@@ -21,6 +23,15 @@ export const Profile = () => {
 
     // Show pet info on Cards
     const [pets, setPets] = useState ([])
+    const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
 
     useEffect (() => {
         const fetchData = async () => {

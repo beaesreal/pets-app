@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, addEventListener } from "react";
 import { Link } from "react-router-dom";
 import { FaTrash } from 'react-icons/fa'
 import "../../styles/home.css";
@@ -14,6 +14,7 @@ export const Settings = () => {
     const onChange = date => {
         setDate(date);
     };
+
 
     // GET User info to show on Settings page
 
@@ -110,7 +111,7 @@ export const Settings = () => {
                                 
                                 <div className="py-2">
                                     <label for="exampleInputEmail1">Password</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="**********" />
+                                    <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="**********" />
                                 </div>
 
                             </div>)}

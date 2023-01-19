@@ -10,7 +10,7 @@ import { FaMoon } from "react-icons/fa";
 
 const DarkMode = () => {
 
-    // dark mode button
+    // dark mode button --> does not work, does not change the class :(
     const [ btnState, setBtnState ] = useState (false);
     function handleClick () {
         setBtnState (btnState => !btnState);
