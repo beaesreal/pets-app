@@ -13,6 +13,7 @@ import Logout from "./icons/logout";
 import Pet from "./icons/pet";
 import Settings from "./icons/settings";
 import User from "./icons/user";
+import { Alert_Popup } from "./alert_popup";
 
 
 
@@ -103,7 +104,7 @@ export const Sidebar = () => {
                 {isExpanded && (<div className="nav-details">
                     <div className="nav-footer-info">
                     <div>
-                        <h6 className="pb-2">Session username:</h6>
+                        <h6 className="pb-2">You are logged as:</h6>
                         <p className="nav-footer-user-pets pb-2">
                             {mailStorage}
                         </p>
