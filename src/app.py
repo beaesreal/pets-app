@@ -193,13 +193,19 @@ def handle_create_pet():
 # Error --> TypeError: 'Gender' object is not iterable
 
 @app.route('/pet', methods=['GET'])
+@jwt_required()
 def handle_pet():
 
-    if request.method == 'GET':
-        all_mascot = Mascot.query.all()
-        all_mascot =list(map(lambda x: x.serialize(), all_mascot))
-        response_body = all_mascot
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    all_mascot = Mascot.query.filter_by(user_id=user.id)
+    all_mascot =list(map(lambda x: x.serialize(), all_mascot))
+    print(all_mascot)
+    response_body = all_mascot
+    return jsonify(response_body), 200
+
+
 
 
 # Get User info

@@ -5,9 +5,9 @@ import Datetime from 'react-datetime';
 
 export default function ({ isOpen, onClose, onEventAdded }) {
 
-    const [ title, setTitle ] = useState ("");
-    const [ start, setStart ] = useState (new Date());
-    const [ end, setEnd ] = useState (new Date());
+    const [ title, setTitle ] = useState("");
+    const [ start, setStart ] = useState(new Date());
+    const [ end, setEnd ] = useState(new Date());
 
     const onSubmit = (event) => {
         event.preventDefault();

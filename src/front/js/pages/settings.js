@@ -7,6 +7,7 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import DarkMode from "../component/darkMode";
 import { Alert_Popup } from "../component/alert_popup";
+import {AlertDeleteUser} from "../component/alertDeleteUser";
 
 
 export const Settings = () => {
@@ -129,7 +130,7 @@ export const Settings = () => {
                         <div className="visualization pt-5">
                             <div className="row px-5">
                                 <div className="">
-                                    <h4>Delete account</h4>                             
+                                    <h4><AlertDeleteUser /></h4>                             
                                 </div>                               
                                 <hr className="my-3"></hr>
                             </div>
