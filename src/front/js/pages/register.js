@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import { Context } from "../store/appContext";
 import RegisterImage from "../../img/Register-image.png";
 import { Alert_Popup } from "../component/alert_popup";
+import { AlertDeleteUser } from "../component/alertDeleteUser";
 
 export const Register = () => {
     const { actions } = useContext(Context);
@@ -74,6 +75,7 @@ export const Register = () => {
                                     id="username" 
                                     type="text" 
                                     name="username" 
+                                    value={inputData['username']}
                                     placeholder="Username"
                                     onChange={handleInputChange}  
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
@@ -86,7 +88,8 @@ export const Register = () => {
                                 <input 
                                     id="email" 
                                     type="text" 
-                                    name="email" 
+                                    name="email"
+                                    value={inputData['email']} 
                                     placeholder="Email" 
                                     onChange={handleInputChange}
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}}  
@@ -98,7 +101,8 @@ export const Register = () => {
                                 <input 
                                     id="password" 
                                     type="text" 
-                                    name="password" 
+                                    name="password"
+                                    value={inputData['password']}
                                     placeholder="Password" 
                                     onChange={handleInputChange} 
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
@@ -110,7 +114,7 @@ export const Register = () => {
                                 <button className="btn btn-primary my-2 my-sm-0 px-4 mx-auto" type="submit">Register</button>
                         </div>
                     </form>
-                    <Alert_Popup />
+                    <AlertDeleteUser />
                 </div>
                 <div className="col-sm-0 d-flex justify-content-end" style={{width: "auto"}}>
                     <img src={RegisterImage} />
