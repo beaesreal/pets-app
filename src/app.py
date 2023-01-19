@@ -238,8 +238,8 @@ def update_user(user_id):
     
         user = User(
             username = body['username'],
-            email = body['email'],
             password = body['password'],
+            email = body['email'],
             is_active = True
         )
 
@@ -258,6 +258,9 @@ def update_user(user_id):
             }
 
         return jsonify(response_body), 400
+
+
+# Add event to the calendar
 
 
 

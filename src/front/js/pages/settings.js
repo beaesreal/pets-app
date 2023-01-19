@@ -6,6 +6,7 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import DarkMode from "../component/darkMode";
+import { Alert_Popup } from "../component/alert_popup";
 
 
 export const Settings = () => {
