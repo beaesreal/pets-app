@@ -56,9 +56,8 @@ class Mascot(db.Model):
             "date_of_birth": self.date_of_birth,
             "colour": self.colour,
             "img": self.img_mimetype,
-            # Género y Especie están desactivados porque da error al hacer GET
-            # "species": self.species,
-            # "gender": [gender.name for gender in self.gender],
+            "species": self.species.value,
+            "gender": self.gender.value,
             # do not serialize the password, its a security breach
         }
 
@@ -124,7 +123,6 @@ class Medicine(db.Model):
     times_a_day = db.Column(db.Integer, nullable=False)
     rel_mascot = db.relationship(Mascot)
 
-    
 
     def serialize(self):
         return {
@@ -151,4 +149,18 @@ class Appointment(db.Model):
             "center_id": self.center_id,
             "date": self.date,
             # do not serialize the password, its a security breach
+        }
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime, nullable=False)
+    title = db.Column(db.String(80), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "start": self.start,
+            "end": self.end,
+            "title": self.title,
         }

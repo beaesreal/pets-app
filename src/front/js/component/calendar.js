@@ -6,10 +6,6 @@ import "react-datetime/css/react-datetime.css"
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
-import addEventModal from "./addEventModal";
-
-// Icons
-import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 
 // CSS Styles for Calendar
 import "../../styles/calendar.css";
