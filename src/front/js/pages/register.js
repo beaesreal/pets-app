@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Context } from "../store/appContext";
-import RegisterImage from "../../img/Register-image.png";
+import French_Dog_2 from "../../img/French_Dog_2.png";
 import { Alert_Popup } from "../component/alert_popup";
 import { AlertDeleteUser } from "../component/alertDeleteUser";
 
@@ -62,7 +62,7 @@ export const Register = () => {
         <div>
             <div className="row">
                 <div className="col m-5 p-5">
-                    <h3 className="my-4">Create account</h3>
+                    <h3 className="my-4 pb-3">Create account</h3>
                     <form 
                         name="registerUser" 
                         onSubmit={(e) => {
@@ -70,7 +70,7 @@ export const Register = () => {
                             checkInputs(inputData['username'], inputData['email'], inputData['password'])
                         }}>
 
-                        <div className="form-group row" style={{listStyleType: "none"}}>
+                        <div className="form-group row mx-1" style={{listStyleType: "none"}}>
                                 <input 
                                     id="username" 
                                     type="text" 
@@ -84,7 +84,7 @@ export const Register = () => {
                         </div>
 
                             <br></br>
-                            <div className="form-group row">
+                            <div className="form-group row mx-1">
                                 <input 
                                     id="email" 
                                     type="text" 
@@ -97,7 +97,7 @@ export const Register = () => {
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
                             </div>
                             <br></br>
-                            <div className="form-group row">
+                            <div className="form-group row mx-1">
                                 <input 
                                     id="password" 
                                     type="text" 
@@ -111,13 +111,12 @@ export const Register = () => {
                             </div>
                         <br></br>
                         <div>
-                                <button className="btn btn-primary my-2 my-sm-0 px-4 mx-auto" type="submit">Register</button>
+                                <button className="btn btn-primary my-2 my-sm-0 px-4 mx-1" type="submit">Register</button>
                         </div>
                     </form>
-                    <AlertDeleteUser />
                 </div>
-                <div className="col-sm-0 d-flex justify-content-end" style={{width: "auto"}}>
-                    <img src={RegisterImage} />
+                <div className="col-sm-0 d-flex justify-content-center" style={{width: "auto"}}>
+                    <img src={French_Dog_2} />
                 </div>
             </div>
         </div>
