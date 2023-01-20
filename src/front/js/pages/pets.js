@@ -48,7 +48,7 @@ export const Detail = () => {
     }
     
     // const dateNoTime = (birthday) => {
-    //     let newBirthdayDate = birthday.toDateString()
+    //     let newBirthdayDate = birthday.getFullYear()
 
     //     return newBirthdayDate
     // }
@@ -81,8 +81,9 @@ export const Detail = () => {
                                     colour= {pets.colour}
                                     gender= {pets.gender}
                                     id= {pets.id}
+                                    // img={pets.img}
                                     //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
+                                    // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
