@@ -1,14 +1,69 @@
-
-
+/* 
 .img-design {
     border-color:#150d29;
     border-start-start-radius: 50px;
     border-color: #150d29;
-    border-bottom: 0ch;
-  
+    border-bottom: 0ch; 
 
 }
-/* .petList {
+ .petList {
     border-style: hidden;
     border-radius: 2000px;
-} */
+} 
+
+.petList {
+    padding: 80px 0;
+}
+.card{
+    box-shadow:0 0 30px rgba(0,0,0,0);
+    overflow: hidden;
+    border-radius: 15px;
+
+}
+.card-tittle{
+    height: 200px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 100%; } */
+
+.card:hover{
+    box-shadow: 5px 10px 20px 1px rgba(0,0,0,0.253)!important;
+}
+.card-body{
+    padding: 3rem !important;
+    background-color:#f9f9f9;
+    
+}
+.card-text{
+    font-size: 0,9rem;
+    padding:0,4rem 1.9rem ;
+
+}
+.container-fluid .row{
+    padding-top: 6rem;
+}
+.overflow{
+    overflow:hidden;
+}
+.card-img-top{
+    transform: scale(1);
+    transition: transform 1s ease;
+}
+.card-img-top:hover{
+    transform: scale(1.2);
+}
+.card-button{
+    background-color: #f9f9f9;;
+}
+.button{
+    color:#495579;
+    transform: scale(1);
+    transition: transform 1s ease;
+   
+}
+.button:hover{
+    transform: scale(1.05);
+    color: #495579;
+    
+
+}
