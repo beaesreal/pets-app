@@ -197,27 +197,28 @@ def handle_create_pet():
 def handle_pet():
 
     current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
+    user = Mascot.query.get(current_user_id)
 
     all_mascot = Mascot.query.filter_by(user_id=user.id)
     all_mascot =list(map(lambda x: x.serialize(), all_mascot))
-    print(all_mascot)
     response_body = all_mascot
     return jsonify(response_body), 200
-
-
 
 
 # Get User info
 
 @app.route('/user', methods=['GET'])
+@jwt_required()
 def handle_user():
 
-    if request.method == 'GET':
-        all_user = User.query.all()
-        all_user =list(map(lambda x: x.serialize(), all_user))
-        response_body = all_user
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    all_user = User.query.filter_by(id=user.id)
+    all_user =list(map(lambda x: x.serialize(), all_user))
+    print(all_user)
+    response_body = all_user
+    return jsonify(response_body), 200
 
 
 # Get Vet info
@@ -234,36 +235,29 @@ def handle_veterinarian():
 
 # Update USER Info
 
-@app.route('/user/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
+@app.route('/user', methods=['PUT'])
+@jwt_required()
+def update_user():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
     body = request.get_json()
     print(body)
 
-    if re.fullmatch(regex, body['email']):
-        print("Valid email")
-    
-        user = User(
-            username = body['username'],
-            password = body['password'],
-            email = body['email'],
-            is_active = True
-        )
+    user.username = body['username']
+    user.password = body['password']
+    user.email = body['email']
+    user.is_active = True
 
-        db.session.merge(user)
-        db.session.commit()
+    db.session.commit()
 
-        response_body = {
-            "msg": "User updated correctly!"
-            }
+    response_body = {
+        "msg": "User updated correctly!"
+        }
 
-        return jsonify(response_body), 200
+    return jsonify(response_body), 200
 
-    else:
-        response_body = {
-            "msg": "Invalid email!"
-            }
-
-        return jsonify(response_body), 400
 
 
 # Add event to the calendar

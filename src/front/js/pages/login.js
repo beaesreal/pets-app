@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
 import PetImage from "../../img/Pet-image.png";
+import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
 
 export const Login = () => {
     const { actions } = useContext(Context);
@@ -34,7 +35,7 @@ export const Login = () => {
     return (
         <div className="row">
             <div className="d-flex justify-content-center my-5 text-center">
-                <img className="img-fluid" src={PetImage} style={{margin: "auto"}}/> 
+                <img className="img-fluid" src={Placeholder_APP_Logo} style={{margin: "auto", width: "200px"}}/> 
             </div>
             <form 
                 name="myForm"
@@ -86,7 +87,7 @@ export const Login = () => {
                     <br></br>
                     <div className="d-flex justify-content-center">    
                         <p>
-                            Don't have an account? <a href="https://3000-4geeksacade-reactflaskh-iny5xmevfgu.ws-eu77.gitpod.io/signup">Click Here</a>
+                            Don't have an account? <a href="/signup">Click Here</a>
                         </p>
                     </div>
             </form>
