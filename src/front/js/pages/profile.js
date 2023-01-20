@@ -11,6 +11,8 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import PetCard from "../component/petCard";
 
+import DarkMode from "../component/darkMode";
+
 
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
@@ -21,10 +23,26 @@ export const Profile = () => {
 
     // Show pet info on Cards
     const [pets, setPets] = useState ([])
+    const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet")
+            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+              })
             const jsonResult = await result.json()
 
             setPets(jsonResult)

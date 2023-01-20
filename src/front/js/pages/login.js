@@ -1,13 +1,22 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
 import PetImage from "../../img/Pet-image.png";
+import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
 
 export const Login = () => {
     const { actions } = useContext(Context);
     const [togglePassword, settogglePassword] = useState("password");
-
-    const input_email = document.getElementById('email');
-    const input_pass = document.getElementById('pass');
+    const [inputData, setinputData] = useState({
+        email: '',
+        pass: '',
+    });
+    
+    const handleInputChange = (event) => {
+        setinputData({
+            ...inputData, 
+            [event.target.name] : event.target.value
+        })
+    }
 
     const showPassword = () => {
         if (togglePassword === "password"){
@@ -15,73 +24,71 @@ export const Login = () => {
         }
         else {settogglePassword("password")}
     }
+
+    const keyLogin = (e) => {
+        if (e.key === 'Enter'){
+            actions.handleLogin(inputData['email'], inputData['pass'])
+        }
+    }
     
 
     return (
-        <div>
+        <div className="row">
             <div className="d-flex justify-content-center my-5 text-center">
-                <img className="img-fluid" src={PetImage} style={{marginLeft: "1.5em"}}/> 
+                <img className="img-fluid" src={Placeholder_APP_Logo} style={{margin: "auto", width: "200px"}}/> 
             </div>
             <form 
                 name="myForm"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    actions.handleLogin(input_email.value, input_pass.value)
+                    actions.handleLogin(inputData['email'], inputData['pass'])
                 }}
                 >
-                    <div className="d-flex justify-content-center">
-                        <ul style={{listStyleType: "none"}}>
-                            <li>
-                                <input 
-                                    id="email" 
-                                    type="text" 
-                                    name="femail" 
-                                    placeholder="Email or Username" 
-                                    size="40" 
-                                    style={{textAlign: "center"}} 
-                                    required/>
-                            </li>
-                            <br></br>
-                            <li>
-                                <input 
-                                    id="pass" 
-                                    type={togglePassword} 
-                                    name="fpass" 
-                                    placeholder="Password" 
-                                    size="40" 
-                                    style={{textAlign: "center"}} 
-                                    required/>
-                                    <i class="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
-                            </li>
-                            <br></br>
-                            <a 
-                                id="loginError" 
-                                className="text-center" 
-                                style={{
-                                    display: "none", 
-                                    textDecoration: "none", 
-                                    fontSize: "0.875em", 
-                                    color: "red"}}>
-                                
-                                {"E-mail/Username or Password incorrect"}
-                            </a>
-                        </ul>
+                    <div className="form-group has-feedback justify-content-center">
+                        <input 
+                            id="email" 
+                            className="form-control"
+                            type="text" 
+                            name="email" 
+                            placeholder="Email or Username" 
+                            onChange={handleInputChange} 
+                            style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
+                            required/>
+                    <br></br>
+                        <input 
+                            id="pass" 
+                            className="form-control"
+                            type={togglePassword} 
+                            name="pass" 
+                            placeholder="Password" 
+                            onChange={handleInputChange}
+                            style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
+                            onKeyUp={() => {keyLogin}}
+                            required/>
+                        <i className="glyphicon glyphicon-eye-open form-control-feedback has-feedback-right" id="togglePassword" style={{}} onClick={showPassword}></i>
+                        <i className="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
+                    <br></br>
+                        <a 
+                            id="loginError" 
+                            className="text-center" 
+                            style={{
+                                display: "none", 
+                                textDecoration: "none", 
+                                fontSize: "0.875em", 
+                                color: "red"}}>
+                            
+                            {"E-mail/Username or Password incorrect"}
+                        </a>
                     </div>
+                    <br></br>
                     <div className="d-flex justify-content-center">
-                        <ul style={{listStyleType: "none"}} className="d-flex justify-content-center">
-                            <li>
-                                <button className="btn btn-primary my-2 my-sm-0 px-4 mx-auto" type="submit">Log in</button>
-                            </li>
-                        </ul>
+                        <button className="btn btn-primary px-4" type="submit" style={{margin: "auto"}}>Log in</button>
                     </div>
+                    <br></br>
                     <div className="d-flex justify-content-center">    
-                        <ul style={{listStyleType: "none"}} className="d-flex justify-content-center">
-                            <li>
-                                <p>
-                                    Don't have an account? <a href="https://3000-4geeksacade-reactflaskh-iny5xmevfgu.ws-eu77.gitpod.io/signup">Click Here</a>
-                                </p>
-                            </li>
-                        </ul>
+                        <p>
+                            Don't have an account? <a href="/signup">Click Here</a>
+                        </p>
                     </div>
             </form>
         </div>

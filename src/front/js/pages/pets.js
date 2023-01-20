@@ -19,12 +19,30 @@ export const Detail = () => {
         setDate(date);
     };
 
+    // Dark & light theme check
+	const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
+
     // Show pet info Details
     const [pets, setPets] = useState ([])
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet")
+            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setPets(jsonResult)
