@@ -13,7 +13,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from sqlalchemy import or_
 from api.utils import APIException, generate_sitemap
-from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinarian
+from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinarian, Event
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -107,6 +107,7 @@ def handle_signup():
 
         return jsonify(response_body), 400
 
+
 # METODO PARA LOGIN Y TOKEN
 
 @app.route('/login', methods=['POST'])
@@ -188,9 +189,7 @@ def handle_create_pet():
     return jsonify({"message": "Mascota creada con exito" }), 200
 
 
-
-# GET Pet info
-# Error --> TypeError: 'Gender' object is not iterable
+# Get Pet info
 
 @app.route('/pet', methods=['GET'])
 @jwt_required()
@@ -259,8 +258,32 @@ def update_user():
     return jsonify(response_body), 200
 
 
+# Add event from the calendar
 
-# Add event to the calendar
+@app.route('/event/create', methods=['POST'])
+#@jwt_required()
+def handle_event():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    event = Event(
+        title = body['title'],
+        start = body['start'],
+        end = body['end'],
+    )
+
+    db.session.add(event)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Event added correctly!"
+        }
+
+    return jsonify(response_body), 200
 
 
 

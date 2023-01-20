@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -133,6 +135,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().handleLogout();
 					location.replace('/');
 				  }
+			},
+
+			handleEventAdd: async (title, start, end) => {
+				console.log("Title: "+title, "Start: "+start, "End: "+end);
+				const response = await fetch(
+
+				process.env.BACKEND_URL+"/event/create",
+
+				  {
+					method: "POST",
+					mode: 'cors',
+					credentials: 'omit',
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({'title': title, 'start': start, 'end': end}),
+				  }
+				)
+			  
+				if (!response.ok){
+				  console.log(response.body)
+				  const message = `An error has occured: ${response.status}`;
+				  throw new Error(message);
+				  
+				}
+			  
+				else {
+				  alert("Event added!")
+				  location.replace('/events')
+				}
+				
 			},
 
 			getMessage: async () => {

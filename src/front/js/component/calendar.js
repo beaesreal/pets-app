@@ -16,8 +16,10 @@ import moment from "moment";
 
 
 export const Calendar = () => {
+    const { actions } = useContext(Context);
 
     const [ modalOpen, setModalOpen ] = useState (false);
+
 
     const calendarRef = useRef(null);
 
@@ -25,15 +27,87 @@ export const Calendar = () => {
         let calendarApi = calendarRef.current.getApi();
         console.log(event)
         calendarApi.addEvent({
+            //faltaba incluir moment para poder seleccionar fechas posteriores y eventos :)
             start: moment(event.start).toDate(),
             end: moment(event.end).toDate(),
             title: event.title,
         });
     };
 
-    /*const handleDateClick = (info) => {
+ 
+    /*
+    const [ events, setEvents ] = useState ({
+        title: '',
+        start: '',
+        end: '',
+    });
+
+    
+    const handleEventChange = (event) => {
+        setEvents({
+            ...events, 
+            [event.target.name] : event.target.value
+        })
+    }
+
+     
+
+    const addEvent = (event) => {
+        setEvents({
+            ...events,
+            [event.target.name] : event.target.value
+        })
+    }
+
+    const handleEventAdd = (event) => {
+        onEventAdded({
+            ...onEventAdded, 
+            [event.target.name] : event.target.value
+        })
+    }
+    
+    const handleDateClick = (info) => {
        setCurrentDate(info.dateStr)
-    }*/
+    }
+
+    const [events, setEvents] = useState ([])
+    useEffect (() => {
+        const handleEventAdd = async () => {
+            const result = await fetch (process.env.BACKEND_URL + "/event/create",)
+            const jsonResult = await result.json()
+
+            setEvents(jsonResult)
+        }
+
+        handleEventAdd();
+
+    }, [])
+}
+
+    const handleEventAdd = async (event) => {
+        event.preventDefault()
+        
+        console.log(handleEventAdd)
+
+        let jsonBody;
+
+        jsonBody = {
+            'title': onEventAdded.title, 
+            'start': onEventAdded.start, 
+            'end': onEventAdded.end, 
+            }
+
+        const resp = await fetch(
+            process.env.BACKEND_URL + "/event/create",
+            {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(jsonBody),
+            }
+          )
+    }
+
+    */
 
 
     return (
@@ -49,7 +123,10 @@ export const Calendar = () => {
                     selectable={true}
                     selectMirror={true}
                     dayMaxEvents={true}
-                    // eventAdd={event => handleEventAdd(event)} --> añadir evento a base de datos
+                    //add event to data base             
+                    //eventAdd={(event) => actions.handleEventAdd(event)}
+                    //eventAdd={(event) => handleEventAdd(event)} 
+                    //dateSet={(date) => handleDataSet(date)} 
                 />
             </div>
 

@@ -154,13 +154,16 @@ class Appointment(db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(80), nullable=False)
     start = db.Column(db.DateTime, nullable=False)
     end = db.Column(db.DateTime, nullable=False)
-    title = db.Column(db.String(80), nullable=False)
+    rel_user = db.relationship(User)
 
     def serialize(self):
         return {
             "id": self.id,
+            "user_id": self.user_id,
             "start": self.start,
             "end": self.end,
             "title": self.title,
