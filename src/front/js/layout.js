@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Profile } from "./pages/profile";
+import { Settings } from "./pages/settings";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import injectContext from "./store/appContext";
@@ -15,6 +16,8 @@ import { Sidebar } from "./component/sidebar";
 import { Footer } from "./component/footer";
 import PetInfo from "./pages/petinfo";
 import { Detail } from "./pages/pets";
+import { Calendar } from "./component/calendar";
+import Modal from "./component/addEventModal"
 
 
 //create your first component
@@ -32,10 +35,13 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Sidebar />} path="/sidebar" />
+                        <Route element={<Calendar />} path="/calendar" />
+                        <Route element={<Modal />} path="/modal" />
                         <Route element={<Register />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<Settings />} path="/settings" />
                         <Route element={<Detail />} path="/pets" />
                         <Route element={<PetInfo/>} path="/create"/>
                         <Route element={<h1>Not found!</h1>} />
