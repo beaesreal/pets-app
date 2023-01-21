@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 // import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 // import Ellipse from "../../img/Ellipse.png";
-import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
 
 import { Context } from "../store/appContext";
 
 import { Sidebar } from "../component/sidebar";
+import { Calendar } from "../component/calendar";
 import PetCard from "../component/petCard";
 
 import DarkMode from "../component/darkMode";
@@ -18,6 +18,7 @@ import DarkMode from "../component/darkMode";
 
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [ date, setDate] = useState(new Date());
     const onChange = date => {
         setDate(date);
@@ -53,6 +54,15 @@ export const Profile = () => {
         fetchData();
 
     }, [])
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+        else {navigate('/profile')}
+
+    }, [navigate])
 
 	return (
 
@@ -99,7 +109,6 @@ export const Profile = () => {
                     <h2 className="py-5">Appointments</h2>
                         <div className="row">
                             <div className="col-sm align-items-center">
-                                <h5>Calendar</h5>
                                 <Calendar onChange={onChange} value={date}/>
                                 {console.log(date)}
                             </div>
