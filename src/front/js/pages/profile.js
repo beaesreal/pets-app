@@ -14,6 +14,8 @@ import PetCard from "../component/petCard";
 import DarkMode from "../component/darkMode";
 
 
+
+
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
     const navigate = useNavigate();
@@ -74,17 +76,21 @@ export const Profile = () => {
                     <div className="my-pets">
                     <h1 className="pb-5">Profile</h1>
                     <h2>My pets</h2>
+
+                    
                         <div className="row">
                             
 
                             {pets.map ( pets => (
-                            <div className="pet-info-col col-sm py-4 mx-3">
+                            <div className="col-sm py-4 mx-3">
                                 <PetCard 
                                     key= {pets.id}
                                     title= {pets.name}
+                                    age={pets.age}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
+                                    breed= {pets.breed}
                                     //preguntar cómo poner imagen cuando es null
                                     //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
@@ -107,6 +113,7 @@ export const Profile = () => {
                                 {console.log(date)}
                             </div>
                             <div className="col-sm">
+                               
                                 <h5>Next appointments</h5>
                                 <p>Appointment 1</p>
                                 <p>Appointment 2</p>
