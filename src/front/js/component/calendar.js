@@ -23,26 +23,58 @@ export const Calendar = () => {
 
     const calendarRef = useRef(null);
 
-    const onEventAdded = event => {
-        let calendarApi = calendarRef.current.getApi();
-        console.log(event)
-        calendarApi.addEvent({
-            //faltaba incluir moment para poder seleccionar fechas posteriores y eventos :)
-            start: moment(event.start).toDate(),
-            end: moment(event.end).toDate(),
-            title: event.title,
-        });
-    };
+    //const myDate = moment(str,'YYYY-MM-DD').toDate();
 
- 
-    /*
     const [ events, setEvents ] = useState ({
         title: '',
         start: '',
         end: '',
     });
 
+    useEffect (() => {
+        const fetchData = async () => {
+            const result = await fetch (process.env.BACKEND_URL + "/events",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
+            const jsonResult = await result.json()
+
+            setUsers(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
+
+    const onEventAdded = event => {
+        let calendarApi = calendarRef.current.getApi();
+        //console.log(typeof moment(event.start).toDate().toString())
+        calendarApi.addEvent({
+            
+            
+            start: moment(event.start).toDate(),
+            end: moment(event.end).toDate(),
+            title: event.title,
+            
+        });
+        console.log(calendarApi)
+    };
+
     
+
+    useEffect(() => {
+        const events = JSON.parse(localStorage.getItem('events'));
+        if (events) {
+         setEvents(events);
+        }
+      }, []);
+
+
+    /*
     const handleEventChange = (event) => {
         setEvents({
             ...events, 
@@ -116,17 +148,19 @@ export const Calendar = () => {
             
             <div className="calendar-container">
                 <FullCalendar
-                    ref={calendarRef}
-                    plugins={[ dayGridPlugin, interactionPlugin ]}
-                    initialView="dayGridMonth"
-                    editable={true}
-                    selectable={true}
-                    selectMirror={true}
-                    dayMaxEvents={true}
-                    //add event to data base             
-                    //eventAdd={(event) => actions.handleEventAdd(event)}
-                    //eventAdd={(event) => handleEventAdd(event)} 
-                    //dateSet={(date) => handleDataSet(date)} 
+                    
+                        ref={calendarRef}
+                        plugins={[ dayGridPlugin, interactionPlugin ]}
+                        initialView="dayGridMonth"
+                        editable={true}
+                        selectable={true}
+                        selectMirror={true}
+                        dayMaxEvents={true}
+                        //add event to data base             
+                        //eventAdd={(event) => actions.handleEventAdd(event)}
+                        //eventAdd={(event) => handleEventAdd(event)} 
+                        //dateSet={(date) => handleDataSet(date)} 
+                    
                 />
             </div>
 

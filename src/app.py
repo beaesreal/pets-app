@@ -261,16 +261,17 @@ def update_user():
 # Add event from the calendar
 
 @app.route('/event/create', methods=['POST'])
-#@jwt_required()
-def handle_event():
+@jwt_required()
+def handle_all_events():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
     body = request.get_json()
     print(body)
 
     event = Event(
+        user_id = current_user_id,      
         title = body['title'],
         start = body['start'],
         end = body['end'],
@@ -285,6 +286,22 @@ def handle_event():
 
     return jsonify(response_body), 200
 
+
+# Show events
+
+@app.route('/events', methods=['GET'])
+#@jwt_required()
+def handle_event():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_events = Event.query.filter_by(id=user.id)
+    all_events = Event.query.all()
+    
+    all_events =list(map(lambda x: x.serialize(), all_events))
+    print(all_events)
+    response_body = all_events
+    return jsonify(response_body), 200
 
 
 

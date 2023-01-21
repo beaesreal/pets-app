@@ -147,7 +147,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					mode: 'cors',
 					credentials: 'omit',
-					headers: {"Content-Type": "application/json"},
+					headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
 					body: JSON.stringify({'title': title, 'start': start, 'end': end}),
 				  }
 				)
@@ -161,8 +161,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Event added!")
-				  location.replace('/events')
+				  location.replace('/calendar')
 				}
+
+				localStorage.setItem("title", title)
+				localStorage.setItem("start", start)
+				localStorage.setItem("end", end)
 				
 			},
 
