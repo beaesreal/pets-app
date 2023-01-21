@@ -19,17 +19,6 @@ export const Detail = () => {
         setDate(date);
     };
 
-    // Dark & light theme check
-	const body = document.body;
-    const theme = localStorage.getItem("theme")
-    useEffect (() => {
-        if (theme == "dark"){
-            body.classList.add(theme);
-        } else {
-            body.classList.add("light");
-        }
-    }, [])
-
     // Show pet info Details
     const [pets, setPets] = useState ([])
 

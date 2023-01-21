@@ -988,11 +988,6 @@
   "resolved" "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.0.3.tgz"
   "version" "6.0.3"
 
-"@fullcalendar/interaction@^6.0.3":
-  "integrity" "sha512-HhYn/nY3wPrUbZuHnQmmqlhMxwrhy8l3LS+D1Iz4LEsNpBTUpC2htyVdWZD52zeD12ks4+T+bTncf4bFwjf4jA=="
-  "resolved" "https://registry.npmjs.org/@fullcalendar/interaction/-/interaction-6.0.3.tgz"
-  "version" "6.0.3"
-
 "@fullcalendar/react@^6.0.4":
   "integrity" "sha512-TpEGOWWZtD3whXPf8XCXGGPhQusKo/egRb1GUC1oH0Zb1zFagRXGTYPcn2acMatHIk5ZxuF/2NMiF5Iz6gEYcw=="
   "resolved" "https://registry.npmjs.org/@fullcalendar/react/-/react-6.0.4.tgz"

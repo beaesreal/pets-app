@@ -178,12 +178,16 @@ def handle_create_pet():
     db.session.add(mascot)
     db.session.commit()
     
-    veterinarian = Veterinarian(
-        clinic_name = body['clinic_name'],
-        adress = body['adress']
-    )
-    db.session.add(veterinarian)
-    db.session.commit()
+    veterinarian = Veterinarian.query.filter_by(
+        clinic_name = body['clinic_name'] 
+    ).first()
+    if not veterinarian:
+        veterinarian = Veterinarian(
+            clinic_name = body['clinic_name'],
+            adress = body['adress']
+        )
+        db.session.add(veterinarian)
+        db.session.commit()
 
     return jsonify({"message": "Mascota creada con exito" }), 200
 
@@ -193,19 +197,13 @@ def handle_create_pet():
 # Error --> TypeError: 'Gender' object is not iterable
 
 @app.route('/pet', methods=['GET'])
-@jwt_required()
 def handle_pet():
 
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-
-    all_mascot = Mascot.query.filter_by(user_id=user.id)
-    all_mascot =list(map(lambda x: x.serialize(), all_mascot))
-    print(all_mascot)
-    response_body = all_mascot
-    return jsonify(response_body), 200
-
-
+    if request.method == 'GET':
+        all_mascot = Mascot.query.all()
+        all_mascot =list(map(lambda x: x.serialize(), all_mascot))
+        response_body = all_mascot
+        return jsonify(response_body), 200
 
 
 # Get User info
@@ -230,44 +228,6 @@ def handle_veterinarian():
         all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
         response_body = all_veterinarian
         return jsonify(response_body), 200
-
-
-# Update USER Info
-
-@app.route('/user/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    body = request.get_json()
-    print(body)
-
-    if re.fullmatch(regex, body['email']):
-        print("Valid email")
-    
-        user = User(
-            username = body['username'],
-            password = body['password'],
-            email = body['email'],
-            is_active = True
-        )
-
-        db.session.merge(user)
-        db.session.commit()
-
-        response_body = {
-            "msg": "User updated correctly!"
-            }
-
-        return jsonify(response_body), 200
-
-    else:
-        response_body = {
-            "msg": "Invalid email!"
-            }
-
-        return jsonify(response_body), 400
-
-
-# Add event to the calendar
-
 
 
 

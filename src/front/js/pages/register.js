@@ -1,24 +1,14 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import { Context } from "../store/appContext";
 import RegisterImage from "../../img/Register-image.png";
 import { Alert_Popup } from "../component/alert_popup";
-import { AlertDeleteUser } from "../component/alertDeleteUser";
 
 export const Register = () => {
     const { actions } = useContext(Context);
 
-    const [inputData, setinputData] = useState({
-        username: '',
-        email: '',
-        password: '',
-    })
-
-    const handleInputChange = (event) => {
-        setinputData({
-            ...inputData, 
-            [event.target.name] : event.target.value
-        })
-    }
+    const input_username = document.getElementById('username');
+    const input_email = document.getElementById('email');
+    const input_pass = document.getElementById('password');
 
     const regexUsername = /^[\w]{6,}$/g
     const regexPass = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/g
@@ -67,17 +57,15 @@ export const Register = () => {
                         name="registerUser" 
                         onSubmit={(e) => {
                             e.preventDefault();
-                            checkInputs(inputData['username'], inputData['email'], inputData['password'])
+                            checkInputs(input_username.value, input_email.value, input_pass.value)
                         }}>
 
                         <div className="form-group row" style={{listStyleType: "none"}}>
                                 <input 
                                     id="username" 
                                     type="text" 
-                                    name="username" 
-                                    value={inputData['username']}
-                                    placeholder="Username"
-                                    onChange={handleInputChange}  
+                                    name="newUserName" 
+                                    placeholder="Username"  
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                     required/>
                                 <small id="usernameAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Username must contain at least 6 characters"}</small>
@@ -88,10 +76,9 @@ export const Register = () => {
                                 <input 
                                     id="email" 
                                     type="text" 
-                                    name="email"
-                                    value={inputData['email']} 
+                                    name="newEmail" 
                                     placeholder="Email" 
-                                    onChange={handleInputChange}
+                                    size="60"
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}}  
                                     required/>
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
@@ -101,10 +88,9 @@ export const Register = () => {
                                 <input 
                                     id="password" 
                                     type="text" 
-                                    name="password"
-                                    value={inputData['password']}
+                                    name="newPassword" 
                                     placeholder="Password" 
-                                    onChange={handleInputChange} 
+                                    size="60" 
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                     required/>
                                 <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
@@ -114,7 +100,7 @@ export const Register = () => {
                                 <button className="btn btn-primary my-2 my-sm-0 px-4 mx-auto" type="submit">Register</button>
                         </div>
                     </form>
-                    <AlertDeleteUser />
+                    <Alert_Popup />
                 </div>
                 <div className="col-sm-0 d-flex justify-content-end" style={{width: "auto"}}>
                     <img src={RegisterImage} />
