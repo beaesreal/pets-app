@@ -24,6 +24,11 @@ const PetInfo = () => {
         adress:''
     })
 
+    const [loading, setLoading] = useState(false)
+    const [image, setImage] = useState("")
+
+
+
     const handleInputChange= (event) => {
         // console.log(event.target.value)
         setPetinfo({
@@ -34,12 +39,12 @@ const PetInfo = () => {
 
 
     // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
-    const handleInputImage = (event) => {
-        setPetinfo({
-            ...petinfo,
-            [event.target.name] : event.target.type
-        }) 
-    }
+    // const handleInputImage = (event) => {
+    //     setPetinfo({
+    //         ...petinfo,
+    //         [event.target.name] : event.target.type
+    //     }) 
+    // }
 
 
     const handleInputVeterinary = (event) => {
@@ -48,7 +53,13 @@ const PetInfo = () => {
             [event.target.name] : event.target.value
         })
     }
-
+    
+    const uploadImage = (event) => {
+      setImage({
+        ...image,
+        [event.target.name] : event.target.files
+      })
+    }
 
     const sendPetData = async (event) => {
         event.preventDefault()
@@ -85,6 +96,25 @@ const PetInfo = () => {
             }
           )
 
+
+          //NO ESTOY SEGURO SI SE AÑADE AQUI, PREGUNTAR, NO ENVIA AL FETCH EL FILE
+            const files = event.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'petnameapp')
+            setLoading(true)
+    
+            const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            {
+                method:'POST',
+                body:data
+            } )
+            const file = await res.file()
+        
+            console.log(file)
+        
+            setImage(file.secure_url)
+            setLoading(false)
     }
 
 
@@ -151,7 +181,15 @@ const PetInfo = () => {
                                         onChange={handleInputChange}/>
                             
                             </div>  
-                            <div style={{marginTop:'7%'}}>
+                            <div>
+                                <input 
+                                    type="file"
+                                    name="file"
+                                    placeholder='Upload an Image'
+                                    onChange={uploadImage}/>
+                                   
+                            </div>
+                            {/* <div style={{marginTop:'7%'}}>
                                 <label for="formFile" class="form-label"><strong>Upload image</strong></label>
                                 <input 
                                     className="form-control" 
@@ -159,7 +197,7 @@ const PetInfo = () => {
                                     name="image" 
                                     id="formFile" 
                                     onChange={handleInputImage}/>
-                            </div>
+                            </div> */}
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
                                 <p>Find your vet clini on Google</p>
