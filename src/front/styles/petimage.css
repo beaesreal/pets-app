@@ -18,29 +18,35 @@
     box-shadow:0 0 30px rgba(0,0,0,0);
     overflow: hidden;
     border-radius: 15px;
+*/
 
+.card-title{
+    font-size: 2rem;
+    color:#251749
 }
-.card-tittle{
-    height: 200px;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    width: 100%; } */
-
 .card:hover{
     box-shadow: 5px 10px 20px 1px rgba(0,0,0,0.253)!important;
 }
 .card-body{
-    padding: 3rem !important;
-    background-color:#f9f9f9;
+    padding: 2rem !important;
+    background-color:#fdf8ef;
     
 }
 .card-text{
     font-size: 0,9rem;
-    padding:0,4rem 1.9rem ;
-
+    color: #495579;
+    /* padding:0,4rem 1.9rem ; */
+    /* padding-top: 1rem; */
+}
+.card-prop{
+    color:#150d29;
+}
+.card-caracteristics{
+    padding-top: 2rem;
+    color:#251749
 }
 .container-fluid .row{
-    padding-top: 6rem;
+    padding-top: 1rem;
 }
 .overflow{
     overflow:hidden;
@@ -53,7 +59,7 @@
     transform: scale(1.2);
 }
 .card-button{
-    background-color: #f9f9f9;;
+    background-color: #fdf8ef;
 }
 .button{
     color:#495579;
@@ -62,8 +68,10 @@
    
 }
 .button:hover{
-    transform: scale(1.05);
+    transform: scale(1.1);
     color: #495579;
-    
 
+}
+.row{
+   padding-top: 3rem;
 }

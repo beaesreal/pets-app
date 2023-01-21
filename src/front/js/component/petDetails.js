@@ -17,11 +17,29 @@ const PetDetails = (props) => {
                         <img className="card-img-top" src={props.img} alt="Card image cap"></img>
                     </div>
                     <div className="card-body text-dark">
+                        <div className="d-flex flex-row-reverse">
+                            <p className="card-text">Id: <b>{props.id}</b></p>
+                        </div>
+                        
                         <h4 className="card-title"><strong>{props.title}</strong></h4>
-                        <p className="card-text"><b>Id:</b> {props.id}</p>
-                        <p className="card-text"><b>Age:</b> {props.age}</p>
-                        <p className="card-text"><b>Date of Birth: </b>{props.birth}</p>
-                        <p className="card-text"><b>Colour:</b> {props.colour}</p>     
+                       
+                    {/* pq no coge gender ni caracteristics */}
+                        <div class="row">
+                            <div className="col-6">
+                                <p className="card-text">Gender:<b className="card-prop"> {props.gender}</b></p>
+                                <p className="card-text">Species:<b className="card-prop"> {props.species}</b></p>
+            
+                            </div>
+                       
+                            <div className="col-6">
+                                <p className="card-text">Age:<b className="card-prop"> {props.age}</b></p>
+                                <p className="card-text">Colour:<b className="card-prop"> {props.colour}</b></p> 
+                            </div>
+                        </div>
+                     
+                        <div>
+                            <p className="card-caracteristics">{props.caracteristics}Es un animal tranquilo y bueno</p>  
+                        </div>
                     </div>
                 <div className="card-button py-1">
                     <a href={props.buttonUrl} className="button btn btn-outline p-2">{props.buttonLabel}</a>
@@ -29,7 +47,7 @@ const PetDetails = (props) => {
                 </div>
             </div>    
         
-    </div>
+        </div>
 
 
 
@@ -40,8 +58,9 @@ PetDetails.propTypes = {
     id: PropType.string,
 	title: PropType.string,
 	img: PropType.string,
-    age: PropType.string,
+    age: PropType,
     birth: PropType.string,
+    caracteristics: PropType.string,
 	colour: PropType.string,
     gender: PropType.string,
 	buttonUrl: PropType.string,

@@ -39,12 +39,12 @@ const PetInfo = () => {
 
 
     // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
-    const handleInputImage = (event) => {
-        setPetinfo({
-            ...petinfo,
-            [event.target.name] : event.target.type
-        }) 
-    }
+    // const handleInputImage = (event) => {
+    //     setPetinfo({
+    //         ...petinfo,
+    //         [event.target.name] : event.target.type
+    //     }) 
+    // }
 
 
     const handleInputVeterinary = (event) => {
@@ -109,7 +109,7 @@ const PetInfo = () => {
                 method:'POST',
                 body:data
             } )
-            const file = await res.json()
+            const file = await res.file()
         
             console.log(file)
         
