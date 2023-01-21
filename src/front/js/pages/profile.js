@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 // import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 // import Ellipse from "../../img/Ellipse.png";
-import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
 
 import { Context } from "../store/appContext";
 
 import { Sidebar } from "../component/sidebar";
+import { Calendar } from "../component/calendar";
 import PetCard from "../component/petCard";
 
 import DarkMode from "../component/darkMode";
@@ -103,7 +103,6 @@ export const Profile = () => {
                     <h2 className="py-5">Appointments</h2>
                         <div className="row">
                             <div className="col-sm align-items-center">
-                                <h5>Calendar</h5>
                                 <Calendar onChange={onChange} value={date}/>
                                 {console.log(date)}
                             </div>
