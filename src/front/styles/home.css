@@ -1,10 +1,30 @@
-/*
-    home.css: This website contains selectors only used in home.css
+/* General CSS */ 
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+
+body{
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text-color);
+    font-weight: var(--font-weight);
+    transition: background-color 0.3s ease-in-out, color 0.6s ease-in-out;
+}
+
+/* General Specifications for light and dark mode */ 
+
+body.light {
+    background-color: white;
+}
+
+
+body.dark {
+    background-color: #06040c;
+    color: white;
+    font-weight: 500;
+}
+
+/* Menu */ 
 
 #menu-navbar{
     background-color: #F6F6C9;
@@ -20,6 +40,8 @@
     font-weight: 700;
 }
 
+/* Navbar */ 
+
 .nav-link{
     color: #251749;
 }
@@ -33,6 +55,10 @@
     background-color: #150d29;
 }
 
+.navbar-toggler{
+    color: #150d29;
+}
+
 .menu-icon{
     color: #150d29;
 }
@@ -40,6 +66,8 @@
 .menu-icon:hover{
     color: white;
 }
+
+/* Buttons */ 
 
 .btn-outline-primary{
     background-color: rgba(255, 255, 255, 0.589);
@@ -64,6 +92,8 @@
     color: white;
 }
 
+/* Footer */ 
+
 .footer-bg{
     background-color: #100B1B;
 }
@@ -78,12 +108,11 @@
     font-weight: 600;
 }
 
+/* Menu */ 
 
 .yellow-text{
     color: #F6F6C9;
 }
-
-
 
 .header-bg{
     background-color: #F6F6C9;
@@ -97,16 +126,14 @@ h1{
     color: #251749;
 }
 
-body{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 15px;
-}
-
+/*   
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
   filter: invert(1);
-}
+} 
+*/
+
+/* Sections, links, etc. */ 
 
 .section-separator{
     background-color: #495579;
@@ -116,18 +143,8 @@ body{
     background-color: #F0F0E2;
 }
 
-.navbar-toggler{
-    color: #150d29;
-}
-
-
-
 .profile-section{
     background-color:#e5e8f5;
-}
-
-.pet-card{
-    width: 12rem;
 }
 
 .my-profile-info{
@@ -147,6 +164,12 @@ a:hover{
     padding: 30px;
     margin: 20px;
     border-radius: 10px;
+}
+
+/* Pet Card */ 
+
+.pet-card{
+    width: 12rem;
 }
 
 .pet-info-container{

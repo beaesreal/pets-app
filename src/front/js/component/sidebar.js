@@ -13,6 +13,7 @@ import Logout from "./icons/logout";
 import Pet from "./icons/pet";
 import Settings from "./icons/settings";
 import User from "./icons/user";
+import { Alert_Popup } from "./alert_popup";
 
 
 
@@ -42,6 +43,17 @@ export const Sidebar = () => {
         },
     ];
 
+    /* Map of all users
+    {users.map (user =>
+        <div key={user.id}>
+            <p className="nav-footer-user-name">
+                {user.username}
+            </p>
+            <p className="nav-footer-user-pets">
+                {user.email}
+            </p>
+        </div>)}
+    */
 
     // GET User info to show on sidebar
 
@@ -59,6 +71,8 @@ export const Sidebar = () => {
 
     }, [])
 
+
+    const mailStorage = localStorage.getItem("email")
 
     return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
@@ -89,17 +103,15 @@ export const Sidebar = () => {
             <div className="nav-footer">
                 {isExpanded && (<div className="nav-details">
                     <div className="nav-footer-info">
-                        {users.map (user =>
-                        <div key={user.id}>
-                            <p className="nav-footer-user-name">
-                                {user.username}
-                            </p>
-                            <p className="nav-footer-user-pets">
-                                {user.email}
-                            </p>
-                        </div>)}
+                    <div>
+                        <h6 className="pb-2">You are logged as:</h6>
+                        <p className="nav-footer-user-pets pb-2">
+                            {mailStorage}
+                        </p>
+                    </div>
                     </div>
                 </div>)}
+
                     <button className="logout-icon btn-primary" onClick={actions.handleLogout}>
                         <Logout height="50" width="50" />
                     </button>

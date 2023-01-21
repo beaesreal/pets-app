@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
+
+// Styles
 import "../../styles/home.css";
-import header_img_1 from "../../img/header_img_1.jpg";
-import Rectangle_mockup from "../../img/Rectangle_mockup.png";
-import Rectangle_small from "../../img/Rectangle_small.png";
+import "../../styles/darkMode.css";
+
+
+// images
 import Dog_header from "../../img/Dog_header.png";
 import Img_1 from "../../img/Img_1.png";
 import Img_2 from "../../img/Img_2.png";
@@ -20,6 +23,17 @@ import Dalmatian from "../../img/Dalmatian.jpg";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
+	// Dark & light theme check
+	const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
+
 	return (
 		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
 
@@ -30,7 +44,7 @@ export const Home = () => {
 						<h1 className="m-lg-5">
 							The website you need for your pets.
 						</h1>
-						<a href="/signup"><button class="btn m-lg-5 btn-primary px-4 my-4" type="submit">Join Today</button></a>
+						<a href="/signup"><button class="btn m-lg-5 btn-primary px-4 my-4 joinBtn" type="submit">Join Today</button></a>
 					</div>
 					<div className="col-lg-5 col-sm-1">
 						<img className="h-100 w-100" src={Dog_header} alt="First slide"/>
@@ -99,7 +113,7 @@ export const Home = () => {
 						<div className="container text-center">
 						<div className="row py-5 px-2">
 						<div class="col-lg-3 col-md-2 col-sm-1">
-							<img className="d-block w-100 pb-4" src={Img_4} />
+							<img className="d-block w-100 pb-4 rounded" src={Img_4} />
 								<a href="/signup"><h5>
 									Register
 								</h5></a>
@@ -108,7 +122,7 @@ export const Home = () => {
 								</p>
 							</div>
 						<div class="col-lg-3 col-md-2 col-sm-1">
-							<img className="d-block w-100 pb-4" src={Img_5} />
+							<img className="d-block w-100 pb-4 rounded" src={Img_5} />
 								<a href="/login"><h5>
 									Log in
 								</h5></a>
@@ -117,7 +131,7 @@ export const Home = () => {
 								</p>
 						</div>
 						<div class="col-lg-3 col-md-2 col-sm-1">
-							<img className="d-block w-100 pb-4" src={Img_6} />
+							<img className="d-block w-100 pb-4 rounded" src={Img_6} />
 								<a href="/create"><h5>
 									Add your animals
 								</h5></a>
@@ -126,7 +140,7 @@ export const Home = () => {
 								</p>
 						</div>
 						<div class="col-lg-3 col-md-2 col-sm-1">
-						<img className="d-block w-100 pb-4" src={Img_7} />
+						<img className="d-block w-100 pb-4 rounded" src={Img_7} />
 							<a href="/"><h5>
 								Enjoy the website
 							</h5></a>
@@ -138,11 +152,11 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container-fluid photo-text-section py-5 px-5">
+					<div className="container-fluid photo-text-section py-5 px-5 petBlog">
 						<div className="container-md p-lg-5">
 							<div className="row align-items-center p-lg-5">
 								<div class="col-sm p-3">
-								<img className="d-block w-100 pb-4" src={Dalmatian} />
+								<img className="d-block w-100 pb-4 rounded" src={Dalmatian} />
 								</div>
 							<div className="col-sm p-lg-3">
 								<h4 className="pb-2"><b>

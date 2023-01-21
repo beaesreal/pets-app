@@ -5,9 +5,9 @@ import Datetime from 'react-datetime';
 
 export default function ({ isOpen, onClose, onEventAdded }) {
 
-    const [ title, setTitle ] = useState ("");
-    const [ start, setStart ] = useState (new Date());
-    const [ end, setEnd ] = useState (new Date());
+    const [ title, setTitle ] = useState("");
+    const [ start, setStart ] = useState(new Date());
+    const [ end, setEnd ] = useState(new Date());
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -23,7 +23,8 @@ export default function ({ isOpen, onClose, onEventAdded }) {
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} action="/events" method="POST">
+
                 <div>
                     <label className="p-2"><h5>Appointment</h5></label>
                 </div>
