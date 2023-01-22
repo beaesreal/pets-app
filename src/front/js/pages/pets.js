@@ -20,12 +20,30 @@ export const Detail = () => {
         setDate(date);
     };
 
+    // Dark & light theme check
+	const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
+
     // Show pet info Details
     const [pets, setPets] = useState ([])
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet")
+            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setPets(jsonResult)
@@ -34,6 +52,25 @@ export const Detail = () => {
         fetchData();
 
     }, [])
+
+
+    const getAge = (dateString) => {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+        }
+
+        return age
+    }
+    
+    // const dateNoTime = (birthday) => {
+    //     let newBirthdayDate = birthday.getFullYear()
+
+    //     return newBirthdayDate
+    // }
 
     //Checks if logged-in
     useEffect (() => {
@@ -55,27 +92,33 @@ export const Detail = () => {
                     <div className="my-pets">
                     <h1 className="pb-5">Pets</h1>
                         
-                            
+                        <div className="container d-flex justify-content-centen align-items-center">
+                            <div className="row">
 
                             {pets.map ( pets => (
-                            <div className="pet-info-container py-4 mx-auto rounded">
+                            <div className="pet-info-container py-4">
                                 <PetDetails 
                                     key= {pets.id}
                                     title= {pets.name}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
-                                    birth= {pets.date_of_birth}
+                                    age= {getAge(pets.date_of_birth)}
+                                    // birth={dateNoTime(pets.date_of_birth)}
+                                   
+                                    breed={pets.breed}
                                     colour= {pets.colour}
                                     gender= {pets.gender}
                                     id= {pets.id}
+                                    caracteristics = {pets.caracteristics}
+                                    // img={pets.img}
                                     //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
+                                    // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
                                 />
                             </div>))}
-
-                        
+                            </div>            
+                        </div>
                         <div className="pt-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>

@@ -160,8 +160,9 @@ def handle_delete_user():
 def handle_create_pet():
     body = request.get_json()
     print(body)
-    current_user_id = get_jwt_identity()
 
+    current_user_id = get_jwt_identity()
+    
     veterinarian = Veterinarian.query.filter_by(
         clinic_name = body['clinic_name'] 
     ).first()
@@ -204,25 +205,32 @@ def handle_create_pet():
 # Error --> TypeError: 'Gender' object is not iterable
 
 @app.route('/pet', methods=['GET'])
+@jwt_required()
 def handle_pet():
 
-    if request.method == 'GET':
-        all_mascot = Mascot.query.all()
-        all_mascot =list(map(lambda x: x.serialize(), all_mascot))
-        response_body = all_mascot
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = Mascot.query.get(current_user_id)
+
+    all_mascot = Mascot.query.filter_by(user_id=user.id)
+    all_mascot =list(map(lambda x: x.serialize(), all_mascot))
+    response_body = all_mascot
+    return jsonify(response_body), 200
 
 
 # Get User info
 
 @app.route('/user', methods=['GET'])
+@jwt_required()
 def handle_user():
 
-    if request.method == 'GET':
-        all_user = User.query.all()
-        all_user =list(map(lambda x: x.serialize(), all_user))
-        response_body = all_user
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    all_user = User.query.filter_by(id=user.id)
+    all_user =list(map(lambda x: x.serialize(), all_user))
+    print(all_user)
+    response_body = all_user
+    return jsonify(response_body), 200
 
 
 # Get Vet info
@@ -235,6 +243,37 @@ def handle_veterinarian():
         all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
         response_body = all_veterinarian
         return jsonify(response_body), 200
+
+
+# Update USER Info
+
+@app.route('/user', methods=['PUT'])
+@jwt_required()
+def update_user():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    user.username = body['username']
+    user.password = body['password']
+    user.email = body['email']
+    user.is_active = True
+
+    db.session.commit()
+
+    response_body = {
+        "msg": "User updated correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+
+
+# Add event to the calendar
+
 
 
 

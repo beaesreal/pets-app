@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 // import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 // import Ellipse from "../../img/Ellipse.png";
-import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
 
 import { Context } from "../store/appContext";
 
 import { Sidebar } from "../component/sidebar";
+import { Calendar } from "../component/calendar";
 import PetCard from "../component/petCard";
+
+import DarkMode from "../component/darkMode";
+
+
 
 
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [ date, setDate] = useState(new Date());
     const onChange = date => {
         setDate(date);
@@ -21,10 +26,26 @@ export const Profile = () => {
 
     // Show pet info on Cards
     const [pets, setPets] = useState ([])
+    const body = document.body;
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet")
+            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+              })
             const jsonResult = await result.json()
 
             setPets(jsonResult)
@@ -33,6 +54,15 @@ export const Profile = () => {
         fetchData();
 
     }, [])
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+        else {navigate('/profile')}
+
+    }, [navigate])
 
 	return (
 
@@ -46,17 +76,21 @@ export const Profile = () => {
                     <div className="my-pets">
                     <h1 className="pb-5">Profile</h1>
                     <h2>My pets</h2>
+
+                    
                         <div className="row">
                             
 
                             {pets.map ( pets => (
-                            <div className="pet-info-col col-sm py-4 mx-3">
+                            <div className="col-sm py-4 mx-3">
                                 <PetCard 
                                     key= {pets.id}
                                     title= {pets.name}
+                                    age={pets.age}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
+                                    breed= {pets.breed}
                                     //preguntar cómo poner imagen cuando es null
                                     //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
@@ -75,11 +109,11 @@ export const Profile = () => {
                     <h2 className="py-5">Appointments</h2>
                         <div className="row">
                             <div className="col-sm align-items-center">
-                                <h5>Calendar</h5>
                                 <Calendar onChange={onChange} value={date}/>
                                 {console.log(date)}
                             </div>
                             <div className="col-sm">
+                               
                                 <h5>Next appointments</h5>
                                 <p>Appointment 1</p>
                                 <p>Appointment 2</p>

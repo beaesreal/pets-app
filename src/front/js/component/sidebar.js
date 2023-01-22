@@ -13,6 +13,7 @@ import Logout from "./icons/logout";
 import Pet from "./icons/pet";
 import Settings from "./icons/settings";
 import User from "./icons/user";
+import { AlertDeleteUser } from "./alertDeleteUser";
 
 
 
@@ -42,6 +43,17 @@ export const Sidebar = () => {
         },
     ];
 
+    /* Map of all users
+    {users.map (user =>
+        <div key={user.id}>
+            <p className="nav-footer-user-name">
+                {user.username}
+            </p>
+            <p className="nav-footer-user-pets">
+                {user.email}
+            </p>
+        </div>)}
+    */
 
     // GET User info to show on sidebar
 
@@ -49,7 +61,14 @@ export const Sidebar = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/user")
+            const result = await fetch (process.env.BACKEND_URL + "/user",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setUsers(jsonResult)
@@ -59,6 +78,8 @@ export const Sidebar = () => {
 
     }, [])
 
+
+    const mailStorage = localStorage.getItem("email")
 
     return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>
@@ -107,3 +128,4 @@ export const Sidebar = () => {
 		</div>
 	);
 };
+
