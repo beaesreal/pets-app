@@ -156,12 +156,15 @@ def handle_delete_user():
     return jsonify(response_body), 200
 
 @app.route('/pet/create', methods=['POST'])
+@jwt_required()
 def handle_create_pet():
     body = request.get_json()
     print(body)
+    current_user_id = get_jwt_identity()
 
     mascot = Mascot(
         # puede faltar id y user id
+        user_id = current_user_id,
         name = body['name'],
         date_of_birth = body['date_of_birth'],
         species = body['species'],

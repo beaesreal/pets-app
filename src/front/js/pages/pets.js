@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaPen } from 'react-icons/fa'
 // import Ellipse from "../../img/Ellipse.png";
 import Calendar from "react-calendar";
@@ -15,6 +15,7 @@ import PetDetails from "../component/petDetails";
 export const Detail = () => {
 	const { store, actions } = useContext(Context);
     const [ date, setDate] = useState(new Date());
+    const navigate = useNavigate();
     const onChange = date => {
         setDate(date);
     };
@@ -33,6 +34,14 @@ export const Detail = () => {
         fetchData();
 
     }, [])
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
 
 	return (
 

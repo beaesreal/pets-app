@@ -35,6 +35,7 @@ class Mascot(db.Model):
     __tablename___ = 'mascot'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    veterinarian_id = db.Column(db.Integer, db.ForeignKey('veterinarian.id'))
     name = db.Column(db.String(20), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
     species = db.Column(db.Enum(Species))
@@ -47,8 +48,7 @@ class Mascot(db.Model):
     img_3 = db.Column(db.String(120))
     img_mimetype = db.Column(db.String(10))
     rel_user = db.relationship(User)
-    veterinarian_id = db.Column(db. Integer, db.ForeignKey('veterinarian.id'))
-    rel_veterinarian = db.relationship(Veterinarian)
+    rel_veterinarian = db.relationship("Veterinarian", backref="mascot")
 
 
     

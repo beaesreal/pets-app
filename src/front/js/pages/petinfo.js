@@ -1,10 +1,12 @@
 import { object } from 'prop-types';
-import React, {useContext, useState, Fragment} from 'react'
+import React, {useContext, useState, Fragment, useEffect} from 'react'
+import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
 const PetInfo = () => {
     
     const {store, actions} = useContext(Context)
+    const navigate = useNavigate();
 
     const [petinfo, setPetinfo] = useState({
         petname:'',
@@ -23,6 +25,14 @@ const PetInfo = () => {
         clinicname:'',
         adress:''
     })
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
 
     const handleInputChange= (event) => {
         // console.log(event.target.value)
