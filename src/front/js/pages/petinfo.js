@@ -90,7 +90,12 @@ const PetInfo = () => {
             process.env.BACKEND_URL + "/pet/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              mode: 'cors',
+			credentials: 'omit',
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`
+                },
               body: JSON.stringify(jsonBody),
             }
           )
