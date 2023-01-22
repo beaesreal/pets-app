@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import Modal from "react-modal";
 import Datetime from 'react-datetime';
@@ -9,6 +9,7 @@ export default function ({ isOpen, onClose, onEventAdded }) {
     const [ title, setTitle ] = useState("");
     const [ start, setStart ] = useState("");
     const [ end, setEnd ] = useState("");
+    const [ events, setEvents ] = useState ([]);
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -22,7 +23,54 @@ export default function ({ isOpen, onClose, onEventAdded }) {
         onClose();
     }
 
-    /*
+    useEffect(() => {
+        const events = JSON.parse(localStorage.getItem({"title": title}));
+        if (events) {
+         setEvents(events);
+        }
+      }, []);
+
+    
+    function eventsOnClick(){
+        actions.handleEventAdd(title, start, end);
+        actions.handleDataSet(title, start, end);
+    }
+
+    return (
+        <Modal isOpen={isOpen} onRequestClose={onClose}>
+            <form onSubmit={onSubmit}>
+
+                <div>
+                    <label className="p-2"><h5>Appointment</h5></label>
+                </div>
+                
+                <input className="p-2" placeholder ="Title" value={title} onChange={e => setTitle(e.target.value)} />
+            
+                <div>
+                    <label className="p-2 mt-2">Start Date</label>
+                    <Datetime value={start} onChange={date => setStart(date)} />
+                </div>
+                
+                <div>
+                    <label className="p-2 mt-2">End Date</label>
+                    <Datetime value={end} onChange={date => setEnd(date)} />
+                </div>
+
+                <button type="submit" className="btn btn-primary my-4" 
+                    onClick={() => 
+                    eventsOnClick()
+                    }>
+                    Add event
+                </button>
+
+            </form>
+        </Modal>
+    )
+}
+
+
+
+/*
     const handleTitleChange= (event) => {
         // console.log(event.target.value)
         setTitle({
@@ -69,33 +117,12 @@ export default function ({ isOpen, onClose, onEventAdded }) {
             }
           )
     }
+
+
+    useEffect(() => {
+        const events = JSON.parse(localStorage.getItem('events'));
+        if (events) {
+         setEvents(events);
+        }
+      }, []);
     */
-
-    return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
-            <form onSubmit={onSubmit}>
-
-                <div>
-                    <label className="p-2"><h5>Appointment</h5></label>
-                </div>
-                
-                <input className="p-2" placeholder ="Title" value={title} onChange={e => setTitle(e.target.value)} />
-            
-                <div>
-                    <label className="p-2 mt-2">Start Date</label>
-                    <Datetime value={start} onChange={date => setStart(date)} />
-                </div>
-                
-                <div>
-                    <label className="p-2 mt-2">End Date</label>
-                    <Datetime value={end} onChange={date => setEnd(date)} />
-                </div>
-
-                <button type="submit" className="btn btn-primary my-4" onClick={() => actions.handleEventAdd(title, start, end)}>
-                    Add event
-                </button>
-
-            </form>
-        </Modal>
-    )
-}

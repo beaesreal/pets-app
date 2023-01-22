@@ -19,43 +19,17 @@ export const Calendar = () => {
     const { actions } = useContext(Context);
 
     const [ modalOpen, setModalOpen ] = useState (false);
-
-
     const calendarRef = useRef(null);
+    const [ events, setEvents ] = useState ([]);
 
     //const myDate = moment(str,'YYYY-MM-DD').toDate();
 
-    const [ events, setEvents ] = useState ({
-        title: '',
-        start: '',
-        end: '',
-    });
-
-    useEffect (() => {
-        const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/events",
-            {
-                method: "GET",
-                mode: 'cors',
-                credentials: 'omit',
-                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
-                body: null
-                })
-            const jsonResult = await result.json()
-
-            setUsers(jsonResult)
-        }
-
-        fetchData();
-
-    }, [])
-
+    
     const onEventAdded = event => {
         let calendarApi = calendarRef.current.getApi();
         //console.log(typeof moment(event.start).toDate().toString())
         calendarApi.addEvent({
-            
-            
+
             start: moment(event.start).toDate(),
             end: moment(event.end).toDate(),
             title: event.title,
@@ -64,7 +38,41 @@ export const Calendar = () => {
         console.log(calendarApi)
     };
 
-    
+
+
+    return (
+        <div className="container p-5">
+            <button className="btn btn-primary my-4" onClick={() => setModalOpen(true)}>Add new event</button>
+            
+            <div className="calendar-container">
+                <FullCalendar
+                        events={events}
+                        ref={calendarRef}
+                        plugins={[ dayGridPlugin, interactionPlugin ]}
+                        initialView="dayGridMonth"
+                        editable={true}
+                        selectable={true}
+                        selectMirror={true}
+                        dayMaxEvents={true}
+                        //add event to data base             
+                        //eventAdd={(event) => actions.handleEventAdd(event)}
+                        //eventAdd={(event) => handleEventAdd(event)} 
+                        //datesSet={(title) => actions.handleDataSet(title)} 
+                    
+                />
+            </div>
+
+            <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
+        </div>
+    )
+};
+
+
+/*
+
+CODE NOT USEFUL
+
+
 
     useEffect(() => {
         const events = JSON.parse(localStorage.getItem('events'));
@@ -74,7 +82,39 @@ export const Calendar = () => {
       }, []);
 
 
-    /*
+    useEffect ((data) => {
+        const handleDataSet = async (title, start, end) => {
+            
+            try{
+                const resp = await fetch(process.env.BACKEND_URL + "/events?start="+start+"&end="+end+"&title="+title)            
+                const data = await resp.json()
+				setStore({ message: data.message })
+                }catch(error){
+					console.log("Error loading message from backend", error)
+                }
+            
+            //const jsonResult = await result.json()
+
+            
+        }
+
+        setEvents(resp.data);
+
+    }, []);
+    
+
+     
+
+
+    useEffect(() => {
+        const events = JSON.parse(localStorage.getItem('events'));
+        if (events) {
+         setEvents(events);
+        }
+      }, []);
+
+
+    
     const handleEventChange = (event) => {
         setEvents({
             ...events, 
@@ -140,31 +180,3 @@ export const Calendar = () => {
     }
 
     */
-
-
-    return (
-        <div className="container p-5">
-            <button className="btn btn-primary my-4" onClick={() => setModalOpen(true)}>Add new event</button>
-            
-            <div className="calendar-container">
-                <FullCalendar
-                    
-                        ref={calendarRef}
-                        plugins={[ dayGridPlugin, interactionPlugin ]}
-                        initialView="dayGridMonth"
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        //add event to data base             
-                        //eventAdd={(event) => actions.handleEventAdd(event)}
-                        //eventAdd={(event) => handleEventAdd(event)} 
-                        //dateSet={(date) => handleDataSet(date)} 
-                    
-                />
-            </div>
-
-            <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
-        </div>
-    )
-};

@@ -52,6 +52,8 @@ export const Profile = () => {
 
     }, [])
 
+    
+
 	return (
 
 		<div className="container-fluid p-0">

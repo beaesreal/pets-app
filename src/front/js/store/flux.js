@@ -170,6 +170,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 			},
 
+			handleDataSet: async (title, start, end) => {
+				try{
+					// fetching data from the backend
+					const resp = await fetch(process.env.BACKEND_URL + "/events?start="+moment(start).toString()+"&end="+moment(end).toString()+"&title="+title.toString)
+					const data = await resp.json()
+					setStore({ message: data.message })
+					// don't forget to return something, that is how the async resolves
+					return title, start, end;
+				}catch(error){
+					console.log("Error loading message from backend", error)
+				}
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
