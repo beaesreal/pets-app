@@ -5,7 +5,7 @@ import { FaPen, FaArrowUp } from 'react-icons/fa'
 import "../../styles/petimage.css";
 
 const PetDetails = (props) => {
-    
+    console.log(props.breed)
 	// 1) replace the hard-coded image, description, link, etc. With their property variable.
 	return (
         <div className="container">
@@ -22,11 +22,11 @@ const PetDetails = (props) => {
                         </div>
                         
                         <h4 className="card-title"><strong>{props.title}</strong></h4>
+                        <p className="card-title-2"><b> {props.gender}</b></p>
                        
-                    {/* pq no coge gender ni caracteristics */}
                         <div class="row">
                             <div className="col-6">
-                                <p className="card-text">Gender:<b className="card-prop"> {props.gender}</b></p>
+                                <p className="card-text">Breed:<b className="card-prop"> {props.breed}</b></p>
                                 <p className="card-text">Species:<b className="card-prop"> {props.species}</b></p>
             
                             </div>
@@ -57,6 +57,7 @@ PetDetails.propTypes = {
     //add pproperties
     id: PropType.string,
 	title: PropType.string,
+    breed: PropType.string,
 	img: PropType.string,
     age: PropType,
     birth: PropType.string,
