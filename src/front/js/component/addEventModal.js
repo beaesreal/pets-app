@@ -23,18 +23,12 @@ export default function ({ isOpen, onClose, onEventAdded }) {
         onClose();
     }
 
-    useEffect(() => {
-        const events = JSON.parse(localStorage.getItem({"title": title}));
-        if (events) {
-         setEvents(events);
-        }
-      }, []);
-
     
     function eventsOnClick(){
         actions.handleEventAdd(title, start, end);
-        actions.handleDataSet(title, start, end);
+        //actions.handleDataSet(title, start, end);
     }
+
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
@@ -71,6 +65,15 @@ export default function ({ isOpen, onClose, onEventAdded }) {
 
 
 /*
+
+    useEffect(() => {
+        const events = JSON.parse(localStorage.getItem({"title": title}));
+        if (events) {
+         setEvents(events);
+        }
+      }, []);
+
+
     const handleTitleChange= (event) => {
         // console.log(event.target.value)
         setTitle({

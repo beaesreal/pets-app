@@ -304,6 +304,25 @@ def handle_event():
     return jsonify(response_body), 200
 
 
+# Delete events
+
+@app.route('/delete_event', methods=['DELETE'])
+#@jwt_required()
+def handle_delete_event():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+        
+    Event.query.filter_by(title=event.id).delete()
+    db.session.commit()
+
+    response_body = {
+        "msg": "Event deleted successfully!",
+    }
+
+    return jsonify(response_body), 200
+
+
 
 # ------------------- LAST LINES -------------------->>
 

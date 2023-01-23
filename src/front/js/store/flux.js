@@ -173,7 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleDataSet: async (title, start, end) => {
 				try{
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/events?start="+moment(start).toString()+"&end="+moment(end).toString()+"&title="+title.toString)
+					const resp = await fetch(process.env.BACKEND_URL + "/events?start="+start+"&end="+end+"&title="+title)
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
@@ -181,6 +181,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}catch(error){
 					console.log("Error loading message from backend", error)
 				}
+			},
+
+			handleDeleteEvent: async () => {
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_event",
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				
+				  else {
+					const message = `Event deleted correctly!`;
+					location.replace('/calendar');
+				  }
 			},
 
 			getMessage: async () => {

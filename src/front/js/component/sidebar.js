@@ -57,7 +57,7 @@ export const Sidebar = () => {
 
     // GET User info to show on sidebar
 
-    const [users, setUsers] = useState ([])
+    const  [users, setUsers] = useState ([])
 
     useEffect (() => {
         const fetchData = async () => {
@@ -77,9 +77,9 @@ export const Sidebar = () => {
         fetchData();
 
     }, [])
+ 
 
-
-    const mailStorage = localStorage.getItem("email")
+    //const mailStorage = localStorage.getItem("email")
 
     return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>

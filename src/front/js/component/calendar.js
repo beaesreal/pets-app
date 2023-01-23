@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "react-datetime/css/react-datetime.css"
-import Moment from 'react-moment';
+//import Moment from 'react-moment';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -20,6 +20,7 @@ export const Calendar = () => {
 
     const [ modalOpen, setModalOpen ] = useState (false);
     const calendarRef = useRef(null);
+
     const [ events, setEvents ] = useState ([]);
 
     //const myDate = moment(str,'YYYY-MM-DD').toDate();
@@ -35,9 +36,34 @@ export const Calendar = () => {
             title: event.title,
             
         });
+
+        //element.find('.fc-event-title').append(" " + event.title);
+
         console.log(calendarApi)
     };
 
+    const titleStorage = localStorage.getItem("title")
+    const startStorage = localStorage.getItem("start")
+    const endStorage = localStorage.getItem("end")
+
+    useEffect (() => {
+        const fetchData = async (title, start, end) => {
+            const result = await fetch (process.env.BACKEND_URL + "/events",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
+            const jsonResult = await result.json()
+
+            setEvents(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
 
 
     return (
@@ -54,12 +80,30 @@ export const Calendar = () => {
                         selectable={true}
                         selectMirror={true}
                         dayMaxEvents={true}
+                        //title={titleStorage}
                         //add event to data base             
                         //eventAdd={(event) => actions.handleEventAdd(event)}
                         //eventAdd={(event) => handleEventAdd(event)} 
-                        //datesSet={(title) => actions.handleDataSet(title)} 
+                        datesSet={() => actions.handleDataSet()}
                     
                 />
+            </div>
+            <div className="fc-event-title">
+                <h5>{titleStorage}</h5>
+                <h5>{startStorage}</h5>
+                <h5>{endStorage}</h5>
+            </div>
+
+            <div className="nav-footer-info">
+                        {events.map (events =>
+                        <div key={events.id}>
+                            <p className="nav-footer-user-name">
+                                {events.title}
+                            </p>
+                            <p className="nav-footer-user-pets">
+                                {events.start}
+                            </p>
+                        </div>)}
             </div>
 
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
