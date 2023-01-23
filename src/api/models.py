@@ -59,6 +59,8 @@ class Mascot(db.Model):
             "img": self.img_mimetype,
             "species": self.species.value,
             "gender": self.gender.value,
+            "breed": self.breed,
+            "caracteristics" : self.caracteristics
             # do not serialize the password, its a security breach
         }
 

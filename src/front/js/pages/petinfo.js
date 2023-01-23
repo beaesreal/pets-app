@@ -37,14 +37,14 @@ const PetInfo = () => {
         })
     }
 
-
     // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
-    // const handleInputImage = (event) => {
-    //     setPetinfo({
-    //         ...petinfo,
-    //         [event.target.name] : event.target.type
-    //     }) 
-    // }
+    const handleInputImage = (event) => {
+        setPetinfo({
+            ...petinfo,
+            [event.target.name] : event.target.type
+        }) 
+    }
+
 
 
     const handleInputVeterinary = (event) => {
@@ -54,11 +54,24 @@ const PetInfo = () => {
         })
     }
     
-    const uploadImage = (event) => {
-      setImage({
-        ...image,
-        [event.target.name] : event.target.files
-      })
+    const uploadImage = async (event) => {
+        const files = event.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'petnameapp')
+            setLoading(true)
+    
+            const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            {
+                method:'POST',
+                body:data
+            } )
+            const file = await res.json()
+        
+            console.log(file)
+        
+            setImage(file.secure_url)
+            setLoading(false)
     }
 
     const sendPetData = async (event) => {
@@ -86,6 +99,8 @@ const PetInfo = () => {
             
             
             }
+            
+ 
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/pet/create",
@@ -96,25 +111,26 @@ const PetInfo = () => {
             }
           )
 
+            uploadImage()
 
           //NO ESTOY SEGURO SI SE AÑADE AQUI, PREGUNTAR, NO ENVIA AL FETCH EL FILE
-            const files = event.target.files
-            const data = new FormData()
-            data.append('file', files[0])
-            data.append('upload_preset', 'petnameapp')
-            setLoading(true)
+            // const files = event.target.files
+            // const data = new FormData()
+            // data.append('file', files[0])
+            // data.append('upload_preset', 'petnameapp')
+            // setLoading(true)
     
-            const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
-            {
-                method:'POST',
-                body:data
-            } )
-            const file = await res.file()
+            // const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            // {
+            //     method:'POST',
+            //     body:data
+            // } )
+            // const file = await res.json()
         
-            console.log(file)
+            // console.log(file)
         
-            setImage(file.secure_url)
-            setLoading(false)
+            // setImage(file.secure_url)
+            // setLoading(false)
     }
 
 

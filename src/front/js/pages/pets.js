@@ -86,20 +86,20 @@ export const Detail = () => {
                         <div className="container d-flex justify-content-centen align-items-center">
                             <div className="row">
 
-                            {pets.map ( pets => (
+                            {pets.map ( pet => (
                             <div className="pet-info-container py-4">
                                 <PetDetails 
-                                    key= {pets.id}
-                                    title= {pets.name}
+                                    key= {pet.id}
+                                    title= {pet.name}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
-                                    age= {getAge(pets.date_of_birth)}
-                                    // birth={dateNoTime(pets.date_of_birth)}
-                                   
-                                    breed={pets.breed}
-                                    colour= {pets.colour}
-                                    gender= {pets.gender}
-                                    id= {pets.id}
-                                    caracteristics = {pets.caracteristics}
+                                    age= {getAge(pet.date_of_birth)}
+                                    // birth={dateNoTime(pet.date_of_birth)}
+                                    species = {pet.species}
+                                    breed={pet.breed}
+                                    colour= {pet.colour}
+                                    gender= {pet.gender}
+                                    id= {pet.id}
+                                    caracteristics = {pet.caracteristics}
                                     // img={pets.img}
                                     //preguntar cómo poner imagen cuando es null
                                     // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
