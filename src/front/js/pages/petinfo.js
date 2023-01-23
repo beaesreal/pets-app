@@ -1,10 +1,12 @@
 import { object } from 'prop-types';
-import React, {useContext, useState, Fragment} from 'react'
+import React, {useContext, useState, Fragment, useEffect} from 'react'
+import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
 const PetInfo = () => {
     
     const {store, actions} = useContext(Context)
+    const navigate = useNavigate();
 
     const [petinfo, setPetinfo] = useState({
         petname:'',
@@ -24,10 +26,13 @@ const PetInfo = () => {
         adress:''
     })
 
-    const [loading, setLoading] = useState(false)
-    const [image, setImage] = useState("")
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
 
+        if (!userToken) {navigate("/login")}
 
+    }, [navigate])
 
     const handleInputChange= (event) => {
         // console.log(event.target.value)
@@ -106,7 +111,12 @@ const PetInfo = () => {
             process.env.BACKEND_URL + "/pet/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              mode: 'cors',
+			credentials: 'omit',
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`
+                },
               body: JSON.stringify(jsonBody),
             }
           )

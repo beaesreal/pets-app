@@ -156,34 +156,46 @@ def handle_delete_user():
     return jsonify(response_body), 200
 
 @app.route('/pet/create', methods=['POST'])
+@jwt_required()
 def handle_create_pet():
     body = request.get_json()
     print(body)
 
-    mascot = Mascot(
-        # puede faltar id y user id
-        name = body['name'],
-        date_of_birth = body['date_of_birth'],
-        species = body['species'],
-        gender = body['gender'],
-        breed = body['breed'],
-        colour = body['colour'],
-        caracteristics = body['caracteristics'],
-        img_1 = body['img_1'],
-        img_2 = body['img_2'],
-        img_3 = body['img_3'],
-        img_mimetype = body['img_mimeType'],
-    )
-
-    db.session.add(mascot)
-    db.session.commit()
+    current_user_id = get_jwt_identity()
     
-    veterinarian = Veterinarian(
-        clinic_name = body['clinic_name'],
-        adress = body['adress']
-    )
-    db.session.add(veterinarian)
-    db.session.commit()
+    veterinarian = Veterinarian.query.filter_by(
+        clinic_name = body['clinic_name'] 
+    ).first()
+    if not veterinarian:
+        veterinarian = Veterinarian(
+            clinic_name = body['clinic_name'],
+            adress = body['adress']
+        )
+        db.session.add(veterinarian)
+        db.session.commit()
+
+    else: 
+        mascot = Mascot(
+            # puede faltar id y user id
+            user_id = current_user_id,
+            veterinarian_id = veterinarian.id,
+            name = body['name'],
+            date_of_birth = body['date_of_birth'],
+            species = body['species'],
+            gender = body['gender'],
+            breed = body['breed'],
+            colour = body['colour'],
+            caracteristics = body['caracteristics'],
+            img_1 = body['img_1'],
+            img_2 = body['img_2'],
+            img_3 = body['img_3'],
+            img_mimetype = body['img_mimeType'],
+        )
+
+        db.session.add(mascot)
+        db.session.commit()
+    
+    
 
     return jsonify({"message": "Mascota creada con exito" }), 200
 
