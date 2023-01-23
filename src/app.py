@@ -335,11 +335,10 @@ def handle_all_diets():
     body = request.get_json()
     print(body)
 
-    diet = Diet(
-        mascot_name = body['mascot_name'],      
+    diet = Diet(     
         foodname = body['foodname'],
         quantity = body['quantity'],
-        end = body['end'],
+        times_a_day = body['times_a_day'],
     )
 
     db.session.add(diet)
@@ -347,6 +346,59 @@ def handle_all_diets():
 
     response_body = {
         "msg": "Diet added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+# Add pet MEDICINE
+
+@app.route('/medicine/create', methods=['POST'])
+#@jwt_required()
+def handle_all_medicine():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    medicine = Medicine(     
+        name = body['name'],
+        quantity = body['quantity'],
+        times_a_day = body['times_a_day'],
+    )
+
+    db.session.add(medicine)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Treatment added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+# Add pet VET APPOINTMENT
+
+@app.route('/appointment/create', methods=['POST'])
+#@jwt_required()
+def handle_all_appointments():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    appointment = Appointment(     
+        date = body['date'],
+        veterinarian = body['veterinarian'],
+    )
+
+    db.session.add(appointment)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Appointment added correctly!"
         }
 
     return jsonify(response_body), 200

@@ -40,14 +40,111 @@ export const PetCare = () => {
         times_a_day:'',
     })
 
-    const handleInputChange= (event) => {
+    const [medicineInfo, setMedicineInfo] = useState({
+        name:'',
+        quantity:'',
+        times_a_day:'',
+    })
+
+    const [appointmentInfo, setAppointmentInfo] = useState({
+        date:'',
+        veterinarian:'',
+    })
+
+    const handleInputDiet= (event) => {
         // console.log(event.target.value)
         setDietInfo({
             ...dietInfo, 
             [event.target.name] : event.target.value
         })
     }
+
+    const handleInputMedicine= (event) => {
+        // console.log(event.target.value)
+        setMedicineInfo({
+            ...medicineInfo, 
+            [event.target.name] : event.target.value
+        })
+    }
     
+    const handleInputAppointment= (event) => {
+        // console.log(event.target.value)
+        setAppointmentInfo({
+            ...appointmentInfo, 
+            [event.target.name] : event.target.value
+        })
+    }
+
+
+    // SEND DATA
+
+    const sendDietData = async (event) => {
+        event.preventDefault()
+        
+        console.log(dietInfo.foodname + " " + dietInfo.quantity + " " + dietInfo.times_a_day)
+
+        let jsonBody;
+
+        jsonBody = {
+            'foodname': dietInfo.foodname,
+            'quantity': dietInfo.quantity, 
+            'times_a_day': dietInfo.times_a_day,        
+            }
+
+        const resp = await fetch(
+            process.env.BACKEND_URL + "/diet/create",
+            {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(jsonBody),
+            }
+          )
+
+    }
+
+
+    const sendMedicineData = async (event) => {
+        event.preventDefault()
+        
+        let jsonBody;
+
+        jsonBody = {
+            'name': medicineInfo.foodname,
+            'quantity': medicineInfo.quantity, 
+            'times_a_day': medicineInfo.times_a_day,        
+            }
+
+        const resp = await fetch(
+            process.env.BACKEND_URL + "/medicine/create",
+            {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(jsonBody),
+            }
+          )
+
+    }
+
+    const sendAppointmentData = async (event) => {
+        event.preventDefault()
+        
+        let jsonBody;
+
+        jsonBody = {
+            'date': appointmentInfo.date,
+            'veterinarian': appointmentInfo.veterinarian,      
+            }
+
+        const resp = await fetch(
+            process.env.BACKEND_URL + "/appointment/create",
+            {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(jsonBody),
+            }
+          )
+
+    }
 
     
 
@@ -60,78 +157,86 @@ export const PetCare = () => {
                 </div>
 
                 <div className="col-11 text-center justify-content-center py-5 px-5">
-                    <div className="my-pets">
+                    <div className="diet">
                     <h1 className="pb-5">Pet Care</h1>
-                    <h2>Diet</h2>
+                    <h2 className="py-3">Diet</h2>
+                    <form onSubmit={sendDietData}>
                         <div className="row">
-                            
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='foodname' 
-                                        placeholder='Food Name' 
-                                        onChange={handleInputChange}/>
                         
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='quantity' 
-                                        placeholder='Quantity' 
-                                        onChange={handleInputChange}/>
+                        <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='foodname' 
+                            placeholder='Food Name' 
+                            onChange={handleInputDiet}/>
                         
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='times_a_day' 
-                                        placeholder='Times a day' 
-                                        onChange={handleInputChange}/>
-
-
-                        </div>
+                        <input  
+                            className='form-control col-sm mx-2' 
+                            type='text' name='quantity' 
+                            placeholder='Quantity (grs)' 
+                            onChange={handleInputDiet}/>
+                        
+                        <input  
+                            className='form-control col-sm mx-2' 
+                            type='text' name='times_a_day' 
+                            placeholder='Times a day' 
+                            onChange={handleInputDiet}/>
+                        
+                        <button className='btn btn-primary col-sm mx-2' type='submit'>Save diet</button>
+                        
+                        </div></form>
                         <hr className="mt-5"></hr>
                     </div>
-                    <div className="appointments">
-                    <h2 className="py-5">Medicine</h2>
+                    <div className="medicine">
+                    <h2 className="py-3">Treatments</h2>
+
+                        <form onSubmit={sendMedicineData}>
                         <div className="row">
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='foodname' 
-                                        placeholder='Food Name' 
-                                        onChange={handleInputChange}/>
+                        <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='name' 
+                            placeholder='Medicine name' 
+                            onChange={handleInputMedicine}/>
                         
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='quantity' 
-                                        placeholder='Quantity' 
-                                        onChange={handleInputChange}/>
+                        <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='quantity' 
+                            placeholder='Quantity (ml)' 
+                            onChange={handleInputMedicine}/>
                         
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='times_a_day' 
-                                        placeholder='Times a day' 
-                                        onChange={handleInputChange}/>
+                        <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='times_a_day' 
+                            placeholder='Times a day' 
+                            onChange={handleInputMedicine}/>
+
+                    <button className='btn btn-primary col-sm mx-2' type='submit'>Save medicine</button>
+
                         </div>
+                        </form>
 
                     </div>
                     <hr className="mt-5"></hr>
-                    <div className="diets">
-                    <h2 className="py-5">Veterinary Appointments</h2>
-                    <div className="row">
-                    <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='foodname' 
-                                        placeholder='Food Name' 
-                                        onChange={handleInputChange}/>
+                    <div className="veterinary-appointments">
+                    <h2 className="py-3">Veterinary Appointments</h2>
+
+                    <form onSubmit={sendAppointmentData}>
+                        <div className="row">
+                        <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='date' 
+                            placeholder='Date' 
+                            onChange={handleInputAppointment}/>
+                            
+                            <input 
+                            className='form-control col-sm mx-2' 
+                            type='text' name='veterinarian' 
+                            placeholder='Veterinarian' 
+                            onChange={handleInputAppointment}/>
+
+                    <button className='btn btn-primary col-sm mx-2' type='submit'>Save appointment</button>
                         
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='quantity' 
-                                        placeholder='Quantity' 
-                                        onChange={handleInputChange}/>
-                        
-                        <input style={{marginTop:'2%'}} 
-                                        className='form-control col-sm mx-2' 
-                                        type='text' name='times_a_day' 
-                                        placeholder='Times a day' 
-                                        onChange={handleInputChange}/>
-                    </div>
+                        </div>
+                    </form>
 
                     </div>
                 </div>
