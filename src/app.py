@@ -323,6 +323,35 @@ def handle_delete_event():
     return jsonify(response_body), 200
 
 
+# Add pet DIET
+
+@app.route('/diet/create', methods=['POST'])
+#@jwt_required()
+def handle_all_diets():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    diet = Diet(
+        mascot_name = body['mascot_name'],      
+        foodname = body['foodname'],
+        quantity = body['quantity'],
+        end = body['end'],
+    )
+
+    db.session.add(diet)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Diet added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+
 
 # ------------------- LAST LINES -------------------->>
 

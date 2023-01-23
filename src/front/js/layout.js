@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Profile } from "./pages/profile";
+import { PetCare } from "./pages/petCare";
 import { Settings } from "./pages/settings";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
@@ -41,6 +42,7 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<PetCare />} path="/petcare" />
                         <Route element={<Settings />} path="/settings" />
                         <Route element={<Detail />} path="/pets" />
                         <Route element={<PetInfo/>} path="/create"/>
