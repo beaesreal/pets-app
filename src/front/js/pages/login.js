@@ -5,6 +5,7 @@ import PetImage from "../../img/Pet-image.png";
 export const Login = () => {
     const { actions } = useContext(Context);
     const [togglePassword, settogglePassword] = useState("password");
+    const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [inputData, setinputData] = useState({
         email: '',
         pass: '',
@@ -20,8 +21,12 @@ export const Login = () => {
     const showPassword = () => {
         if (togglePassword === "password"){
             settogglePassword("text");
+            setEyeIcon("fas fa-eye-slash");
         }
-        else {settogglePassword("password")}
+        else {
+            settogglePassword("password");
+            setEyeIcon("fas fa-eye");
+        }
     }
 
     const keyLogin = (e) => {
@@ -54,18 +59,22 @@ export const Login = () => {
                             style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
                             required/>
                     <br></br>
-                        <input 
-                            id="pass" 
-                            className="form-control"
-                            type={togglePassword} 
-                            name="pass" 
-                            placeholder="Password" 
-                            onChange={handleInputChange}
-                            style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
-                            onKeyUp={() => {keyLogin}}
-                            required/>
-                        <i className="glyphicon glyphicon-eye-open form-control-feedback has-feedback-right" id="togglePassword" style={{}} onClick={showPassword}></i>
-                        <i className="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
+                        <div className="input-group d-flex justify-content-center">
+                            <input 
+                                id="pass" 
+                                className="form-control"
+                                type={togglePassword} 
+                                name="pass" 
+                                placeholder="Password" 
+                                onChange={handleInputChange}
+                                style={{textAlign: "center", maxWidth: "20rem"}} 
+                                onKeyUp={() => {keyLogin}}
+                                required/>
+                            
+                            <span className="input-group-text bg-transparent" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
+                                <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                            </span>
+                        </div>
                     <br></br>
                         <a 
                             id="loginError" 
