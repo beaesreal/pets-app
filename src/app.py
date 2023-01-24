@@ -306,18 +306,25 @@ def handle_event():
 
 # Delete events
 
-@app.route('/delete_event', methods=['DELETE'])
+@app.route('/delete_event/<int:id>', methods=['DELETE'])
 #@jwt_required()
-def handle_delete_event():
+def delete_event(id):
 
     #current_user_id = get_jwt_identity()
     #user = User.query.get(current_user_id)
-        
-    Event.query.filter_by(title=event.id).delete()
-    db.session.commit()
 
+    event_delete = Event.query.get(id)
+
+    if not delete_event:
+        response_body = {
+            "msg" : "This event does not exist, can't be deleted."
+        }
+        return jsonify(response_body), 200
+        
+    db.session.delete(event_delete)
+    db.session.commit()
     response_body = {
-        "msg": "Event deleted successfully!",
+        "msg" : "Event deleted correctly."
     }
 
     return jsonify(response_body), 200
