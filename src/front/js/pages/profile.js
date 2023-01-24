@@ -24,6 +24,8 @@ export const Profile = () => {
     // Show pet info on Cards
     const [pets, setPets] = useState ([])
     const body = document.body;
+
+    // Dark mode
     const theme = localStorage.getItem("theme")
     useEffect (() => {
         if (theme == "dark"){

@@ -38,14 +38,6 @@ export const Calendar = () => {
             
         });
 
-        setEvents({
-            start: startStorage,
-            end: endStorage,
-            title: titleStorage
-            
-        })
-
-
         
         //element.find('.fc-event-title').append(" " + event.title);
 
@@ -61,7 +53,7 @@ export const Calendar = () => {
 
     useEffect (() => {
 
-        const fetchData = async (title, start, end) => {
+        const fetchData = async () => {
             
             const result = await fetch (process.env.BACKEND_URL + "/events",
             {
@@ -72,8 +64,16 @@ export const Calendar = () => {
                 body: null
                 })
             const jsonResult = await result.json()
+            console.log(jsonResult)
 
-            setEvents(jsonResult)
+            let calendarApi = calendarRef.current.getApi();
+            jsonResult.map((item)=> {
+                calendarApi.addEvent({
+                    start: moment(item.start).toDate(),
+                    end: moment(item.end).toDate(),
+                    title: item.title,
+                });
+            })
         }
 
         fetchData();
@@ -132,6 +132,13 @@ export const Calendar = () => {
 /*
 
 CODE NOT USEFUL
+
+setEvents({
+            start: startStorage,
+            end: endStorage,
+            title: titleStorage
+            
+        })
 
     useEffect (() => {
 

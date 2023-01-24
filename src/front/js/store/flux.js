@@ -173,7 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleDataSet: async (title, start, end) => {
 				try{
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/events?start="+start+"&end="+end+"&title="+title)
+					const resp = await fetch(process.env.BACKEND_URL + "/events")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves

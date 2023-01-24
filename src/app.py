@@ -391,7 +391,7 @@ def handle_all_appointments():
 
     appointment = Appointment(     
         date = body['date'],
-        veterinarian = body['veterinarian'],
+        #veterinarian = body['veterinarian'],
     )
 
     db.session.add(appointment)

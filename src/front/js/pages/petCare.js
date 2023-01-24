@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-// import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
-// import Ellipse from "../../img/Ellipse.png";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
 
 import { Context } from "../store/appContext";
-
 import { Sidebar } from "../component/sidebar";
-import PetCard from "../component/petCard";
-
 import DarkMode from "../component/darkMode";
 
 
@@ -21,7 +16,7 @@ export const PetCare = () => {
         setDate(date);
     };
 
-    // Show pet info on Cards
+    // Dark mode
     const body = document.body;
     const theme = localStorage.getItem("theme")
     useEffect (() => {
@@ -32,23 +27,14 @@ export const PetCare = () => {
         }
     }, [])
 
+
+
     // DIET
 
     const [dietInfo, setDietInfo] = useState({
         foodname:'',
         quantity:'',
         times_a_day:'',
-    })
-
-    const [medicineInfo, setMedicineInfo] = useState({
-        name:'',
-        quantity:'',
-        times_a_day:'',
-    })
-
-    const [appointmentInfo, setAppointmentInfo] = useState({
-        date:'',
-        veterinarian:'',
     })
 
     const handleInputDiet= (event) => {
@@ -58,25 +44,6 @@ export const PetCare = () => {
             [event.target.name] : event.target.value
         })
     }
-
-    const handleInputMedicine= (event) => {
-        // console.log(event.target.value)
-        setMedicineInfo({
-            ...medicineInfo, 
-            [event.target.name] : event.target.value
-        })
-    }
-    
-    const handleInputAppointment= (event) => {
-        // console.log(event.target.value)
-        setAppointmentInfo({
-            ...appointmentInfo, 
-            [event.target.name] : event.target.value
-        })
-    }
-
-
-    // SEND DATA
 
     const sendDietData = async (event) => {
         event.preventDefault()
@@ -103,13 +70,29 @@ export const PetCare = () => {
     }
 
 
+    // TREATMENT
+
+    const [medicineInfo, setMedicineInfo] = useState({
+        name:'',
+        quantity:'',
+        times_a_day:'',
+    })
+
+    const handleInputMedicine= (event) => {
+        // console.log(event.target.value)
+        setMedicineInfo({
+            ...medicineInfo, 
+            [event.target.name] : event.target.value
+        })
+    }
+
     const sendMedicineData = async (event) => {
         event.preventDefault()
         
         let jsonBody;
 
         jsonBody = {
-            'name': medicineInfo.foodname,
+            'name': medicineInfo.name,
             'quantity': medicineInfo.quantity, 
             'times_a_day': medicineInfo.times_a_day,        
             }
@@ -125,6 +108,21 @@ export const PetCare = () => {
 
     }
 
+
+    // VET APPOINTMENT
+
+    const [appointmentInfo, setAppointmentInfo] = useState({
+        date:'',
+    })
+    
+    const handleInputAppointment= (event) => {
+        // console.log(event.target.value)
+        setAppointmentInfo({
+            ...appointmentInfo, 
+            [event.target.name] : event.target.value
+        })
+    }
+
     const sendAppointmentData = async (event) => {
         event.preventDefault()
         
@@ -132,7 +130,6 @@ export const PetCare = () => {
 
         jsonBody = {
             'date': appointmentInfo.date,
-            'veterinarian': appointmentInfo.veterinarian,      
             }
 
         const resp = await fetch(
@@ -157,11 +154,11 @@ export const PetCare = () => {
                 </div>
 
                 <div className="col-11 text-center justify-content-center py-5 px-5">
-                    <div className="diet">
+                    <div className="diet py-4">
                     <h1 className="pb-5">Pet Care</h1>
-                    <h2 className="py-3">Diet</h2>
+                    <h2 className="py-4">Diet</h2>
                     <form onSubmit={sendDietData}>
-                        <div className="row">
+                        <div className="row px-4">
                         
                         <input 
                             className='form-control col-sm mx-2' 
@@ -186,11 +183,13 @@ export const PetCare = () => {
                         </div></form>
                         <hr className="mt-5"></hr>
                     </div>
-                    <div className="medicine">
-                    <h2 className="py-3">Treatments</h2>
+
+
+                    <div className="medicine py-4">
+                    <h2 className="py-4">Treatments</h2>
 
                         <form onSubmit={sendMedicineData}>
-                        <div className="row">
+                        <div className="row px-4">
                         <input 
                             className='form-control col-sm mx-2' 
                             type='text' name='name' 
@@ -209,29 +208,32 @@ export const PetCare = () => {
                             placeholder='Times a day' 
                             onChange={handleInputMedicine}/>
 
-                    <button className='btn btn-primary col-sm mx-2' type='submit'>Save medicine</button>
+                    <button className='btn btn-primary col-sm mx-2' type='submit'>Save treatment</button>
 
                         </div>
                         </form>
 
                     </div>
                     <hr className="mt-5"></hr>
-                    <div className="veterinary-appointments">
-                    <h2 className="py-3">Veterinary Appointments</h2>
+
+
+                    <div className="veterinary-appointments py-4">
+                    <h2 className="py-4">Veterinary Appointments</h2>
 
                     <form onSubmit={sendAppointmentData}>
-                        <div className="row">
+                        <div className="row px-4">
                         <input 
                             className='form-control col-sm mx-2' 
-                            type='text' name='date' 
+                            type='date' name='date' 
                             placeholder='Date' 
                             onChange={handleInputAppointment}/>
-                            
-                            <input 
+                        
+                        <input 
                             className='form-control col-sm mx-2' 
-                            type='text' name='veterinarian' 
-                            placeholder='Veterinarian' 
+                            type='time' name='time' 
+                            placeholder='Time' 
                             onChange={handleInputAppointment}/>
+
 
                     <button className='btn btn-primary col-sm mx-2' type='submit'>Save appointment</button>
                         
