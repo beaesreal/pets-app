@@ -156,34 +156,46 @@ def handle_delete_user():
     return jsonify(response_body), 200
 
 @app.route('/pet/create', methods=['POST'])
+@jwt_required()
 def handle_create_pet():
     body = request.get_json()
     print(body)
 
-    mascot = Mascot(
-        # puede faltar id y user id
-        name = body['name'],
-        date_of_birth = body['date_of_birth'],
-        species = body['species'],
-        gender = body['gender'],
-        breed = body['breed'],
-        colour = body['colour'],
-        caracteristics = body['caracteristics'],
-        img_1 = body['img_1'],
-        img_2 = body['img_2'],
-        img_3 = body['img_3'],
-        img_mimetype = body['img_mimeType'],
-    )
-
-    db.session.add(mascot)
-    db.session.commit()
+    current_user_id = get_jwt_identity()
     
-    veterinarian = Veterinarian(
-        clinic_name = body['clinic_name'],
-        adress = body['adress']
-    )
-    db.session.add(veterinarian)
-    db.session.commit()
+    veterinarian = Veterinarian.query.filter_by(
+        clinic_name = body['clinic_name'] 
+    ).first()
+    if not veterinarian:
+        veterinarian = Veterinarian(
+            clinic_name = body['clinic_name'],
+            adress = body['adress']
+        )
+        db.session.add(veterinarian)
+        db.session.commit()
+
+    else: 
+        mascot = Mascot(
+            # puede faltar id y user id
+            user_id = current_user_id,
+            veterinarian_id = veterinarian.id,
+            name = body['name'],
+            date_of_birth = body['date_of_birth'],
+            species = body['species'],
+            gender = body['gender'],
+            breed = body['breed'],
+            colour = body['colour'],
+            caracteristics = body['caracteristics'],
+            img_1 = body['img_1'],
+            img_2 = body['img_2'],
+            img_3 = body['img_3'],
+            img_mimetype = body['img_mimeType'],
+        )
+
+        db.session.add(mascot)
+        db.session.commit()
+    
+    
 
     return jsonify({"message": "Mascota creada con exito" }), 200
 
@@ -193,25 +205,32 @@ def handle_create_pet():
 # Error --> TypeError: 'Gender' object is not iterable
 
 @app.route('/pet', methods=['GET'])
+@jwt_required()
 def handle_pet():
 
-    if request.method == 'GET':
-        all_mascot = Mascot.query.all()
-        all_mascot =list(map(lambda x: x.serialize(), all_mascot))
-        response_body = all_mascot
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = Mascot.query.get(current_user_id)
+
+    all_mascot = Mascot.query.filter_by(user_id=user.id)
+    all_mascot =list(map(lambda x: x.serialize(), all_mascot))
+    response_body = all_mascot
+    return jsonify(response_body), 200
 
 
 # Get User info
 
 @app.route('/user', methods=['GET'])
+@jwt_required()
 def handle_user():
 
-    if request.method == 'GET':
-        all_user = User.query.all()
-        all_user =list(map(lambda x: x.serialize(), all_user))
-        response_body = all_user
-        return jsonify(response_body), 200
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    all_user = User.query.filter_by(id=user.id)
+    all_user =list(map(lambda x: x.serialize(), all_user))
+    print(all_user)
+    response_body = all_user
+    return jsonify(response_body), 200
 
 
 # Get Vet info
@@ -228,36 +247,32 @@ def handle_veterinarian():
 
 # Update USER Info
 
-@app.route('/user/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
+@app.route('/user', methods=['PUT'])
+@jwt_required()
+def update_user():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
     body = request.get_json()
     print(body)
 
-    if re.fullmatch(regex, body['email']):
-        print("Valid email")
-    
-        user = User(
-            username = body['username'],
-            email = body['email'],
-            password = body['password'],
-            is_active = True
-        )
+    user.username = body['username']
+    user.password = body['password']
+    user.email = body['email']
+    user.is_active = True
 
-        db.session.merge(user)
-        db.session.commit()
+    db.session.commit()
 
-        response_body = {
-            "msg": "User updated correctly!"
-            }
+    response_body = {
+        "msg": "User updated correctly!"
+        }
 
-        return jsonify(response_body), 200
+    return jsonify(response_body), 200
 
-    else:
-        response_body = {
-            "msg": "Invalid email!"
-            }
 
-        return jsonify(response_body), 400
+
+# Add event to the calendar
 
 
 

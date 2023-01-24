@@ -34,6 +34,7 @@ class Gender(enum.Enum):
 class Mascot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    veterinarian_id = db.Column(db.Integer, db.ForeignKey('veterinarian.id'))
     name = db.Column(db.String(20), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
     species = db.Column(db.Enum(Species))
@@ -46,6 +47,8 @@ class Mascot(db.Model):
     img_3 = db.Column(db.String(120))
     img_mimetype = db.Column(db.String(10))
     rel_user = db.relationship(User)
+
+
     
 
     def serialize(self):
@@ -59,6 +62,8 @@ class Mascot(db.Model):
             "img": self.img_mimetype,
             "species": self.species.value,
             "gender": self.gender.value,
+            "breed": self.breed,
+            "caracteristics" : self.caracteristics
             # do not serialize the password, its a security breach
         }
 

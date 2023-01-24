@@ -23,7 +23,8 @@ export default function ({ isOpen, onClose, onEventAdded }) {
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} action="/events" method="POST">
+
                 <div>
                     <label className="p-2"><h5>Appointment</h5></label>
                 </div>

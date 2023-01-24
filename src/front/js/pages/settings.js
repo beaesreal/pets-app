@@ -6,6 +6,8 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import DarkMode from "../component/darkMode";
+import { Alert_Popup } from "../component/alert_popup";
+import {AlertDeleteUser} from "../component/alertDeleteUser";
 
 
 export const Settings = () => {
@@ -22,7 +24,14 @@ export const Settings = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/user")
+            const result = await fetch (process.env.BACKEND_URL + "/user",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setUsers(jsonResult)
@@ -133,8 +142,7 @@ export const Settings = () => {
                                 <hr className="my-3"></hr>
                             </div>
                             <div className="px-5">
-                            <button className="btn btn-danger px-3" onClick={actions.handleDeleteUser}><FaTrash className="mx-2 my-2" />Click here to delete your account</button>
-
+                                <AlertDeleteUser />
                             </div>
                             
                         </div>

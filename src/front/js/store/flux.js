@@ -184,8 +184,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					currentItem: body.result,
 				});
 			},
+
+			getPic: async () => {
+				try {
+					const response = await fetch('https://dog.ceo/api/breeds/image/random')
+					const {message} = await response.json();
+					return message;
+				}
+
+				catch(error){
+					console.log("Error loading message from backend", error)
+				}
+
+			},
+
+			getFact: async () => {
+				try {
+					const response = await fetch('https://dogapi.dog/api/v2/facts')
+					const data = await response.json();
+					const fact = data['data'][0]['attributes'].body
+					return fact;
+				}
+
+				catch(error){
+					console.log("Error loading message from backend", error)
+				}
+
+			}
 		}
-	};
+	}
 };
 
 export default getState;
