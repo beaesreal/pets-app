@@ -8,6 +8,9 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import DarkMode from "../component/darkMode";
 
+import PetSelector from "../component/petSelector";
+import { options } from "@fullcalendar/core/preact";
+
 
 export const PetCare = () => {
 	const { store, actions } = useContext(Context);
@@ -32,6 +35,7 @@ export const PetCare = () => {
     // DIET
 
     const [dietInfo, setDietInfo] = useState({
+        mascot_id: '',
         foodname:'',
         quantity:'',
         times_a_day:'',
@@ -39,6 +43,7 @@ export const PetCare = () => {
 
     const handleInputDiet= (event) => {
         // console.log(event.target.value)
+        console.log(pets)
         setDietInfo({
             ...dietInfo, 
             [event.target.name] : event.target.value
@@ -48,11 +53,12 @@ export const PetCare = () => {
     const sendDietData = async (event) => {
         event.preventDefault()
         
-        console.log(dietInfo.foodname + " " + dietInfo.quantity + " " + dietInfo.times_a_day)
+        console.log(dietInfo.mascot_id + " " + dietInfo.foodname + " " + dietInfo.quantity + " " + dietInfo.times_a_day)
 
         let jsonBody;
 
         jsonBody = {
+            'mascot_id': dietInfo.mascot_id,
             'foodname': dietInfo.foodname,
             'quantity': dietInfo.quantity, 
             'times_a_day': dietInfo.times_a_day,        
@@ -73,6 +79,7 @@ export const PetCare = () => {
     // TREATMENT
 
     const [medicineInfo, setMedicineInfo] = useState({
+        mascot_id: '',
         name:'',
         quantity:'',
         times_a_day:'',
@@ -143,6 +150,30 @@ export const PetCare = () => {
 
     }
 
+    // Show pet Names
+
+    const [pets, setPets] = useState ([])
+
+    useEffect (() => {
+        const fetchData = async () => {
+            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
+            const jsonResult = await result.json()
+
+            setPets(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
+ 
+
     
 
 	return (
@@ -159,6 +190,17 @@ export const PetCare = () => {
                     <h2 className="py-4">Diet</h2>
                     <form onSubmit={sendDietData}>
                         <div className="row px-4">
+                        <select class="selectpicker col-sm mx-2"
+                            onChange={handleInputDiet} name='mascot_id'>
+                            {pets.map (pet =>
+                            
+                                <PetSelector
+                                id={pet.id}
+                                name={pet.name}
+                                
+                                 />
+                            )}
+                        </select>
                         
                         <input 
                             className='form-control col-sm mx-2' 

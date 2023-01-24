@@ -192,13 +192,16 @@ def handle_create_pet():
 # Get Pet info
 
 @app.route('/pet', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def handle_pet():
 
-    current_user_id = get_jwt_identity()
-    user = Mascot.query.get(current_user_id)
+    #current_user_id = get_jwt_identity()
+    #user = Mascot.query.get(current_user_id)
+    #all_mascot = Mascot.query.filter_by(user_id=user.id)
 
-    all_mascot = Mascot.query.filter_by(user_id=user.id)
+    all_mascot = Mascot.query.all()
+
+    
     all_mascot =list(map(lambda x: x.serialize(), all_mascot))
     response_body = all_mascot
     return jsonify(response_body), 200
@@ -356,6 +359,24 @@ def handle_all_diets():
         }
 
     return jsonify(response_body), 200
+
+# Show pet DIET
+
+@app.route('/diet', methods=['GET'])
+#@jwt_required()
+def handle_diet():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_events = Event.query.filter_by(id=user.id)
+    all_diets = Diet.query.all()
+    
+    all_diets =list(map(lambda x: x.serialize(), all_diets))
+    print(all_diets)
+    response_body = all_diets
+    return jsonify(response_body), 200
+
+
 
 # Add pet MEDICINE
 
