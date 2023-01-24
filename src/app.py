@@ -13,7 +13,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from sqlalchemy import or_
 from api.utils import APIException, generate_sitemap
-from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinarian
+from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinarian, Event
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -106,6 +106,7 @@ def handle_signup():
             }
 
         return jsonify(response_body), 400
+
 
 # METODO PARA LOGIN Y TOKEN
 
@@ -200,18 +201,19 @@ def handle_create_pet():
     return jsonify({"message": "Mascota creada con exito" }), 200
 
 
-
-# GET Pet info
-# Error --> TypeError: 'Gender' object is not iterable
+# Get Pet info
 
 @app.route('/pet', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def handle_pet():
 
-    current_user_id = get_jwt_identity()
-    user = Mascot.query.get(current_user_id)
+    #current_user_id = get_jwt_identity()
+    #user = Mascot.query.get(current_user_id)
+    #all_mascot = Mascot.query.filter_by(user_id=user.id)
 
-    all_mascot = Mascot.query.filter_by(user_id=user.id)
+    all_mascot = Mascot.query.all()
+
+    
     all_mascot =list(map(lambda x: x.serialize(), all_mascot))
     response_body = all_mascot
     return jsonify(response_body), 200
@@ -271,9 +273,178 @@ def update_user():
     return jsonify(response_body), 200
 
 
+# Add event from the calendar
 
-# Add event to the calendar
+@app.route('/event/create', methods=['POST'])
+@jwt_required()
+def handle_all_events():
 
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    event = Event(
+        user_id = current_user_id,      
+        title = body['title'],
+        start = body['start'],
+        end = body['end'],
+    )
+
+    db.session.add(event)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Event added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+
+# Show events
+
+@app.route('/events', methods=['GET'])
+#@jwt_required()
+def handle_event():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_events = Event.query.filter_by(id=user.id)
+    all_events = Event.query.all()
+    
+    all_events =list(map(lambda x: x.serialize(), all_events))
+    print(all_events)
+    response_body = all_events
+    return jsonify(response_body), 200
+
+
+# Delete events
+
+@app.route('/delete_event/<int:id>', methods=['DELETE'])
+#@jwt_required()
+def delete_event(id):
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    event_delete = Event.query.get(id)
+
+    if not delete_event:
+        response_body = {
+            "msg" : "This event does not exist, can't be deleted."
+        }
+        return jsonify(response_body), 200
+        
+    db.session.delete(event_delete)
+    db.session.commit()
+    response_body = {
+        "msg" : "Event deleted correctly."
+    }
+
+    return jsonify(response_body), 200
+
+
+# Add pet DIET
+
+@app.route('/diet/create', methods=['POST'])
+#@jwt_required()
+def handle_all_diets():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    diet = Diet(
+        mascot_id = body['mascot_id'],     
+        foodname = body['foodname'],
+        quantity = body['quantity'],
+        times_a_day = body['times_a_day'],
+    )
+
+    db.session.add(diet)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Diet added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+# Show pet DIET
+
+@app.route('/diet', methods=['GET'])
+#@jwt_required()
+def handle_diet():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_events = Event.query.filter_by(id=user.id)
+    all_diets = Diet.query.all()
+    
+    all_diets =list(map(lambda x: x.serialize(), all_diets))
+    print(all_diets)
+    response_body = all_diets
+    return jsonify(response_body), 200
+
+
+
+# Add pet MEDICINE
+
+@app.route('/medicine/create', methods=['POST'])
+#@jwt_required()
+def handle_all_medicine():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    medicine = Medicine(
+        mascot_id = body['mascot_id'],     
+        name = body['name'],
+        quantity = body['quantity'],
+        times_a_day = body['times_a_day'],
+    )
+
+    db.session.add(medicine)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Treatment added correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+# Add pet VET APPOINTMENT
+
+@app.route('/appointment/create', methods=['POST'])
+#@jwt_required()
+def handle_all_appointments():
+
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+
+    body = request.get_json()
+    print(body)
+
+    appointment = Appointment(
+        mascot_id = body['mascot_id'],     
+        date = body['date'],
+        #veterinarian = body['veterinarian'],
+    )
+
+    db.session.add(appointment)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Appointment added correctly!"
+        }
+
+    return jsonify(response_body), 200
 
 
 

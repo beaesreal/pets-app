@@ -129,7 +129,6 @@ class Medicine(db.Model):
     times_a_day = db.Column(db.Integer, nullable=False)
     rel_mascot = db.relationship(Mascot)
 
-    
 
     def serialize(self):
         return {
@@ -156,4 +155,21 @@ class Appointment(db.Model):
             "center_id": self.center_id,
             "date": self.date,
             # do not serialize the password, its a security breach
+        }
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(80), nullable=False)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime, nullable=False)
+    rel_user = db.relationship(User)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "start": self.start,
+            "end": self.end,
+            "title": self.title,
         }

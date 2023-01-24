@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -132,6 +134,77 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  else {
 					getActions().handleLogout();
 					location.replace('/');
+				  }
+			},
+
+			handleEventAdd: async (title, start, end) => {
+				console.log("Title: "+title, "Start: "+start, "End: "+end);
+				const response = await fetch(
+
+				process.env.BACKEND_URL+"/event/create",
+
+				  {
+					method: "POST",
+					mode: 'cors',
+					credentials: 'omit',
+					headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					body: JSON.stringify({'title': title, 'start': start, 'end': end}),
+				  }
+				)
+			  
+				if (!response.ok){
+				  console.log(response.body)
+				  const message = `An error has occured: ${response.status}`;
+				  throw new Error(message);
+				  
+				}
+			  
+				else {
+				  alert("Event added!")
+				  location.replace('/calendar')
+				}
+
+				localStorage.setItem("title", title)
+				localStorage.setItem("start", start)
+				localStorage.setItem("end", end)
+				
+			},
+
+			handleDataSet: async (title, start, end) => {
+				try{
+					// fetching data from the backend
+					const resp = await fetch(process.env.BACKEND_URL + "/events")
+					const data = await resp.json()
+					setStore({ message: data.message })
+					// don't forget to return something, that is how the async resolves
+					return title, start, end;
+				}catch(error){
+					console.log("Error loading message from backend", error)
+				}
+			},
+
+			handleDeleteEvent: async () => {
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_event",
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				
+				  else {
+					const message = `Event deleted correctly!`;
+					location.replace('/calendar');
 				  }
 			},
 

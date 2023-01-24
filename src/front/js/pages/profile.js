@@ -27,6 +27,8 @@ export const Profile = () => {
     // Show pet info on Cards
     const [pets, setPets] = useState ([])
     const body = document.body;
+
+    // Dark mode
     const theme = localStorage.getItem("theme")
     useEffect (() => {
         if (theme == "dark"){
@@ -55,6 +57,7 @@ export const Profile = () => {
 
     }, [])
 
+
     //Checks if logged-in
     useEffect (() => {
         const userToken = localStorage.getItem('jwt-token');
@@ -63,6 +66,7 @@ export const Profile = () => {
         else {navigate('/profile')}
 
     }, [navigate])
+
 
 	return (
 
