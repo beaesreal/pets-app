@@ -71,7 +71,8 @@ export const PetCare = () => {
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(jsonBody),
             }
-          )
+          ).then(alert("Diet added!"))
+        
 
     }
 
@@ -99,6 +100,7 @@ export const PetCare = () => {
         let jsonBody;
 
         jsonBody = {
+            'mascot_id': medicineInfo.mascot_id,
             'name': medicineInfo.name,
             'quantity': medicineInfo.quantity, 
             'times_a_day': medicineInfo.times_a_day,        
@@ -111,7 +113,7 @@ export const PetCare = () => {
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(jsonBody),
             }
-          )
+          ).then(alert("Treatment added!"))
 
     }
 
@@ -119,6 +121,7 @@ export const PetCare = () => {
     // VET APPOINTMENT
 
     const [appointmentInfo, setAppointmentInfo] = useState({
+        mascot_id: '',
         date:'',
     })
     
@@ -136,6 +139,7 @@ export const PetCare = () => {
         let jsonBody;
 
         jsonBody = {
+            'mascot_id': appointmentInfo.mascot_id,
             'date': appointmentInfo.date,
             }
 
@@ -146,7 +150,7 @@ export const PetCare = () => {
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(jsonBody),
             }
-          )
+          ).then(alert("Appointment added!"))
 
     }
 
@@ -232,6 +236,18 @@ export const PetCare = () => {
 
                         <form onSubmit={sendMedicineData}>
                         <div className="row px-4">
+                        <select class="selectpicker col-sm mx-2"
+                            onChange={handleInputMedicine} name='mascot_id'>
+                            {pets.map (pet =>
+                            
+                                <PetSelector
+                                id={pet.id}
+                                name={pet.name}
+                                
+                                 />
+                            )}
+                        </select>
+
                         <input 
                             className='form-control col-sm mx-2' 
                             type='text' name='name' 
@@ -264,6 +280,17 @@ export const PetCare = () => {
 
                     <form onSubmit={sendAppointmentData}>
                         <div className="row px-4">
+                        <select class="selectpicker col-sm mx-2"
+                            onChange={handleInputAppointment} name='mascot_id'>
+                            {pets.map (pet =>
+                            
+                                <PetSelector
+                                id={pet.id}
+                                name={pet.name}
+                                
+                                 />
+                            )}
+                        </select>
                         <input 
                             className='form-control col-sm mx-2' 
                             type='date' name='date' 

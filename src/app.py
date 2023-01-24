@@ -345,7 +345,8 @@ def handle_all_diets():
     body = request.get_json()
     print(body)
 
-    diet = Diet(     
+    diet = Diet(
+        mascot_id = body['mascot_id'],     
         foodname = body['foodname'],
         quantity = body['quantity'],
         times_a_day = body['times_a_day'],
@@ -390,7 +391,8 @@ def handle_all_medicine():
     body = request.get_json()
     print(body)
 
-    medicine = Medicine(     
+    medicine = Medicine(
+        mascot_id = body['mascot_id'],     
         name = body['name'],
         quantity = body['quantity'],
         times_a_day = body['times_a_day'],
@@ -417,7 +419,8 @@ def handle_all_appointments():
     body = request.get_json()
     print(body)
 
-    appointment = Appointment(     
+    appointment = Appointment(
+        mascot_id = body['mascot_id'],     
         date = body['date'],
         #veterinarian = body['veterinarian'],
     )
