@@ -31,15 +31,28 @@ export const Calendar = () => {
         //console.log(typeof moment(event.start).toDate().toString())
         calendarApi.addEvent({
 
+
             start: moment(event.start).toDate(),
             end: moment(event.end).toDate(),
             title: event.title,
             
         });
 
+        setEvents({
+            start: startStorage,
+            end: endStorage,
+            title: titleStorage
+            
+        })
+
+
+        
         //element.find('.fc-event-title').append(" " + event.title);
 
         console.log(calendarApi)
+        console.log(events)
+        //{end: 'Mon, 23 Apr 2012 18:25:43 GMT', id: 1, start: 'Mon, 23 Apr 2012 18:25:43 GMT', title: 'aaaaaa', user_id: null}
+
     };
 
     const titleStorage = localStorage.getItem("title")
@@ -47,7 +60,9 @@ export const Calendar = () => {
     const endStorage = localStorage.getItem("end")
 
     useEffect (() => {
+
         const fetchData = async (title, start, end) => {
+            
             const result = await fetch (process.env.BACKEND_URL + "/events",
             {
                 method: "GET",
@@ -64,6 +79,8 @@ export const Calendar = () => {
         fetchData();
 
     }, [])
+
+
 
 
     return (
@@ -115,6 +132,22 @@ export const Calendar = () => {
 /*
 
 CODE NOT USEFUL
+
+    useEffect (() => {
+
+        let calendarApi = calendarRef.current.getApi();
+        //console.log(typeof moment(event.start).toDate().toString())
+        calendarApi.addEvent({
+
+
+            "start": events[0]["start"],
+            "end": events[0]["end"],
+            "title": events[0]["title"],
+            
+        });
+        
+
+    }, [])
 
 
 
