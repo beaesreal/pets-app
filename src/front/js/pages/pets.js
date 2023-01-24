@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaPen } from 'react-icons/fa'
 // import Ellipse from "../../img/Ellipse.png";
 import Calendar from "react-calendar";
@@ -15,6 +15,7 @@ import PetDetails from "../component/petDetails";
 export const Detail = () => {
 	const { store, actions } = useContext(Context);
     const [ date, setDate] = useState(new Date());
+    const navigate = useNavigate();
     const onChange = date => {
         setDate(date);
     };
@@ -52,6 +53,33 @@ export const Detail = () => {
 
     }, [])
 
+
+    const getAge = (dateString) => {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+        }
+
+        return age
+    }
+    
+    // const dateNoTime = (birthday) => {
+    //     let newBirthdayDate = birthday.getFullYear()
+
+    //     return newBirthdayDate
+    // }
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
+
 	return (
 
 		<div className="container-fluid p-0">
@@ -64,27 +92,33 @@ export const Detail = () => {
                     <div className="my-pets">
                     <h1 className="pb-5">Pets</h1>
                         
-                            
+                        <div className="container d-flex justify-content-centen align-items-center">
+                            <div className="row">
 
-                            {pets.map ( pets => (
-                            <div className="pet-info-container py-4 mx-auto rounded">
+                            {pets.map ( pet => (
+                            <div className="pet-info-container py-4">
                                 <PetDetails 
-                                    key= {pets.id}
-                                    title= {pets.name}
+                                    key= {pet.id}
+                                    title= {pet.name}
                                     //preguntar cómo poner año de nacimiento únicamente o edad del animal
-                                    birth= {pets.date_of_birth}
-                                    colour= {pets.colour}
-                                    gender= {pets.gender}
-                                    id= {pets.id}
+                                    age= {getAge(pet.date_of_birth)}
+                                    // birth={dateNoTime(pet.date_of_birth)}
+                                    species = {pet.species}
+                                    breed={pet.breed}
+                                    colour= {pet.colour}
+                                    gender= {pet.gender}
+                                    id= {pet.id}
+                                    caracteristics = {pet.caracteristics}
+                                    // img={pets.img}
                                     //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
+                                    // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
                                     img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
                                 />
                             </div>))}
-
-                        
+                            </div>            
+                        </div>
                         <div className="pt-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>

@@ -1,10 +1,12 @@
 import { object } from 'prop-types';
-import React, {useContext, useState, Fragment} from 'react'
+import React, {useContext, useState, Fragment, useEffect} from 'react'
+import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
 const PetInfo = () => {
     
     const {store, actions} = useContext(Context)
+    const navigate = useNavigate();
 
     const [petinfo, setPetinfo] = useState({
         petname:'',
@@ -24,6 +26,14 @@ const PetInfo = () => {
         adress:''
     })
 
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
+
     const handleInputChange= (event) => {
         // console.log(event.target.value)
         setPetinfo({
@@ -31,7 +41,6 @@ const PetInfo = () => {
             [event.target.name] : event.target.value
         })
     }
-
 
     // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
     const handleInputImage = (event) => {
@@ -42,13 +51,33 @@ const PetInfo = () => {
     }
 
 
+
     const handleInputVeterinary = (event) => {
         setClinic({
             ...clinic,
             [event.target.name] : event.target.value
         })
     }
-
+    
+    const uploadImage = async (event) => {
+        const files = event.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'petnameapp')
+            setLoading(true)
+    
+            const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            {
+                method:'POST',
+                body:data
+            } )
+            const file = await res.json()
+        
+            console.log(file)
+        
+            setImage(file.secure_url)
+            setLoading(false)
+    }
 
     const sendPetData = async (event) => {
         event.preventDefault()
@@ -75,16 +104,43 @@ const PetInfo = () => {
             
             
             }
+            
+ 
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/pet/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              mode: 'cors',
+			credentials: 'omit',
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`
+                },
               body: JSON.stringify(jsonBody),
             }
           )
 
+            uploadImage()
+
+          //NO ESTOY SEGURO SI SE AÑADE AQUI, PREGUNTAR, NO ENVIA AL FETCH EL FILE
+            // const files = event.target.files
+            // const data = new FormData()
+            // data.append('file', files[0])
+            // data.append('upload_preset', 'petnameapp')
+            // setLoading(true)
+    
+            // const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            // {
+            //     method:'POST',
+            //     body:data
+            // } )
+            // const file = await res.json()
+        
+            // console.log(file)
+        
+            // setImage(file.secure_url)
+            // setLoading(false)
     }
 
 
@@ -151,7 +207,15 @@ const PetInfo = () => {
                                         onChange={handleInputChange}/>
                             
                             </div>  
-                            <div style={{marginTop:'7%'}}>
+                            <div>
+                                <input 
+                                    type="file"
+                                    name="file"
+                                    placeholder='Upload an Image'
+                                    onChange={uploadImage}/>
+                                   
+                            </div>
+                            {/* <div style={{marginTop:'7%'}}>
                                 <label for="formFile" class="form-label"><strong>Upload image</strong></label>
                                 <input 
                                     className="form-control" 
@@ -159,7 +223,7 @@ const PetInfo = () => {
                                     name="image" 
                                     id="formFile" 
                                     onChange={handleInputImage}/>
-                            </div>
+                            </div> */}
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
                                 <p>Find your vet clini on Google</p>
