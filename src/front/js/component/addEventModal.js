@@ -23,10 +23,15 @@ export default function ({ isOpen, onClose, onEventAdded }) {
         onClose();
     }
 
+    function bringToFront(element) {
+        element.style.zIndex = "100";
+    }
+
     
     function eventsOnClick(){
         actions.handleEventAdd(title, start, end);
         //actions.handleDataSet(title, start, end);
+        bringToFront(Modal);
     }
 
 

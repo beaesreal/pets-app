@@ -16,3 +16,11 @@ a{
 .fc-button-primary:hover{
     background-color: #2f2e52 !important;
 }
+
+
+.ReactModal__Overlay--after-open{
+    z-index: 100;
+    max-width: 100rem;
+    display: flex;
+    justify-content: center;
+}
