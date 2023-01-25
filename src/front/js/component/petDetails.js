@@ -4,6 +4,7 @@ import PropType from "prop-types";
 import { FaPen, FaArrowUp } from 'react-icons/fa'
 import "../../styles/petimage.css";
 
+
 const PetDetails = (props) => {
     console.log(props.breed)
 	// 1) replace the hard-coded image, description, link, etc. With their property variable.
@@ -14,7 +15,7 @@ const PetDetails = (props) => {
             
                 <div key={props.id} className="card mobile-space">
                     <div className="overflow">
-                        <img className="card-img-top" src={props.img} alt="Card image cap"></img>
+                        <img className="card-img-top" src={props.img} alt=""></img>
                     </div>
                     <div className="card-body text-dark">
                         <div className="d-flex flex-row-reverse">
@@ -38,7 +39,7 @@ const PetDetails = (props) => {
                         </div>
                      
                         <div>
-                            <p className="card-caracteristics">{props.caracteristics}Es un animal tranquilo y bueno</p>  
+                            <p className="card-caracteristics">{props.caracteristics}</p>  
                         </div>
                     </div>
                 <div className="card-button py-1">
@@ -58,6 +59,7 @@ PetDetails.propTypes = {
     id: PropType.string,
 	title: PropType.string,
     breed: PropType.string,
+    image: PropType.string,
 	img: PropType.string,
     age: PropType,
     birth: PropType.string,

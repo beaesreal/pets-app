@@ -46,6 +46,8 @@ export const Detail = () => {
                 })
             const jsonResult = await result.json()
 
+            console.log(jsonResult, jsonResult)
+
             setPets(jsonResult)
         }
 
@@ -109,10 +111,11 @@ export const Detail = () => {
                                     gender= {pet.gender}
                                     id= {pet.id}
                                     caracteristics = {pet.caracteristics}
-                                    // img={pets.img}
+                                    
+                                    img={pet.image}
                                     //preguntar cómo poner imagen cuando es null
                                     // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
+                                    // img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
                                 />

@@ -3,11 +3,14 @@ import React, {useContext, useState, Fragment, useEffect} from 'react'
 import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
+let imageUrl = 'dada'
+
 const PetInfo = () => {
     
     const {store, actions} = useContext(Context)
     const navigate = useNavigate();
 
+    
     const [petinfo, setPetinfo] = useState({
         petname:'',
         species:'',
@@ -16,7 +19,7 @@ const PetInfo = () => {
         birthday:'',
         colour:'',
         features:'',
-        image:'',
+        image: '',
         clinicname:'',
         adress:'',
     })
@@ -25,6 +28,8 @@ const PetInfo = () => {
         clinicname:'',
         adress:''
     })
+
+    const [loading, setLoading] = useState(false)
 
     //Checks if logged-in
     useEffect (() => {
@@ -41,16 +46,6 @@ const PetInfo = () => {
             [event.target.name] : event.target.value
         })
     }
-
-    // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
-    const handleInputImage = (event) => {
-        setPetinfo({
-            ...petinfo,
-            [event.target.name] : event.target.type
-        }) 
-    }
-
-
 
     const handleInputVeterinary = (event) => {
         setClinic({
@@ -72,10 +67,15 @@ const PetInfo = () => {
                 body:data
             } )
             const file = await res.json()
-        
-            console.log(file)
-        
-            setImage(file.secure_url)
+            //setImage(file.secure_url)
+            console.log(res)
+            // PROBANDO COSAS
+            // setPetinfo.image = setImage()
+            console.log(file.secure_url)
+            //setPetinfo.image(file.secure_url)
+            imageUrl = file.secure_url
+            console.log('imageUrl->' + imageUrl)
+
             setLoading(false)
     }
 
@@ -94,16 +94,14 @@ const PetInfo = () => {
             'breed': petinfo.breed,
             'colour': petinfo.colour,
             'caracteristics': petinfo.features,
-            'img_1': petinfo.image,
+            'img_1': imageUrl,
             'img_2' : petinfo.image,
             'img_3' : petinfo.image,
             'img_mimeType': petinfo.image,
             
             'clinic_name' : clinic.clinicname,
-            'adress' : clinic.adress,
-            
-            
-            }
+            'adress' : clinic.adress,    
+        }
             
  
 
@@ -112,35 +110,16 @@ const PetInfo = () => {
             {
               method: "POST",
               mode: 'cors',
-			credentials: 'omit',
+			  credentials: 'omit',
               headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`
                 },
               body: JSON.stringify(jsonBody),
             }
+            
           )
-
-            uploadImage()
-
-          //NO ESTOY SEGURO SI SE AÑADE AQUI, PREGUNTAR, NO ENVIA AL FETCH EL FILE
-            // const files = event.target.files
-            // const data = new FormData()
-            // data.append('file', files[0])
-            // data.append('upload_preset', 'petnameapp')
-            // setLoading(true)
-    
-            // const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
-            // {
-            //     method:'POST',
-            //     body:data
-            // } )
-            // const file = await res.json()
-        
-            // console.log(file)
-        
-            // setImage(file.secure_url)
-            // setLoading(false)
+          console.log(resp)
     }
 
 

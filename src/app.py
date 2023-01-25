@@ -219,6 +219,18 @@ def handle_pet():
 
 # Get User info
 
+# DESCARGAR IMAGEN AL ID DEL PET
+
+# @app.route('pet', method=['GET'])
+# @jwt_required()
+# def handle_image_pet():
+
+#     current_mascot_id = 
+    
+
+
+
+
 @app.route('/user', methods=['GET'])
 @jwt_required()
 def handle_user():
