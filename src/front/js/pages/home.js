@@ -19,7 +19,6 @@ import Img_7 from "../../img/Img_7.png";
 import Dalmatian from "../../img/Dalmatian.jpg";
 
 
-
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [ petPic, setPetPic ] = useState('');
@@ -44,8 +43,9 @@ export const Home = () => {
 		actions.getFact().then((res) => setDogFact(res))
 	}, [])
 
+
 	return (
-		<div className="container-fluid p-5 header-bg pt-5 p-sm-4">
+		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
 
 			<div className="container-fluid header-bg">
 				<div className="container p-4">
@@ -66,27 +66,15 @@ export const Home = () => {
 			
 				
 
-				<div className="container">
-					<div className="row py-5 px-3">
-						<div className="col-sm py-5 m-lg-3">
+				<div class="container">
+					<div class="row py-5 px-3">
+						<div class="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_1} />
 							<h5>
 								Veterinary appointments
 							</h5>
 							<p>
 								Remembering the vet will no longer be a problem, register, add your pets and save their appointments.
-							</p>
-							<a><b>
-								Learn more
-							</b></a>
-						</div>
-						<div className="col-sm py-lg-5 m-lg-3">
-						<img className="d-block w-100 pb-4" src={Img_2} />
-							<h5>
-								Save your walks
-							</h5>
-							<p>
-								Save your daily route, your morning walks and get suggestions for nearby parks where you can walk your animals.
 							</p>
 							<a><b>
 								Learn more
@@ -163,7 +151,7 @@ export const Home = () => {
 						</div>
 						<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4 rounded" src={Img_7} />
-							<a href="/"><h5>
+							<a href="/profile"><h5>
 								Enjoy the website
 							</h5></a>
 							<p>
@@ -174,7 +162,7 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container-fluid photo-text-section py-5 px-5 petBlog">
+				<div className="container-fluid photo-text-section py-5 px-5 petBlog">
 						<div className="container-md">
 							<div className="row align-items-center p-lg-5">
 								<div className="col-sm p-3 d-flex justify-content-center">
@@ -195,7 +183,7 @@ export const Home = () => {
 					
 
 			
-			</div>
+				</div>
 			
 	);
 };
