@@ -19,7 +19,6 @@ import Img_7 from "../../img/Img_7.png";
 import Dalmatian from "../../img/Dalmatian.jpg";
 
 
-
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [ petPic, setPetPic ] = useState('');
@@ -44,8 +43,9 @@ export const Home = () => {
 		actions.getFact().then((res) => setDogFact(res))
 	}, [])
 
+
 	return (
-		<div className="container-fluid p-5 header-bg pt-5 p-sm-4">
+		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
 
 			<div className="container-fluid header-bg">
 				<div className="container p-4">
@@ -66,9 +66,9 @@ export const Home = () => {
 			
 				
 
-				<div className="container">
-					<div className="row py-5 px-3">
-						<div className="col-sm py-5 m-lg-3">
+				<div class="container">
+					<div class="row py-5 px-3">
+						<div class="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_1} />
 							<h5>
 								Veterinary appointments
@@ -80,7 +80,7 @@ export const Home = () => {
 								Learn more
 							</b></a>
 						</div>
-						<div className="col-sm py-lg-5 m-lg-3">
+						<div class="col-sm py-lg-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_2} />
 							<h5>
 								Save your walks
@@ -92,7 +92,7 @@ export const Home = () => {
 								Learn more
 							</b></a>
 						</div>
-						<div className="col-sm py-5 m-lg-3">
+						<div class="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_3} />
 							<h5>
 								Add all your pets
@@ -122,7 +122,7 @@ export const Home = () => {
 						</div>
 						<div className="container text-center">
 						<div className="row py-5 px-2">
-						<div className="col-lg-3 col-md-2 col-sm-1">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4 rounded" src={Img_4} />
 								<a href="/signup"><h5>
 									Register
@@ -131,7 +131,7 @@ export const Home = () => {
 									We will only need your username and an email address.
 								</p>
 							</div>
-						<div className="col-lg-3 col-md-2 col-sm-1">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4 rounded" src={Img_5} />
 								<a href="/login"><h5>
 									Log in
@@ -140,7 +140,7 @@ export const Home = () => {
 									Log in to your account and add further details if necessary.
 								</p>
 						</div>
-						<div className="col-lg-3 col-md-2 col-sm-1">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 							<img className="d-block w-100 pb-4 rounded" src={Img_6} />
 								<a href="/create"><h5>
 									Add your animals
@@ -149,9 +149,9 @@ export const Home = () => {
 								You can add their profile picture, age, weight and much more.
 								</p>
 						</div>
-						<div className="col-lg-3 col-md-2 col-sm-1">
+						<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4 rounded" src={Img_7} />
-							<a href="/"><h5>
+							<a href="/profile"><h5>
 								Enjoy the website
 							</h5></a>
 							<p>
@@ -162,7 +162,7 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container-fluid photo-text-section py-5 px-5 petBlog">
+				<div className="container-fluid photo-text-section py-5 px-5 petBlog">
 						<div className="container-md">
 							<div className="row align-items-center p-lg-5">
 								<div className="col-sm p-3 d-flex justify-content-center">
@@ -183,7 +183,7 @@ export const Home = () => {
 					
 
 			
-			</div>
+				</div>
 			
 	);
 };

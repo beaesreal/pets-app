@@ -235,3 +235,7 @@ menu-item {
     color: white;
     font-weight: 600;
 }
+
+.container-fluid .row {
+    padding-top: 0;
+}
