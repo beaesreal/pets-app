@@ -76,12 +76,12 @@ export const Events = () => {
                 </div>
                 
 
-                <div className="col-11 text-center justify-content-center py-5 px-0">
+                <div className="col-11 text-center justify-content-center pt-5 px-0">
                     <div className="my-pets">
                     <h1 className="">Events</h1>
-                    
-                    <Calendar />
-
+                    <div className="d-flex justify-content-center">
+                        <Calendar />
+                    </div>
                     </div>
                 </div>
             </div>

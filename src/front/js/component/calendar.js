@@ -84,12 +84,12 @@ export const Calendar = () => {
 
 
     return (
-        <div className="container p-5">
+        <div className="container p-0 m-0">
             <div className="d-flex justify-content-center">
-                <button className="btn btn-primary my-4" onClick={() => setModalOpen(true)}>Add new event</button>
+                <button className="btn btn-primary mb-5" onClick={() => setModalOpen(true)}>Add new event</button>
             </div>
             
-            <div className="calendar-container">
+            <div className="calendar-container mx-lg-5">
                 <FullCalendar
                         events={events}
                         ref={calendarRef}
