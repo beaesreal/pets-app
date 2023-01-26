@@ -161,7 +161,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				else {
 				  alert("Event added!")
-				  location.replace('/calendar')
+				  location.replace('/events')
 				}
 
 				localStorage.setItem("title", title)

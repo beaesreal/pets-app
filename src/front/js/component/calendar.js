@@ -47,9 +47,9 @@ export const Calendar = () => {
 
     };
 
-    const titleStorage = localStorage.getItem("title")
-    const startStorage = localStorage.getItem("start")
-    const endStorage = localStorage.getItem("end")
+    //const titleStorage = localStorage.getItem("title")
+    //const startStorage = localStorage.getItem("start")
+    //const endStorage = localStorage.getItem("end")
 
     useEffect (() => {
 
@@ -84,10 +84,12 @@ export const Calendar = () => {
 
 
     return (
-        <div className="container p-5">
-            <button className="btn btn-primary my-4" onClick={() => setModalOpen(true)}>Add new event</button>
+        <div className="container p-0 m-0">
+            <div className="d-flex justify-content-center">
+                <button className="btn btn-primary mb-5" onClick={() => setModalOpen(true)}>Add new event</button>
+            </div>
             
-            <div className="calendar-container">
+            <div className="calendar-container mx-lg-5">
                 <FullCalendar
                         events={events}
                         ref={calendarRef}
@@ -105,23 +107,7 @@ export const Calendar = () => {
                     
                 />
             </div>
-            <div className="fc-event-title">
-                <h5>{titleStorage}</h5>
-                <h5>{startStorage}</h5>
-                <h5>{endStorage}</h5>
-            </div>
 
-            <div className="nav-footer-info">
-                        {events.map (events =>
-                        <div key={events.id}>
-                            <p className="nav-footer-user-name">
-                                {events.title}
-                            </p>
-                            <p className="nav-footer-user-pets">
-                                {events.start}
-                            </p>
-                        </div>)}
-            </div>
 
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
         </div>
@@ -132,6 +118,12 @@ export const Calendar = () => {
 /*
 
 CODE NOT USEFUL
+
+            <div className="fc-event-title">
+                <h5>{titleStorage}</h5>
+                <h5>{startStorage}</h5>
+                <h5>{endStorage}</h5>
+            </div>
 
 setEvents({
             start: startStorage,
@@ -170,7 +162,7 @@ setEvents({
         const handleDataSet = async (title, start, end) => {
             
             try{
-                const resp = await fetch(process.env.BACKEND_URL + "/events?start="+start+"&end="+end+"&title="+title)            
+                const resp = await fetch(process.env.BACKEND_URL + "/events)            
                 const data = await resp.json()
 				setStore({ message: data.message })
                 }catch(error){

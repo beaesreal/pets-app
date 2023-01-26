@@ -38,8 +38,8 @@ export const Sidebar = () => {
             icon: <a className="link-menu" href="/petcare"><Care height="50" width="50" /></a>,
         },
         {
-            text: <a className="link-menu" href="/calendar">Events</a>,
-            icon: <a className="link-menu" href="/calendar"><Calendar height="50" width="50" /></a>,
+            text: <a className="link-menu" href="/events">Events</a>,
+            icon: <a className="link-menu" href="/events"><Calendar height="50" width="50" /></a>,
         },
         {
             text: <a className="link-menu" href="/settings">Settings</a>,

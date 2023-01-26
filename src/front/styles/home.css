@@ -191,3 +191,10 @@ a:hover{
     width: auto;
     height: auto;
 }
+
+
+/*Events*/
+
+.events-map-container{
+    background-color: #d8ddee;
+}
