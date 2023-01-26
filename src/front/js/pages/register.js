@@ -7,6 +7,9 @@ import { AlertDeleteUser } from "../component/alertDeleteUser";
 export const Register = () => {
     const { actions } = useContext(Context);
 
+    const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
+    const [togglePassword, settogglePassword] = useState("password");
+
     const [inputData, setinputData] = useState({
         username: '',
         email: '',
@@ -18,6 +21,17 @@ export const Register = () => {
             ...inputData, 
             [event.target.name] : event.target.value
         })
+    }
+
+    const showPassword = () => {
+        if (togglePassword === "password"){
+            settogglePassword("text");
+            setEyeIcon("fas fa-eye-slash");
+        }
+        else {
+            settogglePassword("password");
+            setEyeIcon("fas fa-eye");
+        }
     }
 
     const regexUsername = /^[\w]{6,}$/g
@@ -61,9 +75,10 @@ export const Register = () => {
     return (
         <div>
             <div className="row">
-                <div className="col m-5 p-5">
-                    <h3 className="my-4 pb-3">Create account</h3>
+                <div className="col-sm m-lg-5 ">
+                    <h3 className="mt-4 mt-5 px-5">Create account</h3>
                     <form 
+                        className="p-5"
                         name="registerUser" 
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -97,17 +112,22 @@ export const Register = () => {
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
                             </div>
                             <br></br>
-                            <div className="form-group row mx-1">
+                            <div className="input-group d-flex justify-content-left p-1">
                                 <input 
                                     id="password" 
-                                    type="text" 
+                                    type={togglePassword}
                                     name="password"
                                     value={inputData['password']}
                                     placeholder="Password" 
                                     onChange={handleInputChange} 
-                                    style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
+                                    style={{paddingLeft: "0.5rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", minWidth: "20rem"}} 
                                     required/>
+                                <span className="input-group-text bg-transparent" style={{marginLeft: "16rem", marginTop:"-2.3rem", zIndex: "100", border: "none"}}>
+                                <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                            </span>
                                 <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
+                        
+                            
                             </div>
                         <br></br>
                         <div>
@@ -115,8 +135,8 @@ export const Register = () => {
                         </div>
                     </form>
                 </div>
-                <div className="col-sm-0 d-flex justify-content-center" style={{width: "auto"}}>
-                    <img src={French_Dog_2} />
+                <div className="col-sm d-flex justify-content-center">
+                    <img src={French_Dog_2} style={{width: "auto"}}/>
                 </div>
             </div>
         </div>
