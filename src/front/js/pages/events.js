@@ -24,7 +24,7 @@ export const Events = () => {
     };
 
     // Show pet info on Cards
-    const [pets, setPets] = useState ([])
+    const [events, setEvents] = useState ([])
     const body = document.body;
 
     // Dark mode
@@ -39,7 +39,7 @@ export const Events = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            const result = await fetch (process.env.BACKEND_URL + "/events",
             {
                 method: "GET",
                 mode: 'cors',
@@ -49,7 +49,7 @@ export const Events = () => {
               })
             const jsonResult = await result.json()
 
-            setPets(jsonResult)
+            setEvents (jsonResult)
         }
 
         fetchData();
@@ -82,7 +82,39 @@ export const Events = () => {
                     <div className="d-flex justify-content-center">
                         <Calendar />
                     </div>
+                    <div className="pt-5 mt-5 pb-3">
+                        <h2 className="">Your next events</h2>
+                        <div className="container-fluid">
+                            <hr></hr>
+                        </div>
+                        
                     </div>
+
+                    <div className="container d-flex justify-content-center pb-5">
+                    
+                        <div className="row m-3 justify-content-center">
+                        {events.map (events =>
+                        <div className="col-lg-4 mx-4 my-2 p-3 border rounded events-map-container">
+                        <div key={events.id}>
+                            <div className="">
+                                <h5 className="py-3">
+                                    {events.title}
+                                </h5>
+                            </div>
+                            <p className="small"><b>▶️ Starts:</b></p>
+                            <p className="">
+                                {events.start}
+                            </p>
+                            <p className="small"><b>⏺️ Ends:</b></p>
+                            <p className="">
+                                {events.end}
+                            </p>
+                        </div>
+                        </div>)}
+                        </div>
+                    </div>
+                    </div>
+
                 </div>
             </div>
 		</div>

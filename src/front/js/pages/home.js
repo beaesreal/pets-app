@@ -83,11 +83,10 @@ export const Home = () => {
 						<div class="col-sm py-lg-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_2} />
 							<h5>
-								Save your walks
+								Save your events
 							</h5>
 							<p>
-								Save your daily route, your morning walks and get suggestions for nearby parks where you can walk your animals.
-							</p>
+								Save your events, meetings with other people who have animals, diets or medicines that your little one needs.							</p>
 							<a><b>
 								Learn more
 							</b></a>
