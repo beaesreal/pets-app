@@ -12,7 +12,7 @@ export const Footer = () => {
 		<div className="col mb-3">
 			<a href="/" className="d-flex align-items-center mb-3 link-dark text-decoration-none">
 			<img className="mx-3" src={APP_Logo_Footer} width="56" height="40"></img>
-			<h4 className="d-flex mt-1 mb-md-0 yellow-text">Pets app</h4>
+			<h4 className="d-flex mt-1 mb-md-0 yellow-text">Pet A Pet</h4>
 			</a>
 		</div>
 		<div className="col mb-3">
@@ -56,7 +56,7 @@ export const Footer = () => {
 	</footer>
 
 	<div className="d-flex flex-column flex-sm-row justify-content-between py-2 my-2 border-top yellow-text">
-		<p className="p-2"> © App Name, 2023. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
+		<p className="p-2"> © Pet A Pet, 2023. Made by Beatriz, Gonzalo & Miguel Ángel.</p>
 		<p className="p-2 d-flex"> 4Geeks Academy - Final Project</p>
 	</div>
 

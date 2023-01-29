@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Context } from "../store/appContext";
 import French_Dog_2 from "../../img/French_Dog_2.png";
-import { Alert_Popup } from "../component/alert_popup";
 import { AlertDeleteUser } from "../component/alertDeleteUser";
 
 export const Register = () => {
@@ -9,6 +8,9 @@ export const Register = () => {
 
     const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [togglePassword, settogglePassword] = useState("password");
+    const [ checkUser, setCheckUser ] = useState(false)
+    const [ checkEmail, setCheckEmail ] = useState(false)
+    const [ checkPass, setCheckPass ] = useState(false)
 
     const [inputData, setinputData] = useState({
         username: '',
@@ -35,41 +37,53 @@ export const Register = () => {
     }
 
     const regexUsername = /^[\w]{6,}$/g
-    const regexPass = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/g
+    const regexPass = /^[\w]{6,}[!@#\$%\^\&*\)\(+=._-]{1,}$/g
     const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
 
     const checkInputs = (username, email, pass) => {
         if (regexUsername.test(username)) {
-            document.getElementById("username").style.borderColor = "green"
+            //document.getElementById("username").style.borderColor = "green"
             document.getElementById("usernameAnchor").style.display = "none";
+            setCheckUser(true);
         }
 
         else if (!regexUsername.test(username)) {
             document.getElementById("username").style.borderColor = "red"
             document.getElementById("usernameAnchor").style.display = "block";
+            setCheckUser(false);
         }
 
         if (regexEmail.test(email)) {
-            document.getElementById("email").style.borderColor = "green"
+            //document.getElementById("email").style.borderColor = "green"
             document.getElementById("emailAnchor").style.display = "none";
+            setCheckEmail(true);
         }
 
         else if (!regexEmail.test(email)) {
             document.getElementById("email").style.borderColor = "red"
             document.getElementById("emailAnchor").style.display = "block";
+            setCheckEmail(false);
         }
 
         if (regexPass.test(pass)) {
             document.getElementById("password").style.borderColor = "green"
             document.getElementById("passwordAnchor").style.display = "none";
+            setCheckPass(true);
         }
 
         else if (!regexPass.test(pass)) {
             document.getElementById("password").style.borderColor = "red"
             document.getElementById("passwordAnchor").style.display = "block";
+            setCheckPass(false);
         }
 
-        else {actions.handleCreateUser(username, email, pass)}
+        if(checkUser && checkEmail && checkPass) {actions.handleCreateUser(username, email, pass)}
+        else {
+            document.getElementById("username").style.borderColor = "red"
+            document.getElementById("email").style.borderColor = "red"
+            document.getElementById("password").style.borderColor = "red"
+            document.getElementById("existsNone").style.display = "block"
+        }
     }
     
     return (
@@ -89,6 +103,7 @@ export const Register = () => {
                                 <input 
                                     id="username" 
                                     type="text" 
+                                    className="form-control"
                                     name="username" 
                                     value={inputData['username']}
                                     placeholder="Username"
@@ -103,6 +118,7 @@ export const Register = () => {
                                 <input 
                                     id="email" 
                                     type="text" 
+                                    className="form-control"
                                     name="email"
                                     value={inputData['email']} 
                                     placeholder="Email" 
@@ -112,27 +128,32 @@ export const Register = () => {
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
                             </div>
                             <br></br>
-                            <div className="input-group d-flex justify-content-left p-1">
-                                <input 
-                                    id="password" 
-                                    type={togglePassword}
-                                    name="password"
-                                    value={inputData['password']}
-                                    placeholder="Password" 
-                                    onChange={handleInputChange} 
-                                    style={{paddingLeft: "0.5rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", minWidth: "20rem"}} 
-                                    required/>
-                                <span className="input-group-text bg-transparent" style={{marginLeft: "16rem", marginTop:"-2.3rem", zIndex: "100", border: "none"}}>
-                                <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
-                            </span>
-                                <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
-                        
+                            <div className="form-group row mx-1">
+                                <div className="input-group p-0">
+                                    <input 
+                                        id="password" 
+                                        type={togglePassword}
+                                        className="form-control"
+                                        name="password"
+                                        value={inputData['password']}
+                                        placeholder="Password" 
+                                        onChange={handleInputChange} 
+                                        style={{paddingLeft: "0.5rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
+                                        required/>
+                                    <span className="input-group-text bg-transparent rounded" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
+                                    <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                                </span>
+                                    <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
                             
+                                
+                                </div>
                             </div>
                         <br></br>
                         <div>
                                 <button className="btn btn-primary my-2 my-sm-0 px-4 mx-1" type="submit">Register</button>
                         </div>
+                        <br></br>
+                        <small id="existsNone" style={{display: "none", fontSize: "1em", color: "red"}}>{"Username or email already exists"}</small>
                     </form>
                 </div>
                 <div className="col-sm d-flex justify-content-center">

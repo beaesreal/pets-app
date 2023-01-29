@@ -3,6 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 import re
+import bcrypt
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -83,11 +84,17 @@ def handle_signup():
 
     if re.fullmatch(regex, body['email']):
         print("Valid email")
+
+        pass_encode = body['password'].encode('utf-8')
+        mySalt = bcrypt.gensalt()
+
+        hashed = bcrypt.hashpw(pass_encode, mySalt)
+        print(hashed)
     
         user = User(
             username = body['username'],
             email = body['email'],
-            password = body['password'],
+            password = hashed,
             is_active = True
         )
 
@@ -116,20 +123,24 @@ def handle_login():
 
     if body['username']:
         username = body['username']
-        password = body['password']
-        user = User.query.filter_by(username=username, password=password).first()
+        password = body['password'].encode('utf-8')
+        user = User.query.filter_by(username=username).first()
+        checkpass = bcrypt.checkpw(password, user.password)
+        
 
     if body['email']:
         email = body['email']
-        password = body['password']
-        user = User.query.filter_by(email=email, password=password).first()
+        password = body['password'].encode('utf-8')
+        user = User.query.filter_by(email=email).first()
+        checkpass = bcrypt.checkpw(password, user.password)
 
 
     if user is None:
         return jsonify({"msg": "Bad username or password"}), 401
 
-    access_token = create_access_token(identity=user.id)
-    return jsonify({ "token": access_token, "user_id": user.id }), 200
+    if checkpass:
+        access_token = create_access_token(identity=user.id)
+        return jsonify({ "token": access_token, "user_id": user.id }), 200
 
 @app.route('/private', methods=['GET'])
 @jwt_required()
