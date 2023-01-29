@@ -81,7 +81,6 @@ const PetInfo = () => {
 
     const sendPetData = async (event) => {
         event.preventDefault()
-        uploadImage()
 
         console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
 
