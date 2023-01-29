@@ -19,7 +19,7 @@ export const Navbar = () => {
 			<a className="navbar-brand" href="/">
     		<img src={VectorLogo_Pets_APP} width="45" className="d-inline-block align-top" alt="" />
   			</a>
-			<a className="menu-title navbar-brand" href="/">Pets name app</a>
+			<a className="menu-title navbar-brand" href="/">Pet A Pet</a>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<FaBars className="menu-icon"/>
 		</button>
