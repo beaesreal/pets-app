@@ -32,7 +32,7 @@ const PetEditCard = (props) => {
     const sendPetDataEdit = async (event) => {
         event.preventDefault()
         
-        console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
+        console.log(petinfo)
 
         let jsonBody;
 

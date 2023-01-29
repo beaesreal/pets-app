@@ -201,22 +201,24 @@ def handle_create_pet():
     return jsonify({"message": "Mascota creada con exito" }), 200
 
 # Editar mascota
-@app.route('/pet/edit', methods=['PUT'])
+@app.route('/pet/edit/<string:id>', methods=['PUT'])
 @jwt_required()
-def handle_update_pet():
+def handle_update_pet(id):
 
     current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
+    user = Mascot.query.get(current_user_id)
+    
 
     body=request.get_json()
 
-    name = body['name'],
-    date_of_birth = body['date_of_birth'],
-    species = body['species'],
-    gender = body['gender'],
-    breed = body['breed'],
-    colour = body['colour'],
-    caracteristics = body['caracteristics'],
+
+    user.name = body['name'],
+    user.date_of_birth = body['date_of_birth'],
+    user.species = body['species'],
+    user.gender = body['gender'],
+    user.breed = body['breed'],
+    user.colour = body['colour'],
+    user.caracteristics = body['caracteristics'],
     # img_1 = body['img_1'],
     # img_2 = body['img_2'],
     # img_3 = body['img_3'],

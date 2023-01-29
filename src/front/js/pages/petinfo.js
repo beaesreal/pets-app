@@ -81,7 +81,8 @@ const PetInfo = () => {
 
     const sendPetData = async (event) => {
         event.preventDefault()
-        
+        uploadImage()
+
         console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
 
         let jsonBody;
@@ -187,11 +188,12 @@ const PetInfo = () => {
                             
                             </div>  
                             <div>
-                                <input 
+                                <input style={{marginTop:'2%'}}
                                     type="file"
                                     name="file"
                                     placeholder='Upload an Image'
-                                    onChange={uploadImage}/>
+                                    onChange={uploadImage}
+                                    />
                                    
                             </div>
                             {/* <div style={{marginTop:'7%'}}>
