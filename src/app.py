@@ -130,6 +130,7 @@ def handle_login():
     access_token = create_access_token(identity=user.id)
     return jsonify({ "token": access_token, "user_id": user.id }), 200
 
+
 @app.route('/private', methods=['GET'])
 @jwt_required()
 def handle_private():
@@ -199,6 +200,37 @@ def handle_create_pet():
 
     return jsonify({"message": "Mascota creada con exito" }), 200
 
+# Editar mascota
+@app.route('/pet/edit', methods=['PUT'])
+@jwt_required()
+def handle_update_pet():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    body=request.get_json()
+
+    name = body['name'],
+    date_of_birth = body['date_of_birth'],
+    species = body['species'],
+    gender = body['gender'],
+    breed = body['breed'],
+    colour = body['colour'],
+    caracteristics = body['caracteristics'],
+    # img_1 = body['img_1'],
+    # img_2 = body['img_2'],
+    # img_3 = body['img_3'],
+    # img_mimetype = body['img_mimeType'],
+
+    db.session.commit()
+
+    response_body = {
+        "msg": "Mascot updated correctly!"
+        }
+
+    return jsonify(response_body), 200
+
+
 
 
 # GET Pet info
@@ -216,20 +248,21 @@ def handle_pet():
     response_body = all_mascot
     return jsonify(response_body), 200
 
+# CREANDO RUTA PARA IMPORTACION INDIVIDUAL MASCOTA
+@app.route('/pet/edit/<string:id>', methods=['GET'])
+@jwt_required()
+def handle_pet_with_id(id):
+
+    current_user_id = get_jwt_identity()
+    user = Mascot.query.get(current_user_id)
+
+    print(id)
+    single_pet = Mascot.query.filter_by(id = id)
+    single_pet = list(map(lambda x: x.serialize(), single_pet))
+    response_body = single_pet
+    return jsonify(response_body), 200
 
 # Get User info
-
-# DESCARGAR IMAGEN AL ID DEL PET
-
-# @app.route('pet', method=['GET'])
-# @jwt_required()
-# def handle_image_pet():
-
-#     current_mascot_id = 
-    
-
-
-
 
 @app.route('/user', methods=['GET'])
 @jwt_required()

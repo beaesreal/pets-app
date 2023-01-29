@@ -3,7 +3,7 @@ import React, {useContext, useState, Fragment, useEffect} from 'react'
 import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
-let imageUrl = 'dada'
+let imageUrl = ''
 
 const PetInfo = () => {
     
@@ -147,8 +147,8 @@ const PetInfo = () => {
                                         onChange={handleInputChange}>
                                         required
                                     <option selected>Species</option> 
-                                    <option value='canine' >Dog</option>
-                                    <option value='feline'>Cat</option>
+                                    <option value='canine' >Canine</option>
+                                    <option value='feline'>Feline</option>
                                 </select>
                                 
                                 <input  style={{marginTop:'2%'}} 
@@ -220,7 +220,7 @@ const PetInfo = () => {
                                         placeholder='Adress' 
                                         onChange={handleInputVeterinary}></input>
                             </div>
-                            <div style={{marginTop:'7%', textAlign:'center'}}>
+                            <div style={{marginTop:'7%',marginBottom:'7%', textAlign:'center'}}>
                                 <div>
                                     <button className='btn btn-primary' type='submit'>✓ Save</button>
                                 </div>

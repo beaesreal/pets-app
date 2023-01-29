@@ -46,7 +46,7 @@ export const Detail = () => {
                 })
             const jsonResult = await result.json()
 
-            console.log(jsonResult, jsonResult)
+            console.log(jsonResult)
 
             setPets(jsonResult)
         }

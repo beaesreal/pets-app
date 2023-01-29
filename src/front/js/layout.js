@@ -18,6 +18,7 @@ import PetInfo from "./pages/petinfo";
 import { Detail } from "./pages/pets";
 import { Calendar } from "./component/calendar";
 import Modal from "./component/addEventModal"
+import PetEdit from "./pages/petedit";
 
 
 //create your first component
@@ -44,6 +45,7 @@ const Layout = () => {
                         <Route element={<Settings />} path="/settings" />
                         <Route element={<Detail />} path="/pets" />
                         <Route element={<PetInfo/>} path="/create"/>
+                        <Route element={<PetEdit/>} path="/pets/edit/:id"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

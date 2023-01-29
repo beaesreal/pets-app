@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 import ReactDOM from "react-dom";
 import PropType from "prop-types";
 import { FaPen, FaArrowUp } from 'react-icons/fa'
@@ -6,9 +7,8 @@ import "../../styles/petimage.css";
 
 
 const PetDetails = (props) => {
-    console.log(props.breed)
-	// 1) replace the hard-coded image, description, link, etc. With their property variable.
-	return (
+
+    	return (
         <div className="container">
             
             <div className="card text-center shadow">
@@ -43,7 +43,9 @@ const PetDetails = (props) => {
                         </div>
                     </div>
                 <div className="card-button py-1">
-                    <a href={props.buttonUrl} className="button btn btn-outline p-2">{props.buttonLabel}</a>
+                    <Link to={`edit/${props.id}`}>
+                        <button className="button btn btn-outline p-2">{props.buttonLabel}</button>
+                    </Link>
                     </div>
                 </div>
             </div>    
