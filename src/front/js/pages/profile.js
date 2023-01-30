@@ -10,6 +10,7 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import { Calendar } from "../component/calendar";
 import PetCard from "../component/petCard";
+import EventCard from "../component/eventCard";
 
 import DarkMode from "../component/darkMode";
 
@@ -110,22 +111,19 @@ export const Profile = () => {
                         <hr className="mt-5"></hr>
                     </div>
                     <div className="appointments">
-                    <h2 className="py-5">Appointments</h2>
+                    <h2 className="py-5">Events saved</h2>
                         <div className="row">
                             <div className="col-sm align-items-center">
-                                <Calendar onChange={onChange} value={date}/>
-                                {console.log(date)}
-                            </div>
-                            <div className="col-sm">
-                               
-                                <h5>Next appointments</h5>
-                                <p>Appointment 1</p>
-                                <p>Appointment 2</p>
+                                <EventCard />
                             </div>
                         </div>
-
+                        <div className="mx-4">
+                            <a href="/events"><strong>Do you want to add another event on the calendar? Click here</strong></a>
+                        </div>
+                        <hr className="mt-5"></hr>
                     </div>
-                    <hr className="mt-5"></hr>
+
+
                     <div className="diets">
                     <h2 className="py-5">Diets</h2>
                         <div class="dropdown">
