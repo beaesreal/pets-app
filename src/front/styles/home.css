@@ -198,3 +198,7 @@ a:hover{
 .events-map-container{
     background-color: #d8ddee;
 }
+
+.nav-pills .nav-link.active{
+    background-color: #263159;
+}

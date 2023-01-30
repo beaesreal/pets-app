@@ -11,6 +11,7 @@ import { Sidebar } from "../component/sidebar";
 import { Calendar } from "../component/calendar";
 import PetCard from "../component/petCard";
 import EventCard from "../component/eventCard";
+import DietCard from "../component/dietCard";
 
 import DarkMode from "../component/darkMode";
 
@@ -126,16 +127,26 @@ export const Profile = () => {
 
                     <div className="diets">
                     <h2 className="py-5">Diets</h2>
-                        <div class="dropdown">
-                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Diet for Pet 1
-                                </button>
-                                
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Diet for Pet 2</a>
-                                    <a class="dropdown-item" href="#">Diet for Pet 3</a>
-                                    <a class="dropdown-item" href="#">Diet for Pet 4</a>
-                                </div>
+                    
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/petcare">Diets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#treatments">Treatments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#appointments">Appointments</a>
+                            </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Diets</h5>
+                            <p class="card-text"><DietCard /></p>
+                            <a href="#diet" class="btn btn-primary">Add new diet</a>
+                        </div>
                         </div>
                     </div>
                 </div>
