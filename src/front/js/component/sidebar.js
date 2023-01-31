@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaUser, FaEnvelope, FaDog, FaCat, FaHeart } from 'react-icons/fa'
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
@@ -9,6 +8,7 @@ import "../../styles/sidebar.css";
 // SVG Icons
 import Calendar from "./icons/calendar";
 import Email from "./icons/email";
+import Care from "./icons/care"
 import Logout from "./icons/logout";
 import Pet from "./icons/pet";
 import Settings from "./icons/settings";
@@ -34,6 +34,10 @@ export const Sidebar = () => {
             icon: <a className="link-menu" href="/pets"><Pet height="50" width="50" /></a>,
         },
         {
+            text: <a className="link-menu" href="/petcare">Pet Care</a>,
+            icon: <a className="link-menu" href="/petcare"><Care height="50" width="50" /></a>,
+        },
+        {
             text: <a className="link-menu" href="/events">Events</a>,
             icon: <a className="link-menu" href="/events"><Calendar height="50" width="50" /></a>,
         },
@@ -57,7 +61,7 @@ export const Sidebar = () => {
 
     // GET User info to show on sidebar
 
-    const [users, setUsers] = useState ([])
+    const  [users, setUsers] = useState ([])
 
     useEffect (() => {
         const fetchData = async () => {
@@ -77,9 +81,9 @@ export const Sidebar = () => {
         fetchData();
 
     }, [])
+ 
 
-
-    const mailStorage = localStorage.getItem("email")
+    //const mailStorage = localStorage.getItem("email")
 
     return (
 		<div className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}>

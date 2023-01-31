@@ -50,9 +50,7 @@
     padding-top: 2rem;
     color:#251749
 }
-.container-fluid .row{
-    padding-top: 1rem;
-}
+
 .overflow{
     overflow:hidden;
 }
@@ -76,7 +74,4 @@
     transform: scale(1.1);
     color: #495579;
 
-}
-.row{
-   padding-top: 3rem;
 }

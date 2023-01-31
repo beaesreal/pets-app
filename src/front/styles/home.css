@@ -184,3 +184,17 @@ a:hover{
 .pet-card-button{
     background-color: #95a1c0;
 }
+
+#petPic {
+    max-height: 25rem;
+    max-width: 25rem;
+    width: auto;
+    height: auto;
+}
+
+
+/*Events*/
+
+.events-map-container{
+    background-color: #d8ddee;
+}
