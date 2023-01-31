@@ -6,6 +6,18 @@ import { Context } from "../store/appContext.js";
 let imageUrl = ''
 
 const PetInfo = () => {
+
+    // Dark mode
+    const body = document.body;
+
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
     
     const {store, actions} = useContext(Context)
     const navigate = useNavigate();
@@ -206,8 +218,7 @@ const PetInfo = () => {
                             </div> */}
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
-                                <p>Find your vet clini on Google</p>
-                                <p>Can't find it? No proble, add it manually bellow</p> 
+
                                 <input  style={{marginTop:'2%'}}  
                                         className='form-control' 
                                         type='text' 

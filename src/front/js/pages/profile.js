@@ -80,16 +80,16 @@ export const Profile = () => {
                     <h2 className="pb-3">My pets</h2>
 
                     
-                        <div className="row justify-content-center">
+                        <div className="row justify-content-center" id="pet-card-profile">
                             
 
                             {pets.map ( pets => (
-                            <div className="col-sm py-4">
+                            <div className="col-sm py-4" id="pet-card-profile">
                                 <PetCard 
                                     key= {pets.id}
+                                    species = {pets.species}
                                     title= {pets.name}
                                     age={pets.age}
-                                    //preguntar cómo poner año de nacimiento únicamente o edad del animal
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
                                     breed= {pets.breed}

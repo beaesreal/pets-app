@@ -47,7 +47,7 @@ const PetDetails = (props) => {
                     </div>
                 <div className="card-button py-1">
                     <Link to={`edit/${props.id}`}>
-                        <button className="button btn btn-outline p-2">{props.buttonLabel}</button>
+                        <button className="button btn btn-primary text-light p-2 my-3">{props.buttonLabel}</button>
                     </Link>
                     </div>
                 </div>

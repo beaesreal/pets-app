@@ -8,9 +8,9 @@ export const Register = () => {
 
     const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [togglePassword, settogglePassword] = useState("password");
-    const [ checkUser, setCheckUser ] = useState(false)
-    const [ checkEmail, setCheckEmail ] = useState(false)
-    const [ checkPass, setCheckPass ] = useState(false)
+    const [ checkUser, setCheckUser ] = useState(true)
+    const [ checkEmail, setCheckEmail ] = useState(true)
+    const [ checkPass, setCheckPass ] = useState(true)
 
     const [inputData, setinputData] = useState({
         username: '',
@@ -78,7 +78,7 @@ export const Register = () => {
         }
 
         if(checkUser && checkEmail && checkPass) {actions.handleCreateUser(username, email, pass)}
-        else {
+        if (!checkUser || !checkEmail || !checkPass) {
             document.getElementById("username").style.borderColor = "red"
             document.getElementById("email").style.borderColor = "red"
             document.getElementById("password").style.borderColor = "red"
