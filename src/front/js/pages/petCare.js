@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
+import { Navigate, useNavigate } from "react-router-dom";
 import 'react-calendar/dist/Calendar.css'
 import "../../styles/home.css";
 
@@ -9,15 +10,28 @@ import { Sidebar } from "../component/sidebar";
 import DarkMode from "../component/darkMode";
 
 import PetSelector from "../component/petSelector";
+import CenterSelector from "../component/centerSelector";
 import { options } from "@fullcalendar/core/preact";
 
 
 export const PetCare = () => {
 	const { store, actions } = useContext(Context);
     const [ date, setDate] = useState(new Date());
+    const navigate = useNavigate();
+
     const onChange = date => {
         setDate(date);
     };
+
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
+
 
     // Dark mode
     const body = document.body;
@@ -66,11 +80,16 @@ export const PetCare = () => {
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/diet/create",
-            {
-              method: "POST",
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify(jsonBody),
-            }
+                {
+                method: "POST",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {
+                  "Content-Type": "application/json",
+                  'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`               
+                  },
+                body: JSON.stringify(jsonBody),
+                }
           ).then(alert("Diet added!"))
         
 
@@ -110,7 +129,10 @@ export const PetCare = () => {
             process.env.BACKEND_URL + "/medicine/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`               
+                },
               body: JSON.stringify(jsonBody),
             }
           ).then(alert("Treatment added!"))
@@ -122,6 +144,7 @@ export const PetCare = () => {
 
     const [appointmentInfo, setAppointmentInfo] = useState({
         mascot_id: '',
+        center_id: '',
         date:'',
     })
     
@@ -140,6 +163,7 @@ export const PetCare = () => {
 
         jsonBody = {
             'mascot_id': appointmentInfo.mascot_id,
+            'center_id': appointmentInfo.center_id,
             'date': appointmentInfo.date,
             }
 
@@ -147,7 +171,10 @@ export const PetCare = () => {
             process.env.BACKEND_URL + "/appointment/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`               
+                },
               body: JSON.stringify(jsonBody),
             }
           ).then(alert("Appointment added!"))
@@ -161,16 +188,42 @@ export const PetCare = () => {
     useEffect (() => {
         const fetchData = async () => {
             const result = await fetch (process.env.BACKEND_URL + "/pet",
+            
             {
                 method: "GET",
                 mode: 'cors',
                 credentials: 'omit',
                 headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
-                body: null
+                body: null,
                 })
             const jsonResult = await result.json()
 
             setPets(jsonResult)
+        }
+
+        fetchData();
+
+    }, [])
+
+
+    // Show Vet Clinics' Names
+
+    const [veterinarians, setVeterinarians] = useState ([])
+
+    useEffect (() => {
+        const fetchData = async () => {
+            const result = await fetch (process.env.BACKEND_URL + "/veterinarian",
+            
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {"Content-Type": "application/json"},
+                body: null,
+                })
+            const jsonResult = await result.json()
+
+            setVeterinarians(jsonResult)
         }
 
         fetchData();
@@ -291,16 +344,23 @@ export const PetCare = () => {
                                  />
                             )}
                         </select>
+
+                        <select class="selectpicker col-sm mx-2"
+                            onChange={handleInputAppointment} name='center_id'>
+                            {veterinarians.map (clinic =>
+                            
+                                <CenterSelector
+                                id={clinic.id}
+                                name={clinic.clinic_name}
+                                
+                                 />
+                            )}
+                        </select>
+
                         <input 
                             className='form-control col-sm mx-2' 
                             type='date' name='date' 
                             placeholder='Date' 
-                            onChange={handleInputAppointment}/>
-                        
-                        <input 
-                            className='form-control col-sm mx-2' 
-                            type='time' name='time' 
-                            placeholder='Time' 
                             onChange={handleInputAppointment}/>
 
 

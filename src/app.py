@@ -215,14 +215,14 @@ def handle_create_pet():
 # Get Pet info
 
 @app.route('/pet', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_pet():
 
-    #current_user_id = get_jwt_identity()
-    #user = Mascot.query.get(current_user_id)
-    #all_mascot = Mascot.query.filter_by(user_id=user.id)
+    current_user_id = get_jwt_identity()
+    user = Mascot.query.get(current_user_id)
+    all_mascot = Mascot.query.filter_by(user_id=user.id)
 
-    all_mascot = Mascot.query.all()
+    #all_mascot = Mascot.query.all()
 
     
     all_mascot =list(map(lambda x: x.serialize(), all_mascot))
@@ -249,13 +249,19 @@ def handle_user():
 # Get Vet info
 
 @app.route('/veterinarian', methods=['GET'])
+#@jwt_required()
 def handle_veterinarian():
 
-    if request.method == 'GET':
-        all_veterinarian = Veterinarian.query.all()
-        all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
-        response_body = all_veterinarian
-        return jsonify(response_body), 200
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_veterinarian = Veterinarian.query.filter_by(id=user.id)
+
+    all_veterinarian = Veterinarian.query.all()
+    
+    all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
+    print(all_veterinarian)
+    response_body = all_veterinarian
+    return jsonify(response_body), 200
 
 
 # Update USER Info
@@ -359,11 +365,11 @@ def delete_event(id):
 # Add pet DIET
 
 @app.route('/diet/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_diets():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
     body = request.get_json()
     print(body)
@@ -387,12 +393,12 @@ def handle_all_diets():
 # Show pet DIET
 
 @app.route('/diet', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_diet():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
-    #all_events = Event.query.filter_by(id=user.id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_diets = Diet.query.filter_by(id=user.id)
     all_diets = Diet.query.all()
     
     all_diets =list(map(lambda x: x.serialize(), all_diets))
@@ -405,11 +411,12 @@ def handle_diet():
 # Add pet MEDICINE
 
 @app.route('/medicine/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_medicine():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
 
     body = request.get_json()
     print(body)
@@ -430,22 +437,40 @@ def handle_all_medicine():
 
     return jsonify(response_body), 200
 
+# Show pet MEDICINE
+
+@app.route('/medicine', methods=['GET'])
+@jwt_required()
+def handle_medicine():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_medicines = Medicine.query.filter_by(id=user.id)
+    all_medicines = Medicine.query.all()
+    
+    all_medicines =list(map(lambda x: x.serialize(), all_medicines))
+    print(all_medicines)
+    response_body = all_medicines
+    return jsonify(response_body), 200
+
+
 # Add pet VET APPOINTMENT
 
 @app.route('/appointment/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_appointments():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
     body = request.get_json()
     print(body)
 
     appointment = Appointment(
         mascot_id = body['mascot_id'],     
+        center_id = body['center_id'],
         date = body['date'],
-        #veterinarian = body['veterinarian'],
+        
     )
 
     db.session.add(appointment)
@@ -455,6 +480,23 @@ def handle_all_appointments():
         "msg": "Appointment added correctly!"
         }
 
+    return jsonify(response_body), 200
+
+
+# Show pet APPOINTMENTS
+
+@app.route('/appointment', methods=['GET'])
+@jwt_required()
+def handle_appointment():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_appointments = Appointment.query.filter_by(id=user.id)
+    all_appointments = Appointment.query.all()
+    
+    all_appointments =list(map(lambda x: x.serialize(), all_appointments))
+    print(all_appointments)
+    response_body = all_appointments
     return jsonify(response_body), 200
 
 

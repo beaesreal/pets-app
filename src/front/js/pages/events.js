@@ -9,7 +9,7 @@ import { Context } from "../store/appContext";
 
 import { Sidebar } from "../component/sidebar";
 import { Calendar } from "../component/calendar";
-import PetCard from "../component/petCard";
+import EventCard from "../component/eventCard";
 
 import DarkMode from "../component/darkMode";
 
@@ -62,7 +62,7 @@ export const Events = () => {
         const userToken = localStorage.getItem('jwt-token');
 
         if (!userToken) {navigate("/login")}
-        else {navigate('/Events')}
+        else {navigate('/events')}
 
     }, [navigate])
 
