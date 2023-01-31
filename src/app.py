@@ -18,6 +18,7 @@ from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinari
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from datetime import date, datetime, timedelta
 
 #from models import Person
 
@@ -141,6 +142,67 @@ def handle_login():
     if checkpass:
         access_token = create_access_token(identity=user.id)
         return jsonify({ "token": access_token, "user_id": user.id }), 200
+
+    else:
+        return jsonify({'msg': "Email or password incorrect"}), 401
+
+
+@app.route('/passwordreset', methods=['POST'])
+def handle_resetPassword():
+    body = request.get_json()
+    email = body['email']
+    #current_date = datetime.now()
+    if (email):
+
+        request_user = User.query.filter_by(email=email).first()
+        
+        #secret = f'{request_user.password}-{current_date}'
+        reset_token = create_access_token(
+            identity=request_user.id,
+            expires_delta= timedelta(
+                minutes=1
+            )
+        )
+
+        print(reset_token)
+
+        return jsonify(reset_token)
+
+    else:
+        response_body = {
+            'msg': 'E-mail adress is missing'
+        }
+
+        return jsonify(response_body), 400
+
+
+@app.route('/passwordreset/<string:id>', methods=['POST'])
+def handle_resetPasswordForm(id):
+    
+    
+    if (id):
+
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        #secret = f'{request_user.password}-{current_date}'
+        reset_token = create_access_token(
+            identity=request_user.id,
+            expires_delta= timedelta(
+                minutes=1
+            )
+        )
+
+        print(reset_token)
+
+        return jsonify(reset_token)
+
+    else:
+        response_body = {
+            'msg': 'E-mail adress is missing'
+        }
+
+        return jsonify(response_body), 400
 
 @app.route('/private', methods=['GET'])
 @jwt_required()

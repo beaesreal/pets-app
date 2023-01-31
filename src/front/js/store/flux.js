@@ -88,6 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  document.getElementById("email").style.borderColor = "red";
 				  document.getElementById("pass").style.borderColor = "red";
 				  document.getElementById("loginError").style.display = "block";
+				  document.getElementById("noPassword").style.display = "block";
 				  const message = `An error has occured: ${resp.status}`;
 				  throw new Error(message);
 				  
@@ -110,6 +111,52 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				location.replace("/");
 			  
+			},
+
+			//Function to reset password
+			handleResetPassword: async (email) => {
+				console.log(email)
+				if (!email){
+					document.getElementById("reset-email-not").style.display = "block";
+				}
+				try {
+					const response = await fetch(
+						process.env.BACKEND_URL+"/passwordreset",
+						{
+							method: "POST",
+							mode: 'cors',
+							credentials: 'omit',
+							headers: {"Content-Type": "application/json",},
+							body: JSON.stringify({'email': email}),
+						}
+					)
+
+					if(response.ok){
+						const objson = await response.json();
+						/*const transporter = NodeMailer.createTransport({
+							host: 'smtp.mail.com',
+							port: 587,
+							secure: true,
+							auth: {
+								user: 'petapet@mail.com',
+								pass: 'PetAPet2023'
+							},
+							tls: {
+								rejectUnauthorized: false
+							}
+						});*/
+						const url = `https://3000-beaesreal-petsapp-0ulpgokjetx.ws-eu84.gitpod.io/passwordreset/${objson}`
+						const data = {
+							message:
+								`<p>${process.env.CLIENT_URL}/passwordreset/${objson}</p>`
+						}
+
+						console.log(url)
+						console.log(objson);
+					}
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			handleDeleteUser: async () => {
