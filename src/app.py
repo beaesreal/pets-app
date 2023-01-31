@@ -388,7 +388,7 @@ def handle_diet():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     all_diets = Diet.query.filter_by(id=user.id)
-    #all_diets = Diet.query.all()
+    all_diets = Diet.query.all()
     
     all_diets =list(map(lambda x: x.serialize(), all_diets))
     print(all_diets)

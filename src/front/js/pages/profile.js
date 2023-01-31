@@ -78,17 +78,17 @@ export const Profile = () => {
                     <Sidebar />
                 </div>
 
-                <div className="col-11 text-center justify-content-center py-5 px-5">
+                <div className="col-11 text-center justify-content-center py-5 col-profile-general">
                     <div className="my-pets">
                     <h1 className="pb-5">Profile</h1>
-                    <h2>My pets</h2>
+                    <h2 className="pb-3">My pets</h2>
 
                     
-                        <div className="row">
+                        <div className="row justify-content-center">
                             
 
                             {pets.map ( pets => (
-                            <div className="col-sm py-4 mx-3">
+                            <div className="col-sm py-4">
                                 <PetCard 
                                     key= {pets.id}
                                     title= {pets.name}
@@ -106,7 +106,7 @@ export const Profile = () => {
                             </div>))}
 
                         </div>
-                        <div className="pt-5 mx-4">
+                        <div className="py-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
                         <hr className="mt-5"></hr>
@@ -118,34 +118,34 @@ export const Profile = () => {
                                 <EventCard />
                             </div>
                         </div>
-                        <div className="mx-4">
+                        <div className="mx-4 mb-5">
                             <a href="/events"><strong>Do you want to add another event on the calendar? Click here</strong></a>
                         </div>
-                        <hr className="mt-5"></hr>
                     </div>
 
 
-                    <div className="diets">
-                    <h2 className="py-5">Diets</h2>
+                    <div className="diets py-5">
                     
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <ul class="nav nav-pills card-header-pills">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/petcare">Diets</a>
+                    <div className="card text-center mx-3">
+                        <div className="card-header hd-card-profile">
+                            <ul className="nav nav-pills card-header-pills">
+                            <li className="nav-item mx-3">
+                                <a className="nav-link active" href="/profile">Diets</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#treatments">Treatments</a>
+                            <li className="nav-item mx-3">
+                                <a className="nav-link" href="#treatments">Treatments</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#appointments">Appointments</a>
+                            <li className="nav-item mx-3">
+                                <a className="nav-link" href="#appointments">Appointments</a>
                             </li>
                             </ul>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Diets</h5>
-                            <p class="card-text"><DietCard /></p>
-                            <a href="#diet" class="btn btn-primary">Add new diet</a>
+                        <div className="card-body card-profile">
+                            <p className="card-text"><DietCard /></p>
+                            <div className="d-flex align-items-left px-4">
+                                <a href="#diet" className="btn btn-primary">Add new diet</a>
+                            </div>
+                            
                         </div>
                         </div>
                     </div>
