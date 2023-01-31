@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import Enum
 import enum
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import declarative_base, relationship
 
 db = SQLAlchemy()
 
