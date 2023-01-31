@@ -15,7 +15,10 @@ const PetDetails = (props) => {
             
                 <div key={props.id} className="card mobile-space">
                     <div className="overflow">
-                        <img className="card-img-top" src={props.img} alt=""></img>
+                    {props.img ?
+                        <img className="card-img-top" src={props.img}></img>:
+                        <img className="card-img-top" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
+                    }
                     </div>
                     <div className="card-body text-dark">
                         <div className="d-flex flex-row-reverse">

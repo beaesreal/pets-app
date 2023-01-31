@@ -8,10 +8,13 @@ const PetCard = (props) => {
 	// 1) replace the hard-coded image, description, link, etc. With their property variable.
 	return (
         
-        <div className="container">
+        <div className="container" style={{width:"20rem"}}>
             <div className="card-transform">
                 <div key={props.id} className="card-img-top">
-                <img className="card-img" src={props.img} alt="Card image cap"></img>
+                {props.img ?
+                    <img className="card-img" src={props.img}></img>:
+                    <img className="card-img" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
+                }
                 <div className="card-body py-6">
                     <h5 className="card-title">{props.title}</h5>
                     

@@ -91,9 +91,7 @@ export const Profile = () => {
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
                                     breed= {pets.breed}
-                                    //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
+                                    img={pets.image}
                                     buttonLabel= "More info"
                                     buttonUrl= "/pets"                        
                                 />
