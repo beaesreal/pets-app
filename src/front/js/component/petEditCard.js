@@ -64,6 +64,10 @@ const PetEditCard = (props) => {
             
           )
           console.log(resp)
+          if (resp.ok){
+            alert("Pet edited correctly!")
+            location.replace("/pets")
+          }
     }
 
     console.log("props=>", props)

@@ -132,6 +132,10 @@ const PetInfo = () => {
             
           )
           console.log(resp)
+          if (resp.ok){
+            alert("Pet added successfully!")
+            location.replace("/profile")
+          }
     }
 
 
