@@ -1,20 +1,24 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 import ReactDOM from "react-dom";
 import PropType from "prop-types";
 import { FaPen, FaArrowUp } from 'react-icons/fa'
 import "../../styles/petimage.css";
 
+
 const PetDetails = (props) => {
-    console.log(props.breed)
-	// 1) replace the hard-coded image, description, link, etc. With their property variable.
-	return (
+
+    	return (
         <div className="container">
             
             <div className="card text-center shadow">
             
                 <div key={props.id} className="card mobile-space">
                     <div className="overflow">
-                        <img className="card-img-top" src={props.img} alt="Card image cap"></img>
+                    {props.img ?
+                        <img className="card-img-top" src={props.img}></img>:
+                        <img className="card-img-top" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
+                    }
                     </div>
                     <div className="card-body text-dark">
                         <div className="d-flex flex-row-reverse">
@@ -38,11 +42,13 @@ const PetDetails = (props) => {
                         </div>
                      
                         <div>
-                            <p className="card-caracteristics">{props.caracteristics}Es un animal tranquilo y bueno</p>  
+                            <p className="card-caracteristics">{props.caracteristics}</p>  
                         </div>
                     </div>
                 <div className="card-button py-1">
-                    <a href={props.buttonUrl} className="button btn btn-outline p-2">{props.buttonLabel}</a>
+                    <Link to={`edit/${props.id}`}>
+                        <button className="button btn btn-outline p-2">{props.buttonLabel}</button>
+                    </Link>
                     </div>
                 </div>
             </div>    
@@ -58,6 +64,7 @@ PetDetails.propTypes = {
     id: PropType.string,
 	title: PropType.string,
     breed: PropType.string,
+    image: PropType.string,
 	img: PropType.string,
     age: PropType,
     birth: PropType.string,

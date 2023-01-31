@@ -46,6 +46,8 @@ export const Detail = () => {
                 })
             const jsonResult = await result.json()
 
+            console.log(jsonResult)
+
             setPets(jsonResult)
         }
 
@@ -93,26 +95,21 @@ export const Detail = () => {
                     <h1 className="pb-5">Pets</h1>
                         
                         <div className="container d-flex justify-content-centen align-items-center">
-                            <div className="row">
+                            <div className="row justify-content-center">
 
                             {pets.map ( pet => (
                             <div className="pet-info-container py-4">
                                 <PetDetails 
                                     key= {pet.id}
                                     title= {pet.name}
-                                    //preguntar cómo poner año de nacimiento únicamente o edad del animal
                                     age= {getAge(pet.date_of_birth)}
-                                    // birth={dateNoTime(pet.date_of_birth)}
                                     species = {pet.species}
                                     breed={pet.breed}
                                     colour= {pet.colour}
                                     gender= {pet.gender}
                                     id= {pet.id}
                                     caracteristics = {pet.caracteristics}
-                                    // img={pets.img}
-                                    //preguntar cómo poner imagen cuando es null
-                                    // {(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
+                                    img={pet.image}
                                     buttonLabel= "Edit this pet"
                                     buttonUrl= "/details"                        
                                 />
