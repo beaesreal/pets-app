@@ -9,12 +9,12 @@ import { Context } from "../store/appContext";
 import { Sidebar } from "../component/sidebar";
 import PetCard from "../component/petCard";
 import EventCard from "../component/eventCard";
-import DietCard from "../component/dietCard";
+import AppointmentCard from "../component/appointmentCard";
 
 
 
 
-export const Profile = () => {
+export const ProfileAppointments = () => {
 	const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [ date, setDate] = useState(new Date());
@@ -61,7 +61,7 @@ export const Profile = () => {
         const userToken = localStorage.getItem('jwt-token');
 
         if (!userToken) {navigate("/login")}
-        else {navigate('/profile')}
+        else {navigate('/profile/appointments#information')}
 
     }, [navigate])
 
@@ -93,7 +93,9 @@ export const Profile = () => {
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
                                     breed= {pets.breed}
-                                    img={pets.image}
+                                    //preguntar cómo poner imagen cuando es null
+                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
+                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
                                     buttonLabel= "More info"
                                     buttonUrl= "/pets"                        
                                 />
@@ -104,26 +106,26 @@ export const Profile = () => {
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
 
-                        <div className="diets py-5">
+                        <div className="diets py-5 mx-2">
                     
                     <div className="card text-center mx-3" id="information">
                         <div className="card-header hd-card-profile">
                             <ul className="nav nav-pills card-header-pills">
                             <li className="nav-item mx-3">
-                                <a className="nav-link active" href="/profile#information">Diets</a>
+                                <a className="nav-link" href="/profile#information">Diets</a>
                             </li>
                             <li className="nav-item mx-3">
                                 <a className="nav-link" href="/profile/treatments#information">Treatments</a>
                             </li>
                             <li className="nav-item mx-3">
-                                <a className="nav-link" href="/profile/appointments#information">Appointments</a>
+                                <a className="nav-link active" href="/profile/appointments#information">Appointments</a>
                             </li>
                             </ul>
                         </div>
                         <div className="card-body card-profile">
-                            <p className="card-text"><DietCard /></p>
+                            <p className="card-text"><AppointmentCard /></p>
                             <div className="d-flex align-items-left px-4">
-                                <a href="/petcare" className="btn btn-primary">Add new diet</a>
+                                <a href="/petcare" className="btn btn-primary">Add new appointment</a>
                             </div>
                             
                         </div>

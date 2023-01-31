@@ -2,7 +2,7 @@ import React from "react";
 import PropType from "prop-types";
 
 
-const PetSelector = (props) => {
+const CenterSelector = (props) => {
     
     return (
         <option className="m-0 p-0" key={props.id} value={props.id}>
@@ -10,9 +10,9 @@ const PetSelector = (props) => {
         </option>
 	);
 };
-PetSelector.propTypes = {
+CenterSelector.propTypes = {
     id: PropType.number,
 	name: PropType.string,
 };
 
-export default PetSelector;
+export default CenterSelector;

@@ -1,16 +1,14 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
-import { ModalResetPassword } from "../component/ModalResetPass";
-import PetImage from "../../img/Pet-image.png";
-import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
+
 
 export const Login = () => {
     const { actions } = useContext(Context);
     const [togglePassword, settogglePassword] = useState("password");
     const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [inputData, setinputData] = useState({
-        email: '',
         pass: '',
+        pass2: '',
     });
     
     const handleInputChange = (event) => {
@@ -31,18 +29,16 @@ export const Login = () => {
         }
     }
 
-    const keyLogin = (e) => {
+    /*const keyLogin = (e) => {
         if (e.key === 'Enter'){
             actions.handleLogin(inputData['email'], inputData['pass'])
         }
-    }
+    }*/
     
 
     return (
         <div className="row">
-            <div className="d-flex justify-content-center my-5 text-center">
-                <img className="img-fluid" src={Placeholder_APP_Logo} style={{margin: "auto", width: "200px"}}/> 
-            </div>
+            <h3 className="mt-4 mt-5 px-5">Reset Password</h3>
             <form 
                 name="myForm"
                 onSubmit={(e) => {
@@ -50,38 +46,32 @@ export const Login = () => {
                     actions.handleLogin(inputData['email'], inputData['pass'])
                 }}
                 >
-                    <a 
-                        id="loginError" 
-                        className="text-center" 
-                        style={{
-                            display: "none", 
-                            textDecoration: "none", 
-                            fontSize: "0.875em", 
-                            color: "red"}}>
-                        
-                        {"E-mail/Username or Password incorrect"}
-                    </a>
-                    <div className="form-group has-feedback justify-content-center">
+                    <div className="input-group d-flex justify-content-center">
+                        <label for="pass1" class="form-label">New password: </label>
                         <input 
-                            id="email" 
+                            id="pass1" 
                             className="form-control"
-                            type="text" 
-                            name="email" 
+                            type={togglePassword}
+                            name="pass1" 
                             placeholder="Email or Username" 
                             onChange={handleInputChange} 
                             style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
                             required/>
+
+                        <span className="input-group-text bg-transparent" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
+                            <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                        </span>
                     <br></br>
                         <div className="input-group d-flex justify-content-center">
+                            <label for="pass2" class="form-label">Repeat new password: </label>
                             <input 
-                                id="pass" 
+                                id="pass2" 
                                 className="form-control"
                                 type={togglePassword} 
-                                name="pass" 
+                                name="pass2" 
                                 placeholder="Password" 
                                 onChange={handleInputChange}
                                 style={{textAlign: "center", maxWidth: "20rem"}} 
-                                onKeyUp={() => {keyLogin}}
                                 required/>
                             
                             <span className="input-group-text bg-transparent" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
@@ -95,16 +85,9 @@ export const Login = () => {
                     </div>
                     <br></br>
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary px-4" type="submit" style={{margin: "auto"}}>Log in</button>
+                        <button className="btn btn-primary px-4" type="submit" style={{margin: "auto"}}>Reset Password</button>
                     </div>
                     <br></br>
-                    <div className="d-flex justify-content-center">    
-                        <p>
-                            Don't have an account? <a href="/signup" style={{textDecoration: "underline"}}>Click Here</a>
-                        </p>
-                        
-                    </div>
-                    
             </form>
                     
         </div>

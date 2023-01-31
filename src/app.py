@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 import re
-import bcrypt
+#import bcrypt
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -18,6 +18,7 @@ from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinari
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from datetime import date, datetime, timedelta
 
 #from models import Person
 
@@ -85,16 +86,16 @@ def handle_signup():
     if re.fullmatch(regex, body['email']):
         print("Valid email")
 
-        pass_encode = body['password'].encode('utf-8')
-        mySalt = bcrypt.gensalt()
+        #pass_encode = body['password'].encode('utf-8')
+        #mySalt = bcrypt.gensalt()
 
-        hashed = bcrypt.hashpw(pass_encode, mySalt)
-        print(hashed)
+        #hashed = bcrypt.hashpw(pass_encode, mySalt)
+        #print(hashed)
     
         user = User(
             username = body['username'],
             email = body['email'],
-            password = hashed,
+            password = body['password'],
             is_active = True
         )
 
@@ -123,24 +124,85 @@ def handle_login():
 
     if body['username']:
         username = body['username']
-        password = body['password'].encode('utf-8')
-        user = User.query.filter_by(username=username).first()
-        checkpass = bcrypt.checkpw(password, user.password)
+        password = body['password']
+        user = User.query.filter_by(username=username, password=password).first()
+        #checkpass = bcrypt.checkpw(password, user.password)
         
 
     if body['email']:
         email = body['email']
-        password = body['password'].encode('utf-8')
-        user = User.query.filter_by(email=email).first()
-        checkpass = bcrypt.checkpw(password, user.password)
+        password = body['password']
+        user = User.query.filter_by(email=email, password=password).first()
+        #checkpass = bcrypt.checkpw(password, user.password)
 
 
     if user is None:
         return jsonify({"msg": "Bad username or password"}), 401
 
-    if checkpass:
+    else:
         access_token = create_access_token(identity=user.id)
         return jsonify({ "token": access_token, "user_id": user.id }), 200
+
+    #else:
+    #    return jsonify({'msg': "Email or password incorrect"}), 401
+
+
+@app.route('/passwordreset', methods=['POST'])
+def handle_resetPassword():
+    body = request.get_json()
+    email = body['email']
+    #current_date = datetime.now()
+    if (email):
+
+        request_user = User.query.filter_by(email=email).first()
+        
+        #secret = f'{request_user.password}-{current_date}'
+        reset_token = create_access_token(
+            identity=request_user.id,
+            expires_delta= timedelta(
+                minutes=1
+            )
+        )
+
+        print(reset_token)
+
+        return jsonify(reset_token)
+
+    else:
+        response_body = {
+            'msg': 'E-mail adress is missing'
+        }
+
+        return jsonify(response_body), 400
+
+
+@app.route('/passwordreset/<string:id>', methods=['POST'])
+def handle_resetPasswordForm(id):
+    
+    
+    if (id):
+
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        #secret = f'{request_user.password}-{current_date}'
+        reset_token = create_access_token(
+            identity=request_user.id,
+            expires_delta= timedelta(
+                minutes=1
+            )
+        )
+
+        print(reset_token)
+
+        return jsonify(reset_token)
+
+    else:
+        response_body = {
+            'msg': 'E-mail adress is missing'
+        }
+
+        return jsonify(response_body), 400
 
 
 @app.route('/private', methods=['GET'])
@@ -249,14 +311,14 @@ def handle_update_pet(id):
 # Get Pet info
 
 @app.route('/pet', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_pet():
 
-    #current_user_id = get_jwt_identity()
-    #user = Mascot.query.get(current_user_id)
-    #all_mascot = Mascot.query.filter_by(user_id=user.id)
+    current_user_id = get_jwt_identity()
+    user = Mascot.query.get(current_user_id)
+    all_mascot = Mascot.query.filter_by(user_id=user.id)
 
-    all_mascot = Mascot.query.all()
+    #all_mascot = Mascot.query.all()
 
     
     all_mascot =list(map(lambda x: x.serialize(), all_mascot))
@@ -296,13 +358,19 @@ def handle_user():
 # Get Vet info
 
 @app.route('/veterinarian', methods=['GET'])
+#@jwt_required()
 def handle_veterinarian():
 
-    if request.method == 'GET':
-        all_veterinarian = Veterinarian.query.all()
-        all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
-        response_body = all_veterinarian
-        return jsonify(response_body), 200
+    #current_user_id = get_jwt_identity()
+    #user = User.query.get(current_user_id)
+    #all_veterinarian = Veterinarian.query.filter_by(id=user.id)
+
+    all_veterinarian = Veterinarian.query.all()
+    
+    all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
+    print(all_veterinarian)
+    response_body = all_veterinarian
+    return jsonify(response_body), 200
 
 
 # Update USER Info
@@ -406,11 +474,11 @@ def delete_event(id):
 # Add pet DIET
 
 @app.route('/diet/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_diets():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
     body = request.get_json()
     print(body)
@@ -434,12 +502,12 @@ def handle_all_diets():
 # Show pet DIET
 
 @app.route('/diet', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_diet():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
-    #all_events = Event.query.filter_by(id=user.id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_diets = Diet.query.filter_by(id=user.id)
     all_diets = Diet.query.all()
     
     all_diets =list(map(lambda x: x.serialize(), all_diets))
@@ -452,11 +520,12 @@ def handle_diet():
 # Add pet MEDICINE
 
 @app.route('/medicine/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_medicine():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
 
     body = request.get_json()
     print(body)
@@ -477,22 +546,40 @@ def handle_all_medicine():
 
     return jsonify(response_body), 200
 
+# Show pet MEDICINE
+
+@app.route('/medicine', methods=['GET'])
+@jwt_required()
+def handle_medicine():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_medicines = Medicine.query.filter_by(id=user.id)
+    all_medicines = Medicine.query.all()
+    
+    all_medicines =list(map(lambda x: x.serialize(), all_medicines))
+    print(all_medicines)
+    response_body = all_medicines
+    return jsonify(response_body), 200
+
+
 # Add pet VET APPOINTMENT
 
 @app.route('/appointment/create', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def handle_all_appointments():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
     body = request.get_json()
     print(body)
 
     appointment = Appointment(
         mascot_id = body['mascot_id'],     
+        center_id = body['center_id'],
         date = body['date'],
-        #veterinarian = body['veterinarian'],
+        
     )
 
     db.session.add(appointment)
@@ -502,6 +589,23 @@ def handle_all_appointments():
         "msg": "Appointment added correctly!"
         }
 
+    return jsonify(response_body), 200
+
+
+# Show pet APPOINTMENTS
+
+@app.route('/appointment', methods=['GET'])
+@jwt_required()
+def handle_appointment():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_appointments = Appointment.query.filter_by(id=user.id)
+    all_appointments = Appointment.query.all()
+    
+    all_appointments =list(map(lambda x: x.serialize(), all_appointments))
+    print(all_appointments)
+    response_body = all_appointments
     return jsonify(response_body), 200
 
 
