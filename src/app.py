@@ -253,7 +253,7 @@ def handle_create_pet():
         mascot = Mascot(
             # puede faltar id y user id
             user_id = current_user_id,
-            veterinarian_id = veterinarian.id,
+            #veterinarian_id = veterinarian.id,
             name = body['name'],
             date_of_birth = body['date_of_birth'],
             species = body['species'],
@@ -286,13 +286,13 @@ def handle_update_pet(id):
     body=request.get_json()
 
 
-    user.name = body['name'],
-    user.date_of_birth = body['date_of_birth'],
-    user.species = body['species'],
-    user.gender = body['gender'],
-    user.breed = body['breed'],
-    user.colour = body['colour'],
-    user.caracteristics = body['caracteristics'],
+    user.name = body['name']
+    user.date_of_birth = body['date_of_birth']
+    user.species = body['species']
+    user.gender = body['gender']
+    user.breed = body['breed']
+    user.colour = body['colour']
+    user.caracteristics = body['caracteristics']
     # img_1 = body['img_1'],
     # img_2 = body['img_2'],
     # img_3 = body['img_3'],

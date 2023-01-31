@@ -118,7 +118,7 @@ const PetEditCard = (props) => {
                                     type='date' 
                                     name='birthday' 
                                     placeholder={props.birthday} 
-                                    selected value={props.birthday}
+                                    
                                     onChange={handleInputChangeEdit}
                                     />
                             <input style={{marginTop:'2%'}} 
