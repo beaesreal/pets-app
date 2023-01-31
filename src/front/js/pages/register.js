@@ -156,8 +156,8 @@ export const Register = () => {
                         <small id="existsNone" style={{display: "none", fontSize: "1em", color: "red"}}>{"Username or email already exists"}</small>
                     </form>
                 </div>
-                <div className="col-sm d-flex justify-content-center">
-                    <img src={French_Dog_2} style={{width: "auto"}}/>
+                <div className="col-sm d-flex object-fit-contain" style={{maxHeight:"600px"}}>
+                    <img className="object-fit-cover" src={French_Dog_2} style={{width:"100%", objectFit:"cover",}} />
                 </div>
             </div>
         </div>
