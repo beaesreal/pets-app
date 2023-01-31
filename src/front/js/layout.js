@@ -6,6 +6,8 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Profile } from "./pages/profile";
+import { ProfileTreatments } from "./pages/profileTreatments";
+import { ProfileAppointments } from "./pages/profileAppointments";
 import { PetCare } from "./pages/petCare";
 import { Events } from "./pages/events";
 import { Settings } from "./pages/settings";
@@ -43,6 +45,8 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<ProfileTreatments />} path="/profile/treatments" />
+                        <Route element={<ProfileAppointments />} path="/profile/appointments" />
                         <Route element={<PetCare />} path="/petcare" />
                         <Route element={<Events />} path="/events" />
                         <Route element={<Settings />} path="/settings" />

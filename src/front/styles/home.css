@@ -196,7 +196,7 @@ a:hover{
 /*Events*/
 
 .events-map-container{
-    background-color: #fcfcf3;
+    background-color: #fcfcf300;
     border-color: #251749;
     border-width: 3px !important;
     border-radius: 20px !important;
@@ -209,6 +209,10 @@ a:hover{
 
 .nav-pills .nav-link.active{
     background-color: #263159;
+}
+
+.text-events-card{
+    text-align: left !important;
 }
 
 

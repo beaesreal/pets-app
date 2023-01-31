@@ -35,17 +35,17 @@ useEffect (() => {
         {events.map (events =>
         <div className="col-lg-4 mx-4 my-2 p-3 border rounded events-map-container">
         <div key={events.id}>
-            <div className="">
+            <div className="d-flex text-left">
                 <h5 className="py-3">
                     {events.title}
                 </h5>
             </div>
-            <p className="small"><b>▶️ Starts:</b></p>
-            <p className="">
+            <p className="small d-flex text-left"><b>▶️ Starts:</b></p>
+            <p className="text-events-card">
                 {events.start}
             </p>
-            <p className="small"><b>⏺️ Ends:</b></p>
-            <p className="">
+            <p className="small d-flex text-left"><b>⏺️ Ends:</b></p>
+            <p className="text-events-card">
                 {events.end}
             </p>
         </div>

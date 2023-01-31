@@ -426,6 +426,23 @@ def handle_all_medicine():
 
     return jsonify(response_body), 200
 
+# Show pet MEDICINE
+
+@app.route('/medicine', methods=['GET'])
+@jwt_required()
+def handle_medicine():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_medicines = Medicine.query.filter_by(id=user.id)
+    all_medicines = Medicine.query.all()
+    
+    all_medicines =list(map(lambda x: x.serialize(), all_medicines))
+    print(all_medicines)
+    response_body = all_medicines
+    return jsonify(response_body), 200
+
+
 # Add pet VET APPOINTMENT
 
 @app.route('/appointment/create', methods=['POST'])
@@ -452,6 +469,23 @@ def handle_all_appointments():
         "msg": "Appointment added correctly!"
         }
 
+    return jsonify(response_body), 200
+
+
+# Show pet APPOINTMENTS
+
+@app.route('/appointment', methods=['GET'])
+@jwt_required()
+def handle_appointment():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_appointments = Appointment.query.filter_by(id=user.id)
+    all_appointments = Appointment.query.all()
+    
+    all_appointments =list(map(lambda x: x.serialize(), all_appointments))
+    print(all_appointments)
+    response_body = all_appointments
     return jsonify(response_body), 200
 
 
