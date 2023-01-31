@@ -56,7 +56,7 @@ class Mascot(db.Model):
             "name": self.name,
             "date_of_birth": self.date_of_birth,
             "colour": self.colour,
-            "img": self.img_mimetype,
+            "image": self.img_1,
             "species": self.species.value,
             "gender": self.gender.value,
             "breed": self.breed,
