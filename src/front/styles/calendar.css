@@ -29,7 +29,6 @@ a{
 
 .ReactModal__Overlay--after-open{
     z-index: 100;
-    max-width: 100rem;
     display: flex;
     justify-content: center;
 }
@@ -37,4 +36,8 @@ a{
 .fc-toolbar-chunk{
     text-align: center;
     margin-top: 0.5rem;
+}
+
+.fc .fc-daygrid-day.fc-day-today{
+    background-color: #F6F6C9;
 }

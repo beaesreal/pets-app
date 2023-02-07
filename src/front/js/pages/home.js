@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 
 // Styles
 import "../../styles/home.css";
@@ -16,8 +15,6 @@ import Img_4 from "../../img/Img_4.png";
 import Img_5 from "../../img/Img_5.png";
 import Img_6 from "../../img/Img_6.png";
 import Img_7 from "../../img/Img_7.png";
-import Dalmatian from "../../img/Dalmatian.jpg";
-
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -47,7 +44,7 @@ export const Home = () => {
 	return (
 		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
 
-			<div className="container-fluid header-bg">
+			<div className="container-fluid header-bg" >
 				<div className="container p-4">
 				<div className="row align-items-center p-lg-5">
 					<div className="col-lg-6 col-sm-1">
@@ -66,9 +63,9 @@ export const Home = () => {
 			
 				
 
-				<div class="container">
-					<div class="row py-5 px-3">
-						<div class="col-sm py-5 m-lg-3">
+				<div className="container" id="features">
+					<div className="row py-5 px-3">
+						<div className="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_1} />
 							<h5>
 								Veterinary appointments
@@ -76,7 +73,7 @@ export const Home = () => {
 							<p>
 								Remembering the vet will no longer be a problem, register, add your pets and save their appointments.
 							</p>
-							<a><b>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
@@ -87,7 +84,7 @@ export const Home = () => {
 							</h5>
 							<p>
 								Save your events, meetings with other people who have animals, diets or medicines that your little one needs.							</p>
-							<a><b>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
@@ -99,7 +96,7 @@ export const Home = () => {
 							<p>
 								Your pets' data is safe. You can add daily feeding amounts, feeding reminders and more.
 							</p>
-							<a><b>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
@@ -114,7 +111,7 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container ">
+					<div className="container" id ="steps">
 						<div className="row text-center mt-4 pt-5">
 							<h2>How to start?</h2>
 							<h4>Four simple steps to follow</h4>
@@ -161,7 +158,7 @@ export const Home = () => {
 						</div>
 					</div>
 
-				<div className="container-fluid photo-text-section py-5 px-5 petBlog">
+				<div className="container-fluid photo-text-section py-5 px-5 petBlog" id="curiosities">
 						<div className="container-md">
 							<div className="row align-items-center p-lg-5">
 								<div className="col-sm p-3 d-flex justify-content-center">

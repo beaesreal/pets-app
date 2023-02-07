@@ -200,6 +200,8 @@ a:hover{
     border-color: #251749;
     border-width: 3px !important;
     border-radius: 20px !important;
+    width: 200px;
+
 }
 
 .events-map-container:hover{

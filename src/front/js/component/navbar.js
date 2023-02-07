@@ -28,13 +28,13 @@ export const Navbar = () => {
 			<ul className="navbar-nav ms-auto">
 
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">Features</a>
+				<a className="nav-link" href="/#features">Features</a>
 			</li>
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">Pets</a>
+				<a className="nav-link" href="/#steps">Steps</a>
 			</li>
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">About us</a>
+				<a className="nav-link" href="/#curiosities">Curiosities</a>
 			</li>
 			</ul>
 			

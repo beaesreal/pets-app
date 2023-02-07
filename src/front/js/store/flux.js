@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			emailModal: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -88,6 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  document.getElementById("email").style.borderColor = "red";
 				  document.getElementById("pass").style.borderColor = "red";
 				  document.getElementById("loginError").style.display = "block";
+				  document.getElementById("noPassword").style.display = "block";
 				  const message = `An error has occured: ${resp.status}`;
 				  throw new Error(message);
 				  
@@ -110,6 +112,89 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 				location.replace("/");
 			  
+			},
+
+			//Function to send reset password link
+			handleLink_New_Password: async (email) => {
+				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
+				console.log(email)
+				if (!email || !regexEmail.test(email)){
+					document.getElementById("reset-email-not").style.display = "block";
+					document.getElementById("reset-email").style.borderColor = "red";
+				}
+				else {
+					try {
+						const response = await fetch(
+							process.env.BACKEND_URL+"/resetpassword",
+							{
+								method: "POST",
+								mode: 'cors',
+								credentials: 'omit',
+								headers: {"Content-Type": "application/json",},
+								body: JSON.stringify({'email': email}),
+							}
+						)
+						
+						if(response.ok){
+							const objson = await response.json();
+							const url = `https://3000-beaesreal-petsapp-0ulpgokjetx.ws-eu85.gitpod.io/resetpassword/${objson['token']}`
+							console.log(url)
+							//console.log(objson);
+
+
+							// Commented the function that sends de email
+							const sendEmail = (obj, str) => {
+
+								/*const templateParams = {
+								user_email: obj['email'],
+								message: str
+								};
+
+								emailjs.send('service_gglai03', 'contact_form', templateParams) //use your Service ID and Template ID
+									.then(function(response) {
+									console.log('SUCCESS!', response.status, response.text);
+									}, function(error) {
+									console.log('FAILED...', error);
+									});*/
+							}
+
+							sendEmail(objson, url);
+							setStore({emailModal: true})
+							
+						}
+					
+					} catch (error) {
+						console.log(error)
+					}
+				}
+			},
+
+			handleResetPassword: async (token, pass) => {
+				if (!token || !pass){
+					throw new Error('Token or password is missing!')
+				}
+				try {
+					const response = await fetch(
+						process.env.BACKEND_URL+"/resetpassword/"+token,
+						{
+							method: "PUT",
+							mode: 'cors',
+							credentials: 'omit',
+							headers: {"Content-Type": "application/json",},
+							body: JSON.stringify({
+								'pass': pass,
+								'token': token
+							}),
+						}
+					)
+
+					if(response.ok){
+						const resp = response.json()
+						alert(resp['msg'])
+					}
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			handleDeleteUser: async () => {

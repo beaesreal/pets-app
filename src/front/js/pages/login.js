@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
+import { ModalResetPassword } from "../component/ModalResetPassword";
 import PetImage from "../../img/Pet-image.png";
 import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
 
@@ -49,6 +50,17 @@ export const Login = () => {
                     actions.handleLogin(inputData['email'], inputData['pass'])
                 }}
                 >
+                    <a 
+                        id="loginError" 
+                        className="text-center" 
+                        style={{
+                            display: "none", 
+                            textDecoration: "none", 
+                            fontSize: "0.875em", 
+                            color: "red"}}>
+                        
+                        {"E-mail/Username or Password incorrect"}
+                    </a>
                     <div className="form-group has-feedback justify-content-center">
                         <input 
                             id="email" 
@@ -77,17 +89,9 @@ export const Login = () => {
                             </span>
                         </div>
                     <br></br>
-                        <a 
-                            id="loginError" 
-                            className="text-center" 
-                            style={{
-                                display: "none", 
-                                textDecoration: "none", 
-                                fontSize: "0.875em", 
-                                color: "red"}}>
-                            
-                            {"E-mail/Username or Password incorrect"}
-                        </a>
+                        <div className="d-flex justify-content-center">
+                        <ModalResetPassword />
+                        </div>
                     </div>
                     <br></br>
                     <div className="d-flex justify-content-center">
@@ -96,10 +100,13 @@ export const Login = () => {
                     <br></br>
                     <div className="d-flex justify-content-center">    
                         <p>
-                            Don't have an account? <a href="/signup">Click Here</a>
+                            Don't have an account? <a href="/signup" style={{textDecoration: "underline"}}>Click Here</a>
                         </p>
+                        
                     </div>
+                    
             </form>
+                    
         </div>
     )
 }
