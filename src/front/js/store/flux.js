@@ -137,7 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 						if(response.ok){
 							const objson = await response.json();
-							const url = `https://3000-beaesreal-petsapp-0ulpgokjetx.ws-eu85.gitpod.io/resetpassword/${objson['token']}`
+							const url = `https://${window.location.host}/resetpassword/${objson['token']}`
 							console.log(url)
 							//console.log(objson);
 
