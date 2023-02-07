@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
-import { ModalResetPassword } from "../component/ModalResetPass";
+import { ModalResetPassword } from "../component/ModalResetPassword";
 import PetImage from "../../img/Pet-image.png";
 import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
 

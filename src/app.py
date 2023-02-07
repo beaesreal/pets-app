@@ -3,7 +3,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 import re
-#import bcrypt
+import secrets
+import bcrypt
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -86,16 +87,17 @@ def handle_signup():
     if re.fullmatch(regex, body['email']):
         print("Valid email")
 
-        #pass_encode = body['password'].encode('utf-8')
-        #mySalt = bcrypt.gensalt()
+        pass_encode = body['password'].encode('utf-8')
+        mySalt = bcrypt.gensalt()
 
-        #hashed = bcrypt.hashpw(pass_encode, mySalt)
-        #print(hashed)
+        hashed = bcrypt.hashpw(pass_encode, mySalt)
+        print(hashed)
     
         user = User(
             username = body['username'],
             email = body['email'],
-            password = body['password'],
+            password = hashed,
+            reset_password = secrets.token_urlsafe(128),
             is_active = True
         )
 
@@ -124,82 +126,94 @@ def handle_login():
 
     if body['username']:
         username = body['username']
-        password = body['password']
-        user = User.query.filter_by(username=username, password=password).first()
-        #checkpass = bcrypt.checkpw(password, user.password)
+        password = body['password'].encode('utf-8')
+        user = User.query.filter_by(username=username).first()
+        checkpass = bcrypt.checkpw(password, user.password)
         
 
     if body['email']:
         email = body['email']
-        password = body['password']
-        user = User.query.filter_by(email=email, password=password).first()
-        #checkpass = bcrypt.checkpw(password, user.password)
+        password = body['password'].encode('utf-8')
+        user = User.query.filter_by(email=email).first()
+        checkpass = bcrypt.checkpw(password, user.password)
 
 
     if user is None:
         return jsonify({"msg": "Bad username or password"}), 401
 
-    else:
+    if checkpass:
         access_token = create_access_token(identity=user.id)
         return jsonify({ "token": access_token, "user_id": user.id }), 200
 
-    #else:
-    #    return jsonify({'msg': "Email or password incorrect"}), 401
+    else:
+        return jsonify({'msg': "Email or password incorrect"}), 401
 
 
-@app.route('/passwordreset', methods=['POST'])
+@app.route('/resetpassword', methods=['POST'])
 def handle_resetPassword():
     body = request.get_json()
     email = body['email']
-    #current_date = datetime.now()
+    
     if (email):
 
         request_user = User.query.filter_by(email=email).first()
         
-        #secret = f'{request_user.password}-{current_date}'
-        reset_token = create_access_token(
-            identity=request_user.id,
-            expires_delta= timedelta(
-                minutes=1
-            )
-        )
+        if request_user:
+            reset_token = request_user.reset_password
+        
+            response_body = {
+                "token": reset_token,
+                "email": request_user.email
+            }
 
-        print(reset_token)
+            return jsonify(response_body), 200
 
-        return jsonify(reset_token)
+        else:
+            response_body = {
+                'msg': 'E-mail adress is missing or is incorrect'
+            }
+
+            return jsonify(response_body), 400
 
     else:
         response_body = {
-            'msg': 'E-mail adress is missing'
+            'msg': 'E-mail adress is missing or is incorrect'
         }
 
         return jsonify(response_body), 400
 
 
-@app.route('/passwordreset/<string:id>', methods=['POST'])
-def handle_resetPasswordForm(id):
+@app.route('/resetpassword/<string:token>', methods=['PUT'])
+def handle_resetPasswordForm(token):
     
-    
-    if (id):
+    if (token):
 
-        current_user_id = get_jwt_identity()
-        user = User.query.get(current_user_id)
+        body = request.get_json()
+
+        request_user_reset_pass = body['token']
+        request_user_new_pass = body['pass']
+
+        user = User.query.filter_by(reset_password=request_user_reset_pass).first()
         
-        #secret = f'{request_user.password}-{current_date}'
-        reset_token = create_access_token(
-            identity=request_user.id,
-            expires_delta= timedelta(
-                minutes=1
-            )
-        )
+        password = body['pass'].encode('utf-8')
+        mySalt = bcrypt.gensalt()
 
-        print(reset_token)
+        hashed = bcrypt.hashpw(password, mySalt)
 
-        return jsonify(reset_token)
+        user.password = hashed
+        user.reset_password = secrets.token_urlsafe(128)
+
+        db.session.commit()
+
+        response_body = {
+            'msg': 'Password created successfully'
+        }
+
+        return jsonify(response_body), 200
 
     else:
         response_body = {
-            'msg': 'E-mail adress is missing'
+            'msg': 'Token is missing'
         }
 
         return jsonify(response_body), 400

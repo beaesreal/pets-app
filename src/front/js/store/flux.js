@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			emailModal: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -113,46 +114,83 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 			},
 
-			//Function to reset password
-			handleResetPassword: async (email) => {
+			//Function to send reset password link
+			handleLink_New_Password: async (email) => {
+				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
 				console.log(email)
-				if (!email){
+				if (!email || !regexEmail.test(email)){
 					document.getElementById("reset-email-not").style.display = "block";
+					document.getElementById("reset-email").style.borderColor = "red";
+				}
+				else {
+					try {
+						const response = await fetch(
+							process.env.BACKEND_URL+"/resetpassword",
+							{
+								method: "POST",
+								mode: 'cors',
+								credentials: 'omit',
+								headers: {"Content-Type": "application/json",},
+								body: JSON.stringify({'email': email}),
+							}
+						)
+						
+						if(response.ok){
+							const objson = await response.json();
+							const url = `https://3000-beaesreal-petsapp-0ulpgokjetx.ws-eu85.gitpod.io/resetpassword/${objson['token']}`
+							console.log(url)
+							//console.log(objson);
+
+
+							// Commented the function that sends de email
+							const sendEmail = (obj, str) => {
+
+								/*const templateParams = {
+								user_email: obj['email'],
+								message: str
+								};
+
+								emailjs.send('service_gglai03', 'contact_form', templateParams) //use your Service ID and Template ID
+									.then(function(response) {
+									console.log('SUCCESS!', response.status, response.text);
+									}, function(error) {
+									console.log('FAILED...', error);
+									});*/
+							}
+
+							sendEmail(objson, url);
+							setStore({emailModal: true})
+							
+						}
+					
+					} catch (error) {
+						console.log(error)
+					}
+				}
+			},
+
+			handleResetPassword: async (token, pass) => {
+				if (!token || !pass){
+					throw new Error('Token or password is missing!')
 				}
 				try {
 					const response = await fetch(
-						process.env.BACKEND_URL+"/passwordreset",
+						process.env.BACKEND_URL+"/resetpassword/"+token,
 						{
-							method: "POST",
+							method: "PUT",
 							mode: 'cors',
 							credentials: 'omit',
 							headers: {"Content-Type": "application/json",},
-							body: JSON.stringify({'email': email}),
+							body: JSON.stringify({
+								'pass': pass,
+								'token': token
+							}),
 						}
 					)
 
 					if(response.ok){
-						const objson = await response.json();
-						/*const transporter = NodeMailer.createTransport({
-							host: 'smtp.mail.com',
-							port: 587,
-							secure: true,
-							auth: {
-								user: 'petapet@mail.com',
-								pass: 'PetAPet2023'
-							},
-							tls: {
-								rejectUnauthorized: false
-							}
-						});*/
-						const url = `https://3000-beaesreal-petsapp-0ulpgokjetx.ws-eu84.gitpod.io/passwordreset/${objson}`
-						const data = {
-							message:
-								`<p>${process.env.CLIENT_URL}/passwordreset/${objson}</p>`
-						}
-
-						console.log(url)
-						console.log(objson);
+						const resp = response.json()
+						alert(resp['msg'])
 					}
 				} catch (error) {
 					console.log(error)

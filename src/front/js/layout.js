@@ -13,6 +13,7 @@ import { Events } from "./pages/events";
 import { Settings } from "./pages/settings";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { ResetPassword } from "./pages/resetPassword";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -54,6 +55,7 @@ const Layout = () => {
                         <Route element={<Detail />} path="/pets" />
                         <Route element={<PetInfo/>} path="/create"/>
                         <Route element={<PetEdit/>} path="/pets/edit/:id"/>
+                        <Route element={<ResetPassword />} path="/resetpassword/:token"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
