@@ -71,8 +71,8 @@ class Veterinarian(db.Model):
     adress = db.Column(db.String(280), unique=True, nullable=False)
 
 
-    def __repr__(self):
-        return f'<User {self.email}>'
+#    def __repr__(self):
+#        return f'<User {self.email}>'
 
     def serialize(self):
         return {

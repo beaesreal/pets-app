@@ -79,12 +79,13 @@ export const Profile = () => {
                     <h1 className="pb-5">Profile</h1>
                     <h2 className="pb-3">My pets</h2>
 
-                    
+                   
                         <div className="row justify-content-center" id="pet-card-profile">
                             
 
                             {pets.map ( pets => (
                             <div className="col-sm py-4" id="pet-card-profile">
+
                                 <PetCard 
                                     key= {pets.id}
                                     species = {pets.species}
