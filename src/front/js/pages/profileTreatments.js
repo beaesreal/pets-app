@@ -80,22 +80,21 @@ export const ProfileTreatments = () => {
                     <h2 className="pb-3">My pets</h2>
 
                     
-                        <div className="row justify-content-center">
+
+                        <div className="row justify-content-center" id="pet-card-profile">
                             
 
                             {pets.map ( pets => (
-                            <div className="col-sm py-4">
+                            <div className="col-sm py-4" id="pet-card-profile">
                                 <PetCard 
                                     key= {pets.id}
+                                    species = {pets.species}
                                     title= {pets.name}
                                     age={pets.age}
-                                    //preguntar cómo poner año de nacimiento únicamente o edad del animal
                                     birth= {pets.date_of_birth}
                                     colour= {pets.colour}
                                     breed= {pets.breed}
-                                    //preguntar cómo poner imagen cuando es null
-                                    //{(img === null) ? "https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg" : pets.img}
-                                    img= {"https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"}
+                                    img={pets.image}
                                     buttonLabel= "More info"
                                     buttonUrl= "/pets"                        
                                 />
@@ -105,8 +104,8 @@ export const ProfileTreatments = () => {
                         <div className="py-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
+                        <div className="diets py-5">
 
-                        <div className="diets py-5 mx-2">
                     
                     <div className="card text-center mx-3" id="information">
                         <div className="card-header hd-card-profile">

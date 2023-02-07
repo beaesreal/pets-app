@@ -24,7 +24,7 @@ export const Footer = () => {
 				<a href="/" className="footer-links"><li className="nav-item-mb-2">Home</li></a>
 			</ul>
 			<ul className="nav flex-column">
-			<a href="/" className="footer-links"><li className="nav-item-mb-2">Features</li></a>
+			<a href="/#features" className="footer-links"><li className="nav-item-mb-2">Features</li></a>
 			</ul>
 			<ul className="nav flex-column">
 			<a href="/profile" className="footer-links"><li className="nav-item-mb-2">My account</li></a>
@@ -33,13 +33,13 @@ export const Footer = () => {
 		<div className="col mb-3 py-2 text-light">
 			<h5>Community</h5>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">About us</li>
+			<a href="/#curiosities" className="footer-links"><li className="nav-item-mb-2">Dog facts</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">The project</li>
+			<a href="/signup" className="footer-links"><li className="nav-item-mb-2">Join today</li></a>
 			</ul>
 			<ul className="nav flex-column">
-				<li className="nav-item-mb-2">Faq's</li>
+			<a href="/create" className="footer-links"><li className="nav-item-mb-2">Add my pet</li></a>
 			</ul>
 		</div>
 		<div className="col mb-3 py-2 text-light">

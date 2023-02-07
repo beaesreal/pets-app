@@ -64,6 +64,10 @@ const PetEditCard = (props) => {
             
           )
           console.log(resp)
+          if (resp.ok){
+            alert("Pet edited correctly!")
+            location.replace("/pets")
+          }
     }
 
     console.log("props=>", props)
@@ -118,7 +122,7 @@ const PetEditCard = (props) => {
                                     type='date' 
                                     name='birthday' 
                                     placeholder={props.birthday} 
-                                    selected value={props.birthday}
+                                    
                                     onChange={handleInputChangeEdit}
                                     />
                             <input style={{marginTop:'2%'}} 

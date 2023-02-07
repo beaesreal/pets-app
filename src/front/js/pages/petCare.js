@@ -241,9 +241,9 @@ export const PetCare = () => {
                     <Sidebar />
                 </div>
 
-                <div className="col-11 text-center justify-content-center py-5 px-5">
-                    <div className="diet py-4">
-                    <h1 className="pb-5">Pet Care</h1>
+                <div className="col-11 text-center justify-content-center py-3 px-5">
+                    <div className="diet py-4 ">
+                    <h1 className="pb-5 mx-5">Pet Care</h1>
                     <h2 className="py-4">Diet</h2>
                     <form onSubmit={sendDietData}>
                         <div className="row px-4">

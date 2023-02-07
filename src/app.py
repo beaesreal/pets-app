@@ -3,6 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 import re
+import secrets
 import bcrypt
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
@@ -18,6 +19,7 @@ from api.models import db, User, Mascot, Diet, Medicine, Appointment, Veterinari
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from datetime import date, datetime, timedelta
 
 #from models import Person
 
@@ -77,6 +79,8 @@ def serve_any_other_file(path):
 
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
+
+#Function to add users
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     body = request.get_json()
@@ -95,6 +99,7 @@ def handle_signup():
             username = body['username'],
             email = body['email'],
             password = hashed,
+            reset_password = secrets.token_urlsafe(128),
             is_active = True
         )
 
@@ -141,6 +146,79 @@ def handle_login():
     if checkpass:
         access_token = create_access_token(identity=user.id)
         return jsonify({ "token": access_token, "user_id": user.id }), 200
+
+    else:
+        return jsonify({'msg': "Email or password incorrect"}), 401
+
+
+@app.route('/resetpassword', methods=['POST'])
+def handle_resetPassword():
+    body = request.get_json()
+    email = body['email']
+    
+    if (email):
+
+        request_user = User.query.filter_by(email=email).first()
+        
+        if request_user:
+            reset_token = request_user.reset_password
+        
+            response_body = {
+                "token": reset_token,
+                "email": request_user.email
+            }
+
+            return jsonify(response_body), 200
+
+        else:
+            response_body = {
+                'msg': 'E-mail adress is missing or is incorrect'
+            }
+
+            return jsonify(response_body), 400
+
+    else:
+        response_body = {
+            'msg': 'E-mail adress is missing or is incorrect'
+        }
+
+        return jsonify(response_body), 400
+
+
+@app.route('/resetpassword/<string:token>', methods=['PUT'])
+def handle_resetPasswordForm(token):
+    
+    if (token):
+
+        body = request.get_json()
+
+        request_user_reset_pass = body['token']
+        request_user_new_pass = body['pass']
+
+        user = User.query.filter_by(reset_password=request_user_reset_pass).first()
+        
+        password = body['pass'].encode('utf-8')
+        mySalt = bcrypt.gensalt()
+
+        hashed = bcrypt.hashpw(password, mySalt)
+
+        user.password = hashed
+        user.reset_password = secrets.token_urlsafe(128)
+
+        db.session.commit()
+
+        response_body = {
+            'msg': 'Password created successfully'
+        }
+
+        return jsonify(response_body), 200
+
+    else:
+        response_body = {
+            'msg': 'Token is missing'
+        }
+
+        return jsonify(response_body), 400
 
 
 @app.route('/private', methods=['GET'])
@@ -191,7 +269,7 @@ def handle_create_pet():
         mascot = Mascot(
             # puede faltar id y user id
             user_id = current_user_id,
-            veterinarian_id = veterinarian.id,
+            #veterinarian_id = veterinarian.id,
             name = body['name'],
             date_of_birth = body['date_of_birth'],
             species = body['species'],
@@ -224,13 +302,13 @@ def handle_update_pet(id):
     body=request.get_json()
 
 
-    user.name = body['name'],
-    user.date_of_birth = body['date_of_birth'],
-    user.species = body['species'],
-    user.gender = body['gender'],
-    user.breed = body['breed'],
-    user.colour = body['colour'],
-    user.caracteristics = body['caracteristics'],
+    user.name = body['name']
+    user.date_of_birth = body['date_of_birth']
+    user.species = body['species']
+    user.gender = body['gender']
+    user.breed = body['breed']
+    user.colour = body['colour']
+    user.caracteristics = body['caracteristics']
     # img_1 = body['img_1'],
     # img_2 = body['img_2'],
     # img_3 = body['img_3'],
