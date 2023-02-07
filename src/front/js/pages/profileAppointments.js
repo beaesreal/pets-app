@@ -103,8 +103,8 @@ export const ProfileAppointments = () => {
                         <div className="py-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
-
                         <div className="diets py-5">
+
                     
                     <div className="card text-center mx-3" id="information">
                         <div className="card-header hd-card-profile">

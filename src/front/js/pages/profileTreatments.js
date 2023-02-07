@@ -80,6 +80,7 @@ export const ProfileTreatments = () => {
                     <h2 className="pb-3">My pets</h2>
 
                     
+
                         <div className="row justify-content-center" id="pet-card-profile">
                             
 
@@ -103,8 +104,8 @@ export const ProfileTreatments = () => {
                         <div className="py-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
-
                         <div className="diets py-5">
+
                     
                     <div className="card text-center mx-3" id="information">
                         <div className="card-header hd-card-profile">
