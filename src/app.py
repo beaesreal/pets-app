@@ -79,6 +79,8 @@ def serve_any_other_file(path):
 
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
+
+#Function to add users
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     body = request.get_json()
