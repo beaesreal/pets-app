@@ -23,9 +23,6 @@ export const ModalResetPassword = () => {
         document.getElementById("togglePassword").style.display = "block";
     }
 
-    const handleOpenModalOK = () => {
-          
-    }
     const handleCloseModalOK = () => {
         setShowModalOK(false);
         handleCloseModal();
@@ -62,8 +59,8 @@ export const ModalResetPassword = () => {
                         onChange={handleInputChange}
                         placeholder="E-mail Adress"/>
 
-                    <small id="reset-email-not" style={{display: "none", color: "red"}}>Please write a valid email</small>
-
+                    <small id="reset-email-invalid" style={{display: "none", color: "red"}}>Please write a valid email</small>
+                    <small id="reset-email-not-exists" style={{display: "none", color: "red"}}>{"The e-mail you provided isn't linked to an existing account.\nPlease introduce the email used when you created your account."}</small>
                     <div className="clearfix m-4">
                         <button 
                             type="button" 

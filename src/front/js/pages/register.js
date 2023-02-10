@@ -1,16 +1,15 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import { Context } from "../store/appContext";
 import French_Dog_2 from "../../img/French_Dog_2.png";
-import { AlertDeleteUser } from "../component/alertDeleteUser";
 
 export const Register = () => {
-    const { actions } = useContext(Context);
+    // Global variables and functions
+    const { store, actions } = useContext(Context);
 
+    // Local states for validation and icon for password
     const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [togglePassword, settogglePassword] = useState("password");
-    const [ checkUser, setCheckUser ] = useState(true)
-    const [ checkEmail, setCheckEmail ] = useState(true)
-    const [ checkPass, setCheckPass ] = useState(true)
+    const [ checkRegex, setCheckRegex ] = useState(false)
 
     const [inputData, setinputData] = useState({
         username: '',
@@ -18,6 +17,64 @@ export const Register = () => {
         password: '',
     })
 
+    // Regex variables for validation
+    const regexUsername = /^[\w]{6,}$/g
+    const regexPass = /^[\w]{6,}[\ñ\!@#\$%\^\&*\)\(+=._-]{1,}$/g
+    const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
+
+    
+
+    // After Regex validation goes to backend
+    useEffect (() => {
+        if (checkRegex === false) {
+            console.log("useEffect: checkRegex is -> ", checkRegex)
+        }
+
+        else {
+            console.log("useEffect: checkRegex is -> ", checkRegex)
+            actions.handleCreateUser(inputData['username'], inputData['email'], inputData['password']);
+            setCheckRegex(false);
+        }
+
+    }, [checkRegex])
+
+
+    // Inform user about data duplicates after check in the back
+    useEffect (() => {
+        const username_exists = store.username_exists
+        console.log('This is the backCheckUser function')
+        console.log('username exists?', username_exists)
+
+        if (store.username_exists === true){
+            document.getElementById("username").style.borderColor = "red"
+            document.getElementById("usernameExists").style.display = "block";
+        }
+
+        else {
+            document.getElementById("username").style.borderColor = "#ced4da"
+            document.getElementById("usernameExists").style.display = "none";
+        }
+
+    }, [store.username_exists])
+
+    useEffect (() => {
+        const email_exists = store.email_exists
+        console.log('This is the backCheckEmail function')
+        console.log('email exists?', email_exists)
+
+        if (store.email_exists === true){
+            document.getElementById("email").style.borderColor = "red"
+            document.getElementById("emailExists").style.display = "block";
+        }
+
+        else {
+            document.getElementById("email").style.borderColor = "#ced4da"
+            document.getElementById("emailExists").style.display = "none";
+        }
+
+    }, [store.email_exists])
+
+    // Sets all inputs values
     const handleInputChange = (event) => {
         setinputData({
             ...inputData, 
@@ -25,6 +82,7 @@ export const Register = () => {
         })
     }
 
+    // Show/Hide password and changes eye icon on click
     const showPassword = () => {
         if (togglePassword === "password"){
             settogglePassword("text");
@@ -36,54 +94,36 @@ export const Register = () => {
         }
     }
 
-    const regexUsername = /^[\w]{6,}$/g
-    const regexPass = /^[\w]{6,}[!@#\$%\^\&*\)\(+=._-]{1,}$/g
-    const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
-
-    const checkInputs = (username, email, pass) => {
+    //Regex validation
+    const checkInputsRegex = (username, email, pass) => {
         if (regexUsername.test(username)) {
-            //document.getElementById("username").style.borderColor = "green"
             document.getElementById("usernameAnchor").style.display = "none";
-            setCheckUser(true);
         }
 
         else if (!regexUsername.test(username)) {
             document.getElementById("username").style.borderColor = "red"
             document.getElementById("usernameAnchor").style.display = "block";
-            setCheckUser(false);
         }
 
         if (regexEmail.test(email)) {
-            //document.getElementById("email").style.borderColor = "green"
             document.getElementById("emailAnchor").style.display = "none";
-            setCheckEmail(true);
         }
 
         else if (!regexEmail.test(email)) {
             document.getElementById("email").style.borderColor = "red"
             document.getElementById("emailAnchor").style.display = "block";
-            setCheckEmail(false);
         }
 
         if (regexPass.test(pass)) {
-            document.getElementById("password").style.borderColor = "green"
             document.getElementById("passwordAnchor").style.display = "none";
-            setCheckPass(true);
         }
 
         else if (!regexPass.test(pass)) {
             document.getElementById("password").style.borderColor = "red"
             document.getElementById("passwordAnchor").style.display = "block";
-            setCheckPass(false);
         }
 
-        if(checkUser && checkEmail && checkPass) {actions.handleCreateUser(username, email, pass)}
-        if (!checkUser || !checkEmail || !checkPass) {
-            document.getElementById("username").style.borderColor = "red"
-            document.getElementById("email").style.borderColor = "red"
-            document.getElementById("password").style.borderColor = "red"
-            document.getElementById("existsNone").style.display = "block"
-        }
+        else {setCheckRegex(true);}
     }
     
     return (
@@ -96,7 +136,7 @@ export const Register = () => {
                         name="registerUser" 
                         onSubmit={(e) => {
                             e.preventDefault();
-                            checkInputs(inputData['username'], inputData['email'], inputData['password'])
+                            checkInputsRegex(inputData['username'], inputData['email'], inputData['password'])
                         }}>
 
                         <div className="form-group row mx-1" style={{listStyleType: "none"}}>
@@ -111,6 +151,7 @@ export const Register = () => {
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                     required/>
                                 <small id="usernameAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Username must contain at least 6 characters"}</small>
+                                <small id ="usernameExists" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Introduced username already exists"}</small>
                         </div>
 
                             <br></br>
@@ -126,6 +167,7 @@ export const Register = () => {
                                     style={{paddingLeft: "0.6rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}}  
                                     required/>
                                 <small id ="emailAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Incorrect e-mail format"}</small>
+                                <small id ="emailExists" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Introduced e-mail already exists"}</small>
                             </div>
                             <br></br>
                             <div className="form-group row mx-1">
@@ -141,19 +183,18 @@ export const Register = () => {
                                         style={{paddingLeft: "0.5rem", paddingTop: "0.3rem", paddingBottom: "0.3rem", maxWidth: "30rem"}} 
                                         required/>
                                     <span className="input-group-text bg-transparent rounded" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
-                                    <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
-                                </span>
-                                    <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
-                            
-                                
+                                        <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                                    </span>                                
                                 </div>
+                                <small id="passwordAnchor" style={{display: "none", fontSize: "0.875em", color: "red"}}>{"Password must contain at least 6 characters and a special character (&_/%)"}</small>
                             </div>
                         <br></br>
                         <div>
                                 <button className="btn btn-primary my-2 my-sm-0 px-4 mx-1" type="submit">Register</button>
                         </div>
                         <br></br>
-                        <small id="existsNone" style={{display: "none", fontSize: "1em", color: "red"}}>{"Username or email already exists"}</small>
+                        <br></br>
+                        <small style={{display: "block", fontSize: "1em"}}>{"Already have an account? Log-in "}<a href='/login' style={{color: "darkblue", textDecoration: "underline"}}>HERE</a></small>
                     </form>
                 </div>
                 <div className="col-sm d-flex object-fit-contain" style={{maxHeight:"600px"}}>

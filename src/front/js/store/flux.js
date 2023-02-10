@@ -5,6 +5,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			emailModal: false,
+			test: false,
+			username_exists: false,
+			email_exists: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -32,6 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleCreateUser: async (username, email, pass) => {
 				console.log("Username: "+username, "E-mail: "+email, "Password: "+pass);
+				setStore({username_exists: false})
+				setStore({email_exists: false})
 				const response = await fetch(
 				  process.env.BACKEND_URL+"/signup",
 				  {
@@ -44,9 +49,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 			  
 				if (!response.ok){
-				  console.log(response.body)
-				  const message = `An error has occured: ${response.status}`;
-				  throw new Error(message);
+					const resp = await response.json()
+
+					if (resp['user'] === true) {
+						setStore({username_exists: true})
+					}
+
+					if (resp['email'] === true) {
+						setStore({email_exists: true})
+					}
+					
+					console.log(resp)
+					console.log(resp['msg'])
+
+					//Failed attempts to setStore a nested object
+
+					/*setStore( (prevState) => {
+						let checkCreateUser = {...prevState.checkCreateUser};
+						checkCreateUser.user_exists = true;
+						return {checkCreateUser}
+					})*/
+
+					/*setStore((prevState) => {
+						checkCreateUser: {
+							...prevState.checkCreateUser,
+							email_exists: true
+						}
+					})*/
 				  
 				}
 			  
@@ -73,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
   
 				const resp = await fetch(
-					//process.env.BACKEND_URL+"/login"
+					
 				  process.env.BACKEND_URL+"/login",
 				  {
 					method: "POST",
@@ -119,7 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const regexEmail = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/g
 				console.log(email)
 				if (!email || !regexEmail.test(email)){
-					document.getElementById("reset-email-not").style.display = "block";
+					document.getElementById("reset-email-invalid").style.display = "block";
 					document.getElementById("reset-email").style.borderColor = "red";
 				}
 				else {
@@ -143,9 +172,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 							// Commented the function that sends de email
-							const sendEmail = (obj, str) => {
 
-								/*const templateParams = {
+							/*const sendEmail = (obj, str) => {
+
+								const templateParams = {
 								user_email: obj['email'],
 								message: str
 								};
@@ -155,12 +185,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 									console.log('SUCCESS!', response.status, response.text);
 									}, function(error) {
 									console.log('FAILED...', error);
-									});*/
-							}
+									});
+							}*/
 
-							sendEmail(objson, url);
+							//sendEmail(objson, url);
 							setStore({emailModal: true})
 							
+						}
+
+						if(!response.ok){
+							const resp = await response.json();
+							document.getElementById("reset-email").style.borderColor = "red";
+							document.getElementById("reset-email-not-exists").style.display = "block";
 						}
 					
 					} catch (error) {
@@ -189,9 +225,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					)
 
 					if(response.ok){
-						const resp = response.json()
-						alert(resp['msg'])
+						const resp = await response.json()
+						alert("Backend msg: "+resp['msg']);
+						location.replace('/login')
 					}
+
+					if(!response.ok){
+						const resp = await response.json()
+						console.log("Backend msg: ", resp['msg']);
+					}
+
 				} catch (error) {
 					console.log(error)
 				}
