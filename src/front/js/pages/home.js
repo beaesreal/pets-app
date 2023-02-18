@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 
 // Styles
 import "../../styles/home.css";
@@ -16,12 +15,11 @@ import Img_4 from "../../img/Img_4.png";
 import Img_5 from "../../img/Img_5.png";
 import Img_6 from "../../img/Img_6.png";
 import Img_7 from "../../img/Img_7.png";
-import Dalmatian from "../../img/Dalmatian.jpg";
-
-
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [ petPic, setPetPic ] = useState('');
+	const [ dogFact, setDogFact ] = useState('');
 
 	// Dark & light theme check
 	const body = document.body;
@@ -34,10 +32,19 @@ export const Home = () => {
         }
     }, [])
 
+	useMemo (() => {
+		actions.getPic().then((res) => setPetPic(res))
+	}, [])
+
+	useMemo (() => {
+		actions.getFact().then((res) => setDogFact(res))
+	}, [])
+
+
 	return (
 		<div classNameName="container-fluid p-5 header-bg pt-5 p-sm-4">
 
-			<div className="container-fluid header-bg">
+			<div className="container-fluid header-bg" >
 				<div className="container p-4">
 				<div className="row align-items-center p-lg-5">
 					<div className="col-lg-6 col-sm-1">
@@ -56,9 +63,9 @@ export const Home = () => {
 			
 				
 
-				<div class="container">
-					<div class="row py-5 px-3">
-						<div class="col-sm py-5 m-lg-3">
+				<div className="container" id="features">
+					<div className="row py-5 px-3">
+						<div className="col-sm py-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_1} />
 							<h5>
 								Veterinary appointments
@@ -66,19 +73,18 @@ export const Home = () => {
 							<p>
 								Remembering the vet will no longer be a problem, register, add your pets and save their appointments.
 							</p>
-							<a><b>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
 						<div class="col-sm py-lg-5 m-lg-3">
 						<img className="d-block w-100 pb-4" src={Img_2} />
 							<h5>
-								Save your walks
+								Save your events
 							</h5>
 							<p>
-								Save your daily route, your morning walks and get suggestions for nearby parks where you can walk your animals.
-							</p>
-							<a><b>
+								Save your events, meetings with other people who have animals, diets or medicines that your little one needs.							</p>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
@@ -90,7 +96,7 @@ export const Home = () => {
 							<p>
 								Your pets' data is safe. You can add daily feeding amounts, feeding reminders and more.
 							</p>
-							<a><b>
+							<a href="/signup"><b>
 								Learn more
 							</b></a>
 						</div>
@@ -105,7 +111,7 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container ">
+					<div className="container" id ="steps">
 						<div className="row text-center mt-4 pt-5">
 							<h2>How to start?</h2>
 							<h4>Four simple steps to follow</h4>
@@ -141,7 +147,7 @@ export const Home = () => {
 						</div>
 						<div class="col-lg-3 col-md-2 col-sm-1">
 						<img className="d-block w-100 pb-4 rounded" src={Img_7} />
-							<a href="/"><h5>
+							<a href="/profile"><h5>
 								Enjoy the website
 							</h5></a>
 							<p>
@@ -152,30 +158,23 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="container-fluid photo-text-section py-5 px-5 petBlog">
-						<div className="container-md p-lg-5">
+				<div className="container-fluid photo-text-section py-5 px-5 petBlog" id="curiosities">
+						<div className="container-md">
 							<div className="row align-items-center p-lg-5">
-								<div class="col-sm p-3">
-								<img className="d-block w-100 pb-4 rounded" src={Dalmatian} />
+								<div className="col-sm p-3 d-flex justify-content-center">
+									<img id="petPic" className="d-block w-100 pb-4 rounded img-fluid" src={petPic}/>
 								</div>
 							<div className="col-sm p-lg-3">
 								<h4 className="pb-2"><b>
 									Did you know that...?
 								</b></h4>
 								<p>
-									Dalmatian dogs are hyperactive. Hence their potential, originally developed to accompany the carriage coach, something reserved for powerful animals such as horses.
-								</p>
-								<p>
-									They are also very intelligent, domestic and servile. In fact, the Dalmatian is known as a "human dog". There is a reason for this.
-									They are also stubborn. Very stubborn. And this could cause him to become dominant. Be very careful when he is a puppy or he will end up making fun of you. As we have told you, he is very intelligent. You could say this breed makes good the popular saying: "all he needs to do is talk".
-								</p>
-								<p>
-									From his heritage as a carriage driver and faithful companion to humans, another very important aspect of this breed is that he cannot stand loneliness and inactivity.
+									{dogFact}
 								</p>
 							</div>
 						</div>
-						</div>
 					</div>
+				</div>
 
 					
 

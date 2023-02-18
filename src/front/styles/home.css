@@ -184,3 +184,61 @@ a:hover{
 .pet-card-button{
     background-color: #95a1c0;
 }
+
+#petPic {
+    max-height: 25rem;
+    max-width: 25rem;
+    width: auto;
+    height: auto;
+}
+
+
+/*Events*/
+
+.events-map-container{
+    background-color: #fcfcf300;
+    border-color: #251749;
+    border-width: 3px !important;
+    border-radius: 20px !important;
+    width: 200px;
+
+}
+
+.events-map-container:hover{
+    transform:scale(0.95);
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-pills .nav-link.active{
+    background-color: #263159;
+}
+
+.text-events-card{
+    text-align: left !important;
+}
+
+
+/* Cards */
+
+.info-container-profile{
+    min-width: 12rem;
+    display: flex;
+    align-content: flex-start;
+    text-align: left;
+}
+
+.card-profile{
+    background-color: #f8f7fa !important;
+}
+
+.hd-card-profile{
+    background-color: #ced5e9;
+}
+
+@media only screen and (max-width: 479px) {
+    .col-profile-general {
+        padding-left: 3.1rem;
+        padding-right: 0.1rem;
+        margin-right: 0;
+    }
+}

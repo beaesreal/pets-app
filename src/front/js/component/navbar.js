@@ -19,7 +19,7 @@ export const Navbar = () => {
 			<a className="navbar-brand" href="/">
     		<img src={VectorLogo_Pets_APP} width="45" className="d-inline-block align-top" alt="" />
   			</a>
-			<a className="menu-title navbar-brand" href="/">Pets name app</a>
+			<a className="menu-title navbar-brand" href="/">Pet A Pet</a>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<FaBars className="menu-icon"/>
 		</button>
@@ -28,13 +28,13 @@ export const Navbar = () => {
 			<ul className="navbar-nav ms-auto">
 
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">Features</a>
+				<a className="nav-link" href="/#features">Features</a>
 			</li>
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">Pets</a>
+				<a className="nav-link" href="/#steps">Steps</a>
 			</li>
 			<li className="nav-item px-2 mx-2">
-				<a className="nav-link" href="#">About us</a>
+				<a className="nav-link" href="/#curiosities">Curiosities</a>
 			</li>
 			</ul>
 			

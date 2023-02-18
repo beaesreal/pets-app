@@ -1,11 +1,28 @@
 import { object } from 'prop-types';
-import React, {useContext, useState, Fragment} from 'react'
+import React, {useContext, useState, Fragment, useEffect} from 'react'
+import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
+let imageUrl = ''
+
 const PetInfo = () => {
+
+    // Dark mode
+    const body = document.body;
+
+    const theme = localStorage.getItem("theme")
+    useEffect (() => {
+        if (theme == "dark"){
+            body.classList.add(theme);
+        } else {
+            body.classList.add("light");
+        }
+    }, [])
     
     const {store, actions} = useContext(Context)
+    const navigate = useNavigate();
 
+    
     const [petinfo, setPetinfo] = useState({
         petname:'',
         species:'',
@@ -14,7 +31,7 @@ const PetInfo = () => {
         birthday:'',
         colour:'',
         features:'',
-        image:'',
+        image: '',
         clinicname:'',
         adress:'',
     })
@@ -24,6 +41,16 @@ const PetInfo = () => {
         adress:''
     })
 
+    const [loading, setLoading] = useState(false)
+
+    //Checks if logged-in
+    useEffect (() => {
+        const userToken = localStorage.getItem('jwt-token');
+
+        if (!userToken) {navigate("/login")}
+
+    }, [navigate])
+
     const handleInputChange= (event) => {
         // console.log(event.target.value)
         setPetinfo({
@@ -32,27 +59,41 @@ const PetInfo = () => {
         })
     }
 
-
-    // REVISAR COMO ENVIAR EL FORMATO DE LA FOTO, ME DA ERROR EN EL BACKEND
-    const handleInputImage = (event) => {
-        setPetinfo({
-            ...petinfo,
-            [event.target.name] : event.target.type
-        }) 
-    }
-
-
     const handleInputVeterinary = (event) => {
         setClinic({
             ...clinic,
             [event.target.name] : event.target.value
         })
     }
+    
+    const uploadImage = async (event) => {
+        const files = event.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'petnameapp')
+            setLoading(true)
+    
+            const res = await fetch('https://api.cloudinary.com/v1_1/deoudn7hx/image/upload',
+            {
+                method:'POST',
+                body:data
+            } )
+            const file = await res.json()
+            //setImage(file.secure_url)
+            console.log(res)
+            // PROBANDO COSAS
+            // setPetinfo.image = setImage()
+            console.log(file.secure_url)
+            //setPetinfo.image(file.secure_url)
+            imageUrl = file.secure_url
+            console.log('imageUrl->' + imageUrl)
 
+            setLoading(false)
+    }
 
     const sendPetData = async (event) => {
         event.preventDefault()
-        
+
         console.log(petinfo.petname + " " + petinfo.birthday + " " + petinfo.breed)
 
         let jsonBody;
@@ -65,28 +106,46 @@ const PetInfo = () => {
             'breed': petinfo.breed,
             'colour': petinfo.colour,
             'caracteristics': petinfo.features,
-            'img_1': petinfo.image,
+            'img_1': imageUrl,
             'img_2' : petinfo.image,
             'img_3' : petinfo.image,
             'img_mimeType': petinfo.image,
             
             'clinic_name' : clinic.clinicname,
-            'adress' : clinic.adress,
+            'adress' : clinic.adress,    
+        }
             
-            
-            }
+ 
 
         const resp = await fetch(
             process.env.BACKEND_URL + "/pet/create",
             {
               method: "POST",
-              headers: {"Content-Type": "application/json"},
+              mode: 'cors',
+			  credentials: 'omit',
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`
+                },
               body: JSON.stringify(jsonBody),
             }
+            
           )
-
+          console.log(resp)
+          if (resp.ok){
+            alert("Pet added successfully!")
+            location.replace("/profile")
+          }
     }
 
+    const [warning, setWarning] = useState(false)
+    const handleBlur = () => {
+        if (petinfo.petname.trim() === ' ' || petinfo.species.trim() === " " || petinfo.breed.trim() === ""){
+            console.log("prueba:" + petinfo.petname)
+            setWarning(true)
+        }
+    }
+ 
 
   return (
 
@@ -103,46 +162,61 @@ const PetInfo = () => {
                                         name='petname' 
                                         placeholder='Name'
                                         required
-
-                        
+                                        onBlur={handleBlur}                                     
                                         onChange={handleInputChange}/>
+                                   
+                                        {warning && petinfo.petname.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>We want to know your pet name</div>}
                                 <select style={{marginTop:'2%'}} 
                                         name='species' 
                                         className='form-select' 
-                                        onChange={handleInputChange}>
-                                        required
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}>
+                                        
                                     <option selected>Species</option> 
-                                    <option value='canine' >Dog</option>
-                                    <option value='feline'>Cat</option>
+                                    <option value='canine' >Canine</option>
+                                    <option value='feline'>Feline</option>
                                 </select>
+                                {warning && petinfo.species.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>Is it a Cat or a Dog</div>}
                                 
                                 <input  style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' 
                                         name='breed' 
                                         placeholder='Breed' 
+                                        required
+                                        onBlur={handleBlur}
                                         onChange={handleInputChange}/>
+                                        {warning && petinfo.breed.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>What is the breed?</div>}
                                 <select style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         name='gender' 
                                         placeholder='Gender' 
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}
+                                        >
                                     <option  selected>Gender</option>
                                         <option value='male'>Male</option>
                                         <option value='female'>Female</option>
                                 </select>
+                                {warning && petinfo.gender.trim() === '' && <div style={{ fontSize: "0.875em", color: "red" }}>Male or Female?</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='date' 
                                         name='birthday' 
                                         placeholder='Date of Birth' 
-                                        onChange={handleInputChange}/>
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}/>
+                                    {warning && petinfo.birthday.trim() === '' && <div style={{ fontSize: "0.875em", color: "red" }}>Let us to know his birthday</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' name='colour' 
                                         placeholder='Colour' 
-                                        onChange={handleInputChange}/>
-                                
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}/>
+                                {warning && petinfo.gender.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>I think it has a color</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' 
@@ -151,7 +225,16 @@ const PetInfo = () => {
                                         onChange={handleInputChange}/>
                             
                             </div>  
-                            <div style={{marginTop:'7%'}}>
+                            <div>
+                                <input style={{marginTop:'2%'}}
+                                    type="file"
+                                    name="file"
+                                    placeholder='Upload an Image'
+                                    onChange={uploadImage}
+                                    />
+                                   
+                            </div>
+                            {/* <div style={{marginTop:'7%'}}>
                                 <label for="formFile" class="form-label"><strong>Upload image</strong></label>
                                 <input 
                                     className="form-control" 
@@ -159,11 +242,10 @@ const PetInfo = () => {
                                     name="image" 
                                     id="formFile" 
                                     onChange={handleInputImage}/>
-                            </div>
+                            </div> */}
                             <div style={{marginTop:'7%'}}> 
                                 <label for="formFile" class="form-label"><strong>Veterinary info</strong></label>  
-                                <p>Find your vet clini on Google</p>
-                                <p>Can't find it? No proble, add it manually bellow</p> 
+
                                 <input  style={{marginTop:'2%'}}  
                                         className='form-control' 
                                         type='text' 
@@ -177,7 +259,7 @@ const PetInfo = () => {
                                         placeholder='Adress' 
                                         onChange={handleInputVeterinary}></input>
                             </div>
-                            <div style={{marginTop:'7%', textAlign:'center'}}>
+                            <div style={{marginTop:'7%',marginBottom:'7%', textAlign:'center'}}>
                                 <div>
                                     <button className='btn btn-primary' type='submit'>✓ Save</button>
                                 </div>

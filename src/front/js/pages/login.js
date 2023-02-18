@@ -1,10 +1,13 @@
 import React, {useState, useContext} from "react";
 import { Context } from "../store/appContext";
+import { ModalResetPassword } from "../component/ModalResetPassword";
 import PetImage from "../../img/Pet-image.png";
+import Placeholder_APP_Logo from "../../img/Placeholder_APP_Logo.png";
 
 export const Login = () => {
     const { actions } = useContext(Context);
     const [togglePassword, settogglePassword] = useState("password");
+    const [ eyeIcon, setEyeIcon ] = useState("fas fa-eye");
     const [inputData, setinputData] = useState({
         email: '',
         pass: '',
@@ -20,8 +23,12 @@ export const Login = () => {
     const showPassword = () => {
         if (togglePassword === "password"){
             settogglePassword("text");
+            setEyeIcon("fas fa-eye-slash");
         }
-        else {settogglePassword("password")}
+        else {
+            settogglePassword("password");
+            setEyeIcon("fas fa-eye");
+        }
     }
 
     const keyLogin = (e) => {
@@ -34,7 +41,7 @@ export const Login = () => {
     return (
         <div className="row">
             <div className="d-flex justify-content-center my-5 text-center">
-                <img className="img-fluid" src={PetImage} style={{margin: "auto"}}/> 
+                <img className="img-fluid" src={Placeholder_APP_Logo} style={{margin: "auto", width: "200px"}}/> 
             </div>
             <form 
                 name="myForm"
@@ -43,6 +50,17 @@ export const Login = () => {
                     actions.handleLogin(inputData['email'], inputData['pass'])
                 }}
                 >
+                    <a 
+                        id="loginError" 
+                        className="text-center" 
+                        style={{
+                            display: "none", 
+                            textDecoration: "none", 
+                            fontSize: "0.875em", 
+                            color: "red"}}>
+                        
+                        {"E-mail/Username or Password incorrect"}
+                    </a>
                     <div className="form-group has-feedback justify-content-center">
                         <input 
                             id="email" 
@@ -54,30 +72,26 @@ export const Login = () => {
                             style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
                             required/>
                     <br></br>
-                        <input 
-                            id="pass" 
-                            className="form-control"
-                            type={togglePassword} 
-                            name="pass" 
-                            placeholder="Password" 
-                            onChange={handleInputChange}
-                            style={{textAlign: "center", maxWidth: "20rem", margin: "auto"}} 
-                            onKeyUp={() => {keyLogin}}
-                            required/>
-                        <i className="glyphicon glyphicon-eye-open form-control-feedback has-feedback-right" id="togglePassword" style={{}} onClick={showPassword}></i>
-                        <i className="far fa-eye" id="togglePassword" style={{marginLeft: "-1.75rem"}} onClick={showPassword}></i>
-                    <br></br>
-                        <a 
-                            id="loginError" 
-                            className="text-center" 
-                            style={{
-                                display: "none", 
-                                textDecoration: "none", 
-                                fontSize: "0.875em", 
-                                color: "red"}}>
+                        <div className="input-group d-flex justify-content-center">
+                            <input 
+                                id="pass" 
+                                className="form-control"
+                                type={togglePassword} 
+                                name="pass" 
+                                placeholder="Password" 
+                                onChange={handleInputChange}
+                                style={{textAlign: "center", maxWidth: "20rem"}} 
+                                onKeyUp={() => {keyLogin}}
+                                required/>
                             
-                            {"E-mail/Username or Password incorrect"}
-                        </a>
+                            <span className="input-group-text bg-transparent" style={{marginLeft: "-2.7rem", zIndex: "100", border: "none"}}>
+                                <i className={eyeIcon} id="togglePassword" style={{cursor: "pointer"}} onClick={() => showPassword()}></i>
+                            </span>
+                        </div>
+                    <br></br>
+                        <div className="d-flex justify-content-center">
+                        <ModalResetPassword />
+                        </div>
                     </div>
                     <br></br>
                     <div className="d-flex justify-content-center">
@@ -86,10 +100,13 @@ export const Login = () => {
                     <br></br>
                     <div className="d-flex justify-content-center">    
                         <p>
-                            Don't have an account? <a href="https://3000-4geeksacade-reactflaskh-iny5xmevfgu.ws-eu77.gitpod.io/signup">Click Here</a>
+                            Don't have an account? <a href="/signup" style={{textDecoration: "underline"}}>Click Here</a>
                         </p>
+                        
                     </div>
+                    
             </form>
+                    
         </div>
     )
 }

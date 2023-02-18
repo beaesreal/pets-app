@@ -9,7 +9,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.Text, unique=False, nullable=False)
+    reset_password = db.Column(db.Text, unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
@@ -23,6 +24,23 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
+class Veterinarian(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    clinic_name = db.Column(db.String(120), unique=True, nullable=False)
+    adress = db.Column(db.String(280), unique=True, nullable=False)
+
+
+#    def __repr__(self):
+#        return f'<User {self.email}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "clinic_name": self.clinic_name,
+            "adress": self.adress,
+            # do not serialize the password, its a security breach
+        }
+
 class Species(enum.Enum):
     canine = "Canine"
     feline = "Feline"
@@ -31,9 +49,11 @@ class Gender(enum.Enum):
     male = "Male"
     female = "Female"
 
+
 class Mascot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    veterinarian_id = db.Column(db.Integer, db.ForeignKey('veterinarian.id'))
     name = db.Column(db.String(20), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
     species = db.Column(db.Enum(Species))
@@ -46,6 +66,7 @@ class Mascot(db.Model):
     img_3 = db.Column(db.String(120))
     img_mimetype = db.Column(db.String(10))
     rel_user = db.relationship(User)
+    rel_veterinarian = db.relationship(Veterinarian)
     
 
     def serialize(self):
@@ -56,28 +77,14 @@ class Mascot(db.Model):
             "name": self.name,
             "date_of_birth": self.date_of_birth,
             "colour": self.colour,
-            "img": self.img_mimetype,
+            "image": self.img_1,
             "species": self.species.value,
             "gender": self.gender.value,
+            "breed": self.breed,
+            "caracteristics" : self.caracteristics,
             # do not serialize the password, its a security breach
         }
 
-class Veterinarian(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    clinic_name = db.Column(db.String(120), unique=True, nullable=False)
-    adress = db.Column(db.String(280), unique=True, nullable=False)
-
-
-    def __repr__(self):
-        return f'<User {self.email}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "clinic_name": self.clinic_name,
-            "adress": self.adress,
-            # do not serialize the password, its a security breach
-        }
 
 #class Mascot_img(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
@@ -99,11 +106,13 @@ class Veterinarian(db.Model):
 
 class Diet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     mascot_id = db.Column(db.Integer, db.ForeignKey('mascot.id'))
     foodname = db.Column(db.String(80), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     times_a_day = db.Column(db.Integer, nullable=False)
     rel_mascot = db.relationship(Mascot)
+    rel_user = db.relationship(User)
     
 
     def serialize(self):
@@ -124,7 +133,6 @@ class Medicine(db.Model):
     times_a_day = db.Column(db.Integer, nullable=False)
     rel_mascot = db.relationship(Mascot)
 
-    
 
     def serialize(self):
         return {
@@ -151,4 +159,21 @@ class Appointment(db.Model):
             "center_id": self.center_id,
             "date": self.date,
             # do not serialize the password, its a security breach
+        }
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(80), nullable=False)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime, nullable=False)
+    rel_user = db.relationship(User)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "start": self.start,
+            "end": self.end,
+            "title": self.title,
         }

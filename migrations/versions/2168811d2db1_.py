@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 973b982db28d
+Revision ID: 2168811d2db1
 Revises: 
-Create Date: 2023-01-14 11:56:21.509119
+Create Date: 2023-02-07 18:14:52.488762
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '973b982db28d'
+revision = '2168811d2db1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=120), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('password', sa.Text(), nullable=False),
+    sa.Column('reset_password', sa.Text(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -35,6 +36,15 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('adress'),
     sa.UniqueConstraint('clinic_name')
+    )
+    op.create_table('event',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('title', sa.String(length=80), nullable=False),
+    sa.Column('start', sa.DateTime(), nullable=False),
+    sa.Column('end', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('mascot',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -89,6 +99,7 @@ def downgrade():
     op.drop_table('diet')
     op.drop_table('appointment')
     op.drop_table('mascot')
+    op.drop_table('event')
     op.drop_table('veterinarian')
     op.drop_table('user')
     # ### end Alembic commands ###

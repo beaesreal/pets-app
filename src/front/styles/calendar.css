@@ -3,6 +3,15 @@
     z-index: 0;
 }
 
+@media only screen and (max-width: 479px) {
+    .calendar-container {
+        padding-left: 3.7rem;
+        padding-right: 1rem;
+        margin-right: 0;
+    }
+}
+
+
 a{
     text-decoration: none;
 }
@@ -15,4 +24,20 @@ a{
 
 .fc-button-primary:hover{
     background-color: #2f2e52 !important;
+}
+
+
+.ReactModal__Overlay--after-open{
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.fc-toolbar-chunk{
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.fc .fc-daygrid-day.fc-day-today{
+    background-color: #F6F6C9;
 }

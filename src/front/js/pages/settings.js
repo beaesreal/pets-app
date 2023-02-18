@@ -24,7 +24,14 @@ export const Settings = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/user")
+            const result = await fetch (process.env.BACKEND_URL + "/user",
+            {
+                method: "GET",
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+                body: null
+                })
             const jsonResult = await result.json()
 
             setUsers(jsonResult)
@@ -43,7 +50,7 @@ export const Settings = () => {
                 </div>
 
                 <div className="col-11 justify-content-center py-5 px-5">
-                    <div className="settings">
+                    <div className="settings mx-2">
                     <h1 className="pb-5 px-5 text-center">Settings</h1>
 
                         <div className="row px-5">
@@ -91,12 +98,13 @@ export const Settings = () => {
                         </div>
 
                         <div className="row px-3">
-                            <div className="d-flex p-5">
+                            <div className=" col-sm d-flex px-5 pt-5">
                             <DarkMode />
-                            <div className="px-3 pt-2">
+                            </div>
+                            <div className="col-12 d-flex px-5 py-3">
                                 <p>Click the button to switch between light and dark mode.</p>
                             </div>
-                            </div>
+                            
                         </div>
 
                         <div className="visualization pt-5">
@@ -130,13 +138,12 @@ export const Settings = () => {
                         <div className="visualization pt-5">
                             <div className="row px-5">
                                 <div className="">
-                                    <h4><AlertDeleteUser /></h4>                             
+                                    <h4>Delete account</h4>                             
                                 </div>                               
                                 <hr className="my-3"></hr>
                             </div>
                             <div className="px-5">
-                            <button className="btn btn-danger px-3" onClick={actions.handleDeleteUser}><FaTrash className="mx-2 my-2" />Click here to delete your account</button>
-
+                                <AlertDeleteUser />
                             </div>
                             
                         </div>
