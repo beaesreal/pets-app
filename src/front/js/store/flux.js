@@ -265,6 +265,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  }
 			},
 
+			handleDeletePet: async (num) => {
+				console.log("id de mascota" + num)
+				const response = await fetch(
+					process.env.BACKEND_URL+"/delete_mascot/"+num,
+					{
+					  method: "DELETE",
+					  mode: 'cors',
+					  credentials: 'omit',
+					  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
+					  body: null
+					}
+				  )
+				
+				  if (!response.ok){
+					console.log(response.body)
+					const message = `An error has occured: ${response.status}`;
+					throw new Error(message);
+					
+				  }
+				  else {
+					const message = `Pet deleted correctly!`;
+					location.replace('/pet');
+				  }
+				
+			},
+
 			handleEventAdd: async (title, start, end) => {
 				console.log("Title: "+title, "Start: "+start, "End: "+end);
 				const response = await fetch(

@@ -283,6 +283,7 @@ def handle_create_pet():
     print(body)
 
     current_user_id = get_jwt_identity()
+
     
     veterinarian = Veterinarian.query.filter_by(
         clinic_name = body['clinic_name'] 
@@ -295,11 +296,12 @@ def handle_create_pet():
         db.session.add(veterinarian)
         db.session.commit()
 
-    else: 
+    if veterinarian:
+
         mascot = Mascot(
             # puede faltar id y user id
             user_id = current_user_id,
-            #veterinarian_id = veterinarian.id,
+            veterinarian_id = veterinarian.id,
             name = body['name'],
             date_of_birth = body['date_of_birth'],
             species = body['species'],
@@ -353,6 +355,44 @@ def handle_update_pet(id):
     return jsonify(response_body), 200
 
 
+# BORRAR MASCOTA
+@app.route('/delete_mascot/<string:id>', methods=['DELETE'])
+@jwt_required()
+def delete_mascot(id):
+
+    print("prueba de borrar mascot")
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    Diet.query.filter_by(mascot_id=id).delete()
+    Mascot.query.filter_by(user_id=user.id, id=id).delete()
+    
+    db.session.commit()
+
+    response_body = {
+        "msg" : "You delete your mascot succesfully!"
+    }
+
+    return jsonify(response_body), 200
+
+    # mascot_delete = Mascot.query.get(id)
+
+    # if not delete_mascot:
+    #     response.body = {
+    #         "msg" : "This pet doesn't exist, can't be deleted."
+    #     }
+    #     return jsonify(response_body), 200
+
+    # db.session.delete(mascot_delete)
+    # db.session.commit()
+
+    # response_body = {
+    #     "msg" : "Pet deleted correctly."
+    # }
+
+    # return jsonify(response_body), 200
+
 
 # Get Pet info
 
@@ -361,7 +401,7 @@ def handle_update_pet(id):
 def handle_pet():
 
     current_user_id = get_jwt_identity()
-    user = Mascot.query.get(current_user_id)
+    user = User.query.get(current_user_id)
     all_mascot = Mascot.query.filter_by(user_id=user.id)
 
     #all_mascot = Mascot.query.all()
