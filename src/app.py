@@ -77,44 +77,74 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
-regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
-
-
 #Function to add users
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     body = request.get_json()
     print(body)
 
-    if re.fullmatch(regex, body['email']):
-        print("Valid email")
+    if body:
 
-        pass_encode = body['password'].encode('utf-8')
-        mySalt = bcrypt.gensalt()
+        check_user = User.query.filter_by(username=body['username']).first()
+        check_email = User.query.filter_by(email=body['email']).first()
 
-        hashed = bcrypt.hashpw(pass_encode, mySalt)
-        print(hashed)
-    
-        user = User(
-            username = body['username'],
-            email = body['email'],
-            password = hashed,
-            reset_password = secrets.token_urlsafe(128),
-            is_active = True
-        )
+        if check_user and check_email:
+            response_body = {
+                'user': True,
+                'email': True,
+                "msg": "Username and email already exists"
+                }
 
-        db.session.add(user)
-        db.session.commit()
+            return jsonify(response_body), 400
 
-        response_body = {
-            "msg": "Hello, user added successfully!"
-            }
+        if check_user:
 
-        return jsonify(response_body), 200
+            response_body = {
+                'user': True,
+                "msg": "Username already exists"
+                }
+            
+            return jsonify(response_body), 400
+
+        if check_email:
+
+            response_body = {
+                'email': True,
+                "msg": "Email already exists"
+                }
+            
+            return jsonify(response_body), 400
+
+
+        else:
+            #print("Valid email")
+
+            pass_encode = body['password'].encode('utf-8')
+            mySalt = bcrypt.gensalt()
+
+            hashed = bcrypt.hashpw(pass_encode, mySalt)
+            print(hashed)
+        
+            user = User(
+                username = body['username'],
+                email = body['email'],
+                password = hashed,
+                reset_password = secrets.token_urlsafe(128),
+                is_active = True
+            )
+
+            db.session.add(user)
+            db.session.commit()
+
+            response_body = {
+                "msg": "Hello, user added successfully!"
+                }
+
+            return jsonify(response_body), 200
 
     else:
         response_body = {
-            "msg": "Invalid email!"
+            "msg": "Data not recieved!"
             }
 
         return jsonify(response_body), 400
@@ -192,10 +222,10 @@ def handle_resetPasswordForm(token):
 
         body = request.get_json()
 
-        request_user_reset_pass = body['token']
+        request_user_token_pass = body['token']
         request_user_new_pass = body['pass']
 
-        user = User.query.filter_by(reset_password=request_user_reset_pass).first()
+        user = User.query.filter_by(reset_password=request_user_token_pass).first()
         
         password = body['pass'].encode('utf-8')
         mySalt = bcrypt.gensalt()
@@ -203,12 +233,12 @@ def handle_resetPasswordForm(token):
         hashed = bcrypt.hashpw(password, mySalt)
 
         user.password = hashed
-        user.reset_password = secrets.token_urlsafe(128)
+        user.reset_password = secrets.token_urlsafe(64)
 
         db.session.commit()
 
         response_body = {
-            'msg': 'Password created successfully'
+            'msg': 'Password changed successfully'
         }
 
         return jsonify(response_body), 200
