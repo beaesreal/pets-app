@@ -19,7 +19,7 @@ const PetDetails = (props) => {
                         <img className="card-img-top" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
                     }
                     </div>
-                    <div className="card-body text-dark">
+                    <div className="card-body text-dark" >
                         <div className="d-flex flex-row-reverse">
                             <p className="card-text">Id: <b>{props.id}</b></p>
                         </div>

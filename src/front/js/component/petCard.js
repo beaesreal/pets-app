@@ -8,7 +8,7 @@ const PetCard = (props) => {
 	return (
         
         <div className="container" >
-            <div className="card-transform">
+            <div className="card-transform " >
                 <div key={props.id} className="card-img-top" >
                 {props.img ?
                     <img className="card-img" src={props.img}></img>:

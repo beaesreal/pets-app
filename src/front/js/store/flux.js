@@ -265,9 +265,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  }
 			},
 
-			handleDeletePet: async () => {
+			handleDeletePet: async (num) => {
+				console.log("id de mascota" + num)
 				const response = await fetch(
-					process.env.BACKEND_URL+"/delete_mascot",
+					process.env.BACKEND_URL+"/delete_mascot/"+num,
 					{
 					  method: "DELETE",
 					  mode: 'cors',

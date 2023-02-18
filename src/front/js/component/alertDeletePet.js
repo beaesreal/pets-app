@@ -1,4 +1,5 @@
 import React, {useState, useContext} from "react";
+import { useParams } from 'react-router-dom';
 import Modal from "react-modal";
 import { Context } from "../store/appContext";
 import { FaTrash } from "react-icons/fa";
@@ -8,6 +9,7 @@ export const AlertDeletePet = () => {
 
     const { actions } = useContext(Context);
     const [showModal, setShowModal] = useState(false)
+    const params = useParams()
 
     const handleOpenModal = () => {setShowModal(true);}
     const handleCloseModal = () => {setShowModal(false);}
@@ -21,7 +23,7 @@ export const AlertDeletePet = () => {
                 <p>Are you sure you want to delete this pet? We don't want to forget it</p>
                 <div className="clearfix">
                     <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancel</button>
-                    <button type="button" className="btn btn-danger float-end" onClick={() => {actions.handleDeletePet()}}>
+                    <button type="button" className="btn btn-danger float-end" onClick={() => {actions.handleDeletePet(params.id)}}>
                     Delete
                     </button>
                 </div>
