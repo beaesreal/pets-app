@@ -353,6 +353,42 @@ def handle_update_pet(id):
     return jsonify(response_body), 200
 
 
+# BORRAR MASCOTA
+@app.route('/delete_mascot/<string:id>', methods=['DELETE'])
+@jwt_required()
+def delete_mascot(id):
+
+    print("prueba de borrar mascot")
+
+    # current_user_id = get_jwt_identity()
+    # user = Mascot.query-get(current_user_id)
+
+    Mascot.query.filter_by(id=mascot.id).delete()
+    db.session.commit()
+
+    response_body = {
+        "msg" : "You delete your mascot succesfully!"
+    }
+
+    return jsonify(response_body), 2000
+
+    # mascot_delete = Mascot.query.get(id)
+
+    # if not delete_mascot:
+    #     response.body = {
+    #         "msg" : "This pet doesn't exist, can't be deleted."
+    #     }
+    #     return jsonify(response_body), 200
+
+    # db.session.delete(mascot_delete)
+    # db.session.commit()
+
+    # response_body = {
+    #     "msg" : "Pet deleted correctly."
+    # }
+
+    # return jsonify(response_body), 200
+
 
 # Get Pet info
 

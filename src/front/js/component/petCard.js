@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropType from "prop-types";
 
-
 const PetCard = (props) => {
     
 	// 1) replace the hard-coded image, description, link, etc. With their property variable.
@@ -10,7 +9,7 @@ const PetCard = (props) => {
         
         <div className="container" >
             <div className="card-transform">
-                <div key={props.id} className="card-img-top">
+                <div key={props.id} className="card-img-top" >
                 {props.img ?
                     <img className="card-img" src={props.img}></img>:
                     <img className="card-img" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>

@@ -10,11 +10,10 @@ const PetDetails = (props) => {
 
     	return (
         <div className="container">
+            <div className="card text-center shadow ">
             
-            <div className="card text-center shadow">
-            
-                <div key={props.id} className="card mobile-space">
-                    <div className="overflow">
+                <div key={props.id} className="card mobile-space ">
+                    <div className="overflow ">
                     {props.img ?
                         <img className="card-img-top" src={props.img}></img>:
                         <img className="card-img-top" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
@@ -45,11 +44,13 @@ const PetDetails = (props) => {
                             <p className="card-caracteristics">{props.caracteristics}</p>  
                         </div>
                     </div>
-                <div className="card-button py-1">
+                    <div className="card-button py-1">
                     <Link to={`edit/${props.id}`}>
                         <button className="button btn btn-primary text-light p-2 my-3">{props.buttonLabel}</button>
                     </Link>
+                   
                     </div>
+                
                 </div>
             </div>    
         

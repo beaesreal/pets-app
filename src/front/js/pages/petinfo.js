@@ -138,6 +138,14 @@ const PetInfo = () => {
           }
     }
 
+    const [warning, setWarning] = useState(false)
+    const handleBlur = () => {
+        if (petinfo.petname.trim() === ' ' || petinfo.species.trim() === " " || petinfo.breed.trim() === ""){
+            console.log("prueba:" + petinfo.petname)
+            setWarning(true)
+        }
+    }
+ 
 
   return (
 
@@ -154,46 +162,61 @@ const PetInfo = () => {
                                         name='petname' 
                                         placeholder='Name'
                                         required
-
-                        
+                                        onBlur={handleBlur}                                     
                                         onChange={handleInputChange}/>
+                                   
+                                        {warning && petinfo.petname.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>We want to know your pet name</div>}
                                 <select style={{marginTop:'2%'}} 
                                         name='species' 
                                         className='form-select' 
-                                        onChange={handleInputChange}>
-                                        required
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}>
+                                        
                                     <option selected>Species</option> 
                                     <option value='canine' >Canine</option>
                                     <option value='feline'>Feline</option>
                                 </select>
+                                {warning && petinfo.species.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>Is it a Cat or a Dog</div>}
                                 
                                 <input  style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' 
                                         name='breed' 
                                         placeholder='Breed' 
+                                        required
+                                        onBlur={handleBlur}
                                         onChange={handleInputChange}/>
+                                        {warning && petinfo.breed.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>What is the breed?</div>}
                                 <select style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         name='gender' 
                                         placeholder='Gender' 
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}
+                                        >
                                     <option  selected>Gender</option>
                                         <option value='male'>Male</option>
                                         <option value='female'>Female</option>
                                 </select>
+                                {warning && petinfo.gender.trim() === '' && <div style={{ fontSize: "0.875em", color: "red" }}>Male or Female?</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='date' 
                                         name='birthday' 
                                         placeholder='Date of Birth' 
-                                        onChange={handleInputChange}/>
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}/>
+                                    {warning && petinfo.birthday.trim() === '' && <div style={{ fontSize: "0.875em", color: "red" }}>Let us to know his birthday</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' name='colour' 
                                         placeholder='Colour' 
-                                        onChange={handleInputChange}/>
-                                
+                                        onChange={handleInputChange}
+                                        onBlur={handleBlur}/>
+                                {warning && petinfo.gender.trim() === '' && <div style={{ fontSize: "0.875em", color: "red"}}>I think it has a color</div>}
+
                                 <input style={{marginTop:'2%'}} 
                                         className='form-control' 
                                         type='text' 

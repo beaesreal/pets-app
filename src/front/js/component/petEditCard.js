@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
-import reactDom from 'react-dom'
-import PropType from "prop-types"
+import React, {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import reactDom from 'react-dom';
+import PropType from "prop-types";
+import {AlertDeletePet} from "../component/alertDeletePet";
+// import { AlertDeletePet } from './alertDeletePet'
 
 const PetEditCard = (props) => {
 
@@ -154,9 +156,20 @@ const PetEditCard = (props) => {
                             <div>
                                 <button className='btn btn-primary' type='submit'>✓ Save</button>
                             </div>
-                        
+                                                   
                         </div>
+                    
+                   
                     </form>    
+
+                    <div 
+                        style={{marginTop:'7%',marginBottom:'7%', textAlign:'center'}}>
+                     
+                        <div className="px-5">
+                            <AlertDeletePet />
+                        </div>
+                            
+                    </div>
                 </div>
             </div>
         </div>    

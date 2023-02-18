@@ -84,7 +84,7 @@ export const Profile = () => {
                             
 
                             {pets.map ( pets => (
-                            <div className="col-sm py-4" id="pet-card-profile">
+                            <div className="container col-sm py-4" >
 
                                 <PetCard 
                                     key= {pets.id}
