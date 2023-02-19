@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2168811d2db1
+Revision ID: 325f0dcd5b12
 Revises: 
-Create Date: 2023-02-07 18:14:52.488762
+Create Date: 2023-02-18 13:23:22.267168
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2168811d2db1'
+revision = '325f0dcd5b12'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,6 +49,7 @@ def upgrade():
     op.create_table('mascot',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('veterinarian_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=20), nullable=False),
     sa.Column('date_of_birth', sa.DateTime(), nullable=False),
     sa.Column('species', sa.Enum('canine', 'feline', name='species'), nullable=True),
@@ -61,6 +62,7 @@ def upgrade():
     sa.Column('img_3', sa.String(length=120), nullable=True),
     sa.Column('img_mimetype', sa.String(length=10), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['veterinarian_id'], ['veterinarian.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('appointment',
@@ -74,11 +76,13 @@ def upgrade():
     )
     op.create_table('diet',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('mascot_id', sa.Integer(), nullable=True),
     sa.Column('foodname', sa.String(length=80), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('times_a_day', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['mascot_id'], ['mascot.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('medicine',
