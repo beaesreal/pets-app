@@ -37,7 +37,7 @@ const PetEditCard = (props) => {
         console.log(petinfo)
 
         let jsonBody;
-
+        
         jsonBody = {
             'name': petinfo.petname, 
             'date_of_birth': petinfo.birthday, 
@@ -48,6 +48,7 @@ const PetEditCard = (props) => {
             'caracteristics': petinfo.features,
   
         }
+        console.log(jsonBody)
             
  
 

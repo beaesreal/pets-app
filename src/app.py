@@ -328,19 +328,24 @@ def handle_create_pet():
 def handle_update_pet(id):
 
     current_user_id = get_jwt_identity()
-    user = Mascot.query.get(current_user_id)
-    
-
+    user = User.query.get(current_user_id)
+    pet = Mascot.query.filter_by(id=id, user_id=user.id).first()
     body=request.get_json()
 
+    pet.name = body['name'] if body['name'] else pet.name
+    pet.date_of_birth = body['date_of_birth'] if body["date_of_birth"] else pet.date_of_birth 
+    pet.species = body['species'] if body['species'] else pet.species
+    pet.breed = body['breed'] if body['breed'] else pet.breed
+    pet.colour = body["colour"] if body["colour"] else pet.colour
+    pet.caracteristics = body["caracteristics"] if body["caracteristics"] else pet.caracteristics
 
-    user.name = body['name']
-    user.date_of_birth = body['date_of_birth']
-    user.species = body['species']
-    user.gender = body['gender']
-    user.breed = body['breed']
-    user.colour = body['colour']
-    user.caracteristics = body['caracteristics']
+
+    # pet.name = body['name']
+    # pet.date_of_birth = body['date_of_birth']
+    # pet.species = body['species']
+    # pet.breed = body['breed']
+    # pet.colour = body['colour']
+    # pet.caracteristics = body['caracteristics']
     # img_1 = body['img_1'],
     # img_2 = body['img_2'],
     # img_3 = body['img_3'],

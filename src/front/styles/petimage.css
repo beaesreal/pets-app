@@ -20,9 +20,25 @@
     border-radius: 15px;
 */
 
+.card{
+    border-radius: 25px;
+}
+.card-footer:last-child{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.card-img, .card-img-top{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+.card-footer{
+    border-bottom-left-radius: 25%;
+
+}
 #pet-card-profile{
     border: #150d29;
     border-width: 20px;
+    border-radius: 25%;
 }
 
 .card-title{
@@ -39,7 +55,7 @@
 }
 .card-body{
     padding: 1.3rem !important;
-    background-color:#f6f6c978;
+    background-color:#c9cef687;
     
 }
 .card-text{
@@ -53,23 +69,37 @@
 }
 .card-caracteristics{
     padding-top: 2rem;
-    color:#251749
+    color:#251749;
+
+    
 }
 
 .overflow{
     overflow:hidden;
     
 }
-.card-img-top{
-    transform: scale(1);
+/* .card-img-top{
+
+    transform: scale3d(1.2);
     transition: transform 0.3s ease-in-out;
-    
-}
-.card-img-top:hover{
+
+} */
+/* .card-img-top:hover{
+    transform: scale(1.2);
+} */
+#card-scale{
+    width:13rem;
+    transform: scale3d(1.2);
+    transition: transform 0.3s ease-in-out;
+
+} 
+#card-scale:hover{
     transform: scale(1.2);
 }
 .card-button{
-    background-color: #fdf8ef;
+    background-color: rgb(73, 85, 121);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .button{
     color:#495579;
@@ -82,3 +112,4 @@
     color: #495579;
 
 }
+

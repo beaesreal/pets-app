@@ -170,11 +170,13 @@ a:hover{
 
 .pet-card{
     width: 12rem;
+    
 }
 
 .pet-info-container{
     max-width: 40rem;
     padding-left: 20px;
+    
 }
 
 .pet-card-details{
@@ -183,6 +185,7 @@ a:hover{
 
 .pet-card-button{
     background-color: #95a1c0;
+    
 }
 
 #petPic {
@@ -190,6 +193,7 @@ a:hover{
     max-width: 25rem;
     width: auto;
     height: auto;
+    
 }
 
 
@@ -221,6 +225,7 @@ a:hover{
 /* Cards */
 
 .info-container-profile{
+    
     min-width: 12rem;
     display: flex;
     align-content: flex-start;
@@ -229,9 +234,11 @@ a:hover{
 
 .card-profile{
     background-color: #f8f7fa !important;
+    
 }
 
 .hd-card-profile{
+    
     background-color: #ced5e9;
 }
 
