@@ -68,7 +68,7 @@ body.dark .joinBtn:hover {
 /* Profile */
 
 body.dark .card-body{
-    background-color: #130d25;
+    background-color: #b9aed6;
 }
 
 body.dark .petCard{
@@ -76,7 +76,7 @@ body.dark .petCard{
 }
 
 body.dark .card-footer{
-    background-color: #495579;
+    background-color: #251749 !important;
 }
 
 /* Pet */
