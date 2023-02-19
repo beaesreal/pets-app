@@ -90,11 +90,11 @@ export const Detail = () => {
                     <Sidebar />
                 </div>
 
-                <div className="col-11 text-center justify-content-center py-5 px-5">
+                <div className="col-11 py-5 px-5">
                     <div className="my-pets">
-                    <h1 className="pb-5">Pets</h1>
+                    <h1 className="pb-5 text-center">Pets</h1>
                         
-                        <div className="container d-flex justify-content-center align-items-center">
+                        <div className="container pets-details-container d-flex justify-content-center align-items-center">
                             <div className="row justify-content-center">
 
                             {pets.map ( pet => (
@@ -116,10 +116,12 @@ export const Detail = () => {
                             </div>))}
                             </div>            
                         </div>
-                        <div className="pt-5 mx-4">
+                        <div className="text-center">
+                        <div className="pt-5 mx-5 ">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>
                         </div>
-                        <a href="/profile"><button className="btn btn-primary my-5"><FaArrowLeft /> Go to my profile</button></a>
+                        <a href="/profile"><button className="btn btn-primary my-5 mx-5"><FaArrowLeft /> Go to my profile</button></a>
+                        </div>
                     </div>
 
                 </div>

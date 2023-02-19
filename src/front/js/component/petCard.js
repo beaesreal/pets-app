@@ -17,8 +17,8 @@ const PetCard = (props) => {
                     <img className="card-img" src={props.img}></img>:
                     <img className="card-img" src={VectorLogo_Pets_APP}></img>
                 }
-                <div className="card-body py-6">
-                    <h5 className="card-title">{props.title}</h5>
+                <div className="card-body">
+                    <p className="card-title">{props.title}</p>
                     
                     {/* <p className="card-text m-0 py-2">Specie: {props.species}</p>
                     <p className="card-text">Colour: {props.colour}</p> */}
