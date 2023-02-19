@@ -80,26 +80,29 @@ export const Profile = () => {
                     <h2 className="pb-3">My pets</h2>
 
                    
-                        <div className="row justify-content-center" id="pet-card-profile">
-                            
+                        <div className="row">
+                            <div className="col-sm align-items-center">
+                                <div className="container d-flex justify-content-center pb-5">
+                                    <div className="row m-3 justifi-content-center">
+                                    {pets.map ( pets => (
+                                    <div className="container col-sm py-4" >
 
-                            {pets.map ( pets => (
-                            <div className="container col-sm py-4" >
-
-                                <PetCard 
-                                    key= {pets.id}
-                                    species = {pets.species}
-                                    title= {pets.name}
-                                    age={pets.age}
-                                    birth= {pets.date_of_birth}
-                                    colour= {pets.colour}
-                                    breed= {pets.breed}
-                                    img={pets.image}
-                                    buttonLabel= "More info"
-                                    buttonUrl= "/pets"                        
-                                />
-                            </div>))}
-
+                                        <PetCard 
+                                            key= {pets.id}
+                                            species = {pets.species}
+                                            title= {pets.name}
+                                            age={pets.age}
+                                            birth= {pets.date_of_birth}
+                                            colour= {pets.colour}
+                                            breed= {pets.breed}
+                                            img={pets.image}
+                                            buttonLabel= "More info"
+                                            buttonUrl= "/pets"                        
+                                        />
+                                    </div>))}
+                                    </div>
+                                </div>
+                            </div>                    
                         </div>
                         <div className="py-5 mx-4">
                             <a href="/create"><strong>Do you want to add another pet? Click here</strong></a>

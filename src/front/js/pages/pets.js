@@ -94,11 +94,11 @@ export const Detail = () => {
                     <div className="my-pets">
                     <h1 className="pb-5">Pets</h1>
                         
-                        <div className="container d-flex justify-content-centen align-items-center">
+                        <div className="container d-flex justify-content-center align-items-center">
                             <div className="row justify-content-center">
 
                             {pets.map ( pet => (
-                            <div className="pet-info-container py-4">
+                            <div className="pet-info-container py-4" >
                                 <PetDetails 
                                     key= {pet.id}
                                     title= {pet.name}
