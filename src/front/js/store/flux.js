@@ -286,7 +286,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  }
 				  else {
 					const message = `Pet deleted correctly!`;
-					location.replace('/pet');
+					location.replace('/profile');
 				  }
 				
 			},

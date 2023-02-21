@@ -82,8 +82,8 @@ export const Profile = () => {
                    
                         <div className="row">
                             <div className="col-sm align-items-center">
-                                <div className="container d-flex justify-content-center pb-5">
-                                    <div className="row m-3 justifi-content-center">
+                                <div className="container d-flex justify-content-center">
+                                    <div className="row">
                                     {pets.map ( pets => (
                                     <div className="container col-sm py-4" >
 

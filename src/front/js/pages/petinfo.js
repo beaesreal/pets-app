@@ -2,6 +2,8 @@ import { object } from 'prop-types';
 import React, {useContext, useState, Fragment, useEffect} from 'react'
 import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
+import CatSide from "../../img/CatSide.png";
+import DogSide from "../../img/DogSide.png";
 
 let imageUrl = ''
 
@@ -150,9 +152,12 @@ const PetInfo = () => {
   return (
 
         <Fragment>
-            <div className='container' style={{marginTop:"5%"}}>  
-                <div className='row justify-content-center'>
-                    <div className='col-9'>
+            <div className='container-fluid' style={{marginTop:"5%"}}>  
+                <div className='row'>
+                    <div className="col-3 p-0 m-0 align-text-bottom pet-col-form justify-content-end">
+                    <img className="d-flex w-100" src={DogSide} id="DogSide"/>
+                    </div>
+                    <div className='col-sm justify-content-center'>
                         <form onSubmit={sendPetData}>
                             <div>
                                 <h2>Pet Info</h2>
@@ -268,6 +273,9 @@ const PetInfo = () => {
                                 {/* </div> */}
                             </div>
                         </form>    
+                    </div>
+                    <div className="col-3 p-0 m-0 align-text-bottom pet-col-form">
+                    <img className="d-block w-100" src={CatSide} id="CatSide"/>
                     </div>
                 </div>
             </div>    
