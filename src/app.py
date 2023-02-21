@@ -78,7 +78,7 @@ def serve_any_other_file(path):
     return response
 
 #Function to add users
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def handle_signup():
     body = request.get_json()
     print(body)
@@ -152,7 +152,7 @@ def handle_signup():
 
 # METODO PARA LOGIN Y TOKEN
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def handle_login():
     body = request.get_json()
 
@@ -181,7 +181,7 @@ def handle_login():
         return jsonify({'msg': "Email or password incorrect"}), 401
 
 
-@app.route('/resetpassword', methods=['POST'])
+@app.route('/api/resetpassword', methods=['POST'])
 def handle_resetPassword():
     body = request.get_json()
     email = body['email']
@@ -215,7 +215,7 @@ def handle_resetPassword():
         return jsonify(response_body), 400
 
 
-@app.route('/resetpassword/<string:token>', methods=['PUT'])
+@app.route('/api/resetpassword/<string:token>', methods=['PUT'])
 def handle_resetPasswordForm(token):
     
     if (token):
@@ -251,7 +251,7 @@ def handle_resetPasswordForm(token):
         return jsonify(response_body), 400
 
 
-@app.route('/private', methods=['GET'])
+@app.route('/api/private', methods=['GET'])
 @jwt_required()
 def handle_private():
 
@@ -260,7 +260,7 @@ def handle_private():
     
     return jsonify({"id": user.id, "username": user.email }), 200
 
-@app.route('/delete_user', methods=['DELETE'])
+@app.route('/api/delete_user', methods=['DELETE'])
 @jwt_required()
 def handle_delete_user():
 
@@ -276,7 +276,7 @@ def handle_delete_user():
 
     return jsonify(response_body), 200
 
-@app.route('/pet/create', methods=['POST'])
+@app.route('/api/pet/create', methods=['POST'])
 @jwt_required()
 def handle_create_pet():
     body = request.get_json()
@@ -323,7 +323,7 @@ def handle_create_pet():
     return jsonify({"message": "Mascota creada con exito" }), 200
 
 # Editar mascota
-@app.route('/pet/edit/<string:id>', methods=['PUT'])
+@app.route('/api/pet/edit/<string:id>', methods=['PUT'])
 @jwt_required()
 def handle_update_pet(id):
 
@@ -361,7 +361,7 @@ def handle_update_pet(id):
 
 
 # BORRAR MASCOTA
-@app.route('/delete_mascot/<string:id>', methods=['DELETE'])
+@app.route('/api/delete_mascot/<string:id>', methods=['DELETE'])
 @jwt_required()
 def delete_mascot(id):
 
@@ -401,7 +401,7 @@ def delete_mascot(id):
 
 # Get Pet info
 
-@app.route('/pet', methods=['GET'])
+@app.route('/api/pet', methods=['GET'])
 @jwt_required()
 def handle_pet():
 
@@ -417,7 +417,7 @@ def handle_pet():
     return jsonify(response_body), 200
 
 # CREANDO RUTA PARA IMPORTACION INDIVIDUAL MASCOTA
-@app.route('/pet/edit/<string:id>', methods=['GET'])
+@app.route('/api/pet/edit/<string:id>', methods=['GET'])
 @jwt_required()
 def handle_pet_with_id(id):
 
@@ -432,7 +432,7 @@ def handle_pet_with_id(id):
 
 # Get User info
 
-@app.route('/user', methods=['GET'])
+@app.route('/api/user', methods=['GET'])
 @jwt_required()
 def handle_user():
 
@@ -448,7 +448,7 @@ def handle_user():
 
 # Get Vet info
 
-@app.route('/veterinarian', methods=['GET'])
+@app.route('/api/veterinarian', methods=['GET'])
 #@jwt_required()
 def handle_veterinarian():
 
@@ -466,7 +466,7 @@ def handle_veterinarian():
 
 # Update USER Info
 
-@app.route('/user', methods=['PUT'])
+@app.route('/api/user', methods=['PUT'])
 @jwt_required()
 def update_user():
 
@@ -492,7 +492,7 @@ def update_user():
 
 # Add event from the calendar
 
-@app.route('/event/create', methods=['POST'])
+@app.route('/api/event/create', methods=['POST'])
 @jwt_required()
 def handle_all_events():
 
@@ -521,7 +521,7 @@ def handle_all_events():
 
 # Show events
 
-@app.route('/events', methods=['GET'])
+@app.route('/api/events', methods=['GET'])
 #@jwt_required()
 def handle_event():
 
@@ -538,7 +538,7 @@ def handle_event():
 
 # Delete events
 
-@app.route('/delete_event/<int:id>', methods=['DELETE'])
+@app.route('/api/delete_event/<int:id>', methods=['DELETE'])
 #@jwt_required()
 def delete_event(id):
 
@@ -564,7 +564,7 @@ def delete_event(id):
 
 # Add pet DIET
 
-@app.route('/diet/create', methods=['POST'])
+@app.route('/api/diet/create', methods=['POST'])
 @jwt_required()
 def handle_all_diets():
 
@@ -592,7 +592,7 @@ def handle_all_diets():
 
 # Show pet DIET
 
-@app.route('/diet', methods=['GET'])
+@app.route('/api/diet', methods=['GET'])
 @jwt_required()
 def handle_diet():
 
@@ -610,7 +610,7 @@ def handle_diet():
 
 # Add pet MEDICINE
 
-@app.route('/medicine/create', methods=['POST'])
+@app.route('/api/medicine/create', methods=['POST'])
 @jwt_required()
 def handle_all_medicine():
 
@@ -639,7 +639,7 @@ def handle_all_medicine():
 
 # Show pet MEDICINE
 
-@app.route('/medicine', methods=['GET'])
+@app.route('/api/medicine', methods=['GET'])
 @jwt_required()
 def handle_medicine():
 
@@ -656,7 +656,7 @@ def handle_medicine():
 
 # Add pet VET APPOINTMENT
 
-@app.route('/appointment/create', methods=['POST'])
+@app.route('/api/appointment/create', methods=['POST'])
 @jwt_required()
 def handle_all_appointments():
 
@@ -685,7 +685,7 @@ def handle_all_appointments():
 
 # Show pet APPOINTMENTS
 
-@app.route('/appointment', methods=['GET'])
+@app.route('/api/appointment', methods=['GET'])
 @jwt_required()
 def handle_appointment():
 

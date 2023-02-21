@@ -53,7 +53,7 @@ const PetEditCard = (props) => {
  
 
         const resp = await fetch(
-            process.env.BACKEND_URL + `/pet/edit/${params.id}`,
+            process.env.BACKEND_URL + `/api/pet/edit/${params.id}`,
             {
               method: "PUT",
               mode: 'cors',

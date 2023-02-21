@@ -120,7 +120,7 @@ const PetInfo = () => {
  
 
         const resp = await fetch(
-            process.env.BACKEND_URL + "/pet/create",
+            process.env.BACKEND_URL + "/api/pet/create",
             {
               method: "POST",
               mode: 'cors',

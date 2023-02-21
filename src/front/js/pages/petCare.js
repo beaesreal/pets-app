@@ -79,7 +79,7 @@ export const PetCare = () => {
             }
 
         const resp = await fetch(
-            process.env.BACKEND_URL + "/diet/create",
+            process.env.BACKEND_URL + "/api/diet/create",
                 {
                 method: "POST",
                 mode: 'cors',
@@ -126,7 +126,7 @@ export const PetCare = () => {
             }
 
         const resp = await fetch(
-            process.env.BACKEND_URL + "/medicine/create",
+            process.env.BACKEND_URL + "/api/medicine/create",
             {
               method: "POST",
               headers: {
@@ -168,7 +168,7 @@ export const PetCare = () => {
             }
 
         const resp = await fetch(
-            process.env.BACKEND_URL + "/appointment/create",
+            process.env.BACKEND_URL + "/api/appointment/create",
             {
               method: "POST",
               headers: {
@@ -187,7 +187,7 @@ export const PetCare = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            const result = await fetch (process.env.BACKEND_URL + "/api/pet",
             
             {
                 method: "GET",
@@ -212,7 +212,7 @@ export const PetCare = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/veterinarian",
+            const result = await fetch (process.env.BACKEND_URL + "/api/veterinarian",
             
             {
                 method: "GET",

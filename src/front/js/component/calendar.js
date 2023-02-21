@@ -55,7 +55,7 @@ export const Calendar = () => {
 
         const fetchData = async () => {
             
-            const result = await fetch (process.env.BACKEND_URL + "/events",
+            const result = await fetch (process.env.BACKEND_URL + "/api/events",
             {
                 method: "GET",
                 mode: 'cors',

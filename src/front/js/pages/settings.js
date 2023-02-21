@@ -24,7 +24,7 @@ export const Settings = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/user",
+            const result = await fetch (process.env.BACKEND_URL + "/api/user",
             {
                 method: "GET",
                 mode: 'cors',

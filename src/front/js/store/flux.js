@@ -38,7 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({username_exists: false})
 				setStore({email_exists: false})
 				const response = await fetch(
-				  process.env.BACKEND_URL+"/signup",
+				  process.env.BACKEND_URL+"/api/signup",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -103,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 				const resp = await fetch(
 					
-				  process.env.BACKEND_URL+"/login",
+				  process.env.BACKEND_URL+"/api/login",
 				  {
 					method: "POST",
 					mode: 'cors',
@@ -154,7 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				else {
 					try {
 						const response = await fetch(
-							process.env.BACKEND_URL+"/resetpassword",
+							process.env.BACKEND_URL+"/api/resetpassword",
 							{
 								method: "POST",
 								mode: 'cors',
@@ -211,7 +211,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				try {
 					const response = await fetch(
-						process.env.BACKEND_URL+"/resetpassword/"+token,
+						process.env.BACKEND_URL+"/api/resetpassword/"+token,
 						{
 							method: "PUT",
 							mode: 'cors',
@@ -242,7 +242,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleDeleteUser: async () => {
 				const response = await fetch(
-					process.env.BACKEND_URL+"/delete_user",
+					process.env.BACKEND_URL+"/api/delete_user",
 					{
 					  method: "DELETE",
 					  mode: 'cors',
@@ -268,7 +268,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleDeletePet: async (num) => {
 				console.log("id de mascota" + num)
 				const response = await fetch(
-					process.env.BACKEND_URL+"/delete_mascot/"+num,
+					process.env.BACKEND_URL+"/api/delete_mascot/"+num,
 					{
 					  method: "DELETE",
 					  mode: 'cors',
@@ -295,7 +295,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("Title: "+title, "Start: "+start, "End: "+end);
 				const response = await fetch(
 
-				process.env.BACKEND_URL+"/event/create",
+				process.env.BACKEND_URL+"/api/event/create",
 
 				  {
 					method: "POST",
@@ -327,7 +327,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			handleDataSet: async (title, start, end) => {
 				try{
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/events")
+					const resp = await fetch(process.env.BACKEND_URL + "/api/events")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
@@ -339,7 +339,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleDeleteEvent: async () => {
 				const response = await fetch(
-					process.env.BACKEND_URL+"/delete_event",
+					process.env.BACKEND_URL+"/api/delete_event",
 					{
 					  method: "DELETE",
 					  mode: 'cors',
@@ -391,7 +391,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getItems: async (resource) => {
 				const store = getStore();
-				const response = await fetch (process.env.BACKEND_URL + "/create");
+				const response = await fetch (process.env.BACKEND_URL + "/api/create");
 				const body = await response.json();
 				setStore({
 					[resource]: body.results.map((item)=>{
@@ -404,7 +404,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getDetails: async (resource, uid) => {
 				const store = getStore();
-				const response = await fetch(process.env.BACKEND_URL + "/create");
+				const response = await fetch(process.env.BACKEND_URL + "/api/create");
 				const body = await response.json();
 				if (!response.ok) return;
 				setStore({

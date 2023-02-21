@@ -11,7 +11,7 @@ const [pets, setPets] = useState ([])
 
 useEffect (() => {
     const fetchData = async () => {
-        const result = await fetch (process.env.BACKEND_URL + "/pet",
+        const result = await fetch (process.env.BACKEND_URL + "/api/pet",
         {
             method: "GET",
             mode: 'cors',
@@ -30,7 +30,7 @@ useEffect (() => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/appointment",
+            const result = await fetch (process.env.BACKEND_URL + "/api/appointment",
             {
                 method: "GET",
                 mode: 'cors',

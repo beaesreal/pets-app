@@ -1,7 +1,7 @@
 
 
 const getPetEdit = async (id) => {
-    const result = await fetch (process.env.BACKEND_URL + `/pet/${id}`,
+    const result = await fetch (process.env.BACKEND_URL + `/api/pet/${id}`,
     {
         method: "GET",
         mode: 'cors',

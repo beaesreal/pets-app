@@ -38,7 +38,7 @@ export const ProfileAppointments = () => {
 
     useEffect (() => {
         const fetchData = async () => {
-            const result = await fetch (process.env.BACKEND_URL + "/pet",
+            const result = await fetch (process.env.BACKEND_URL + "/api/pet",
             {
                 method: "GET",
                 mode: 'cors',
