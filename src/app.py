@@ -449,18 +449,18 @@ def handle_user():
 # Get Vet info
 
 @app.route('/api/veterinarian', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_veterinarian():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
-    #all_veterinarian = Veterinarian.query.filter_by(id=user.id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_veterinarian = Veterinarian.query.filter_by(id=user.id)
 
-    all_veterinarian = Veterinarian.query.all()
+    # all_veterinarian = Veterinarian.query.all()
     
-    all_veterinarian =list(map(lambda x: x.serialize(), all_veterinarian))
+    all_veterinarians =list(map(lambda x: x.serialize(), all_veterinarian))
     print(all_veterinarian)
-    response_body = all_veterinarian
+    response_body = all_veterinarians
     return jsonify(response_body), 200
 
 
@@ -522,15 +522,15 @@ def handle_all_events():
 # Show events
 
 @app.route('/api/events', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def handle_event():
 
-    #current_user_id = get_jwt_identity()
-    #user = User.query.get(current_user_id)
-    #all_events = Event.query.filter_by(id=user.id)
-    all_events = Event.query.all()
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    all_event = Event.query.filter_by(id=user.id)
+    # all_events = Event.query.all()
     
-    all_events =list(map(lambda x: x.serialize(), all_events))
+    all_events =list(map(lambda x: x.serialize(), all_event))
     print(all_events)
     response_body = all_events
     return jsonify(response_body), 200
@@ -539,7 +539,7 @@ def handle_event():
 # Delete events
 
 @app.route('/api/delete_event/<int:id>', methods=['DELETE'])
-#@jwt_required()
+@jwt_required()
 def delete_event(id):
 
     #current_user_id = get_jwt_identity()
@@ -598,10 +598,10 @@ def handle_diet():
 
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
-    all_diets = Diet.query.filter_by(id=user.id)
-    all_diets = Diet.query.all()
+    all_diet = Diet.query.filter_by(id=user.id)
+    # all_diets = Diet.query.all()
     
-    all_diets =list(map(lambda x: x.serialize(), all_diets))
+    all_diets =list(map(lambda x: x.serialize(), all_diet))
     print(all_diets)
     response_body = all_diets
     return jsonify(response_body), 200
