@@ -36,7 +36,7 @@ export default function ({ isOpen, onClose, onEventAdded }) {
 
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
+        <Modal isOpen={isOpen} onRequestClose={onClose} style={{content: {maxWidth: "40rem", maxHeight: "35rem", margin: "auto"}}}>
             <form onSubmit={onSubmit}>
 
                 <div>
