@@ -218,10 +218,11 @@ export const PetCare = () => {
                 method: "GET",
                 mode: 'cors',
                 credentials: 'omit',
-                headers: {"Content-Type": "application/json"},
+                headers: {'Authorization': `Bearer ${localStorage.getItem('jwt-token')}`},
                 body: null,
                 })
             const jsonResult = await result.json()
+            console.log(jsonResult)
 
             setVeterinarians(jsonResult)
         }

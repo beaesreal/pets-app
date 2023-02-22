@@ -74,6 +74,7 @@ class Mascot(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "veterinarian_id": self.veterinarian_id,
             "name": self.name,
             "date_of_birth": self.date_of_birth,
             "colour": self.colour,

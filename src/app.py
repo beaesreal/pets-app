@@ -454,13 +454,28 @@ def handle_veterinarian():
 
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
-    all_veterinarian = Veterinarian.query.filter_by(id=user.id)
+    # all_veterinarian = Veterinarian.query.filter_by(id=user.id)
+    all_mascots = Mascot.query.filter_by(user_id=user.id).all()
 
     # all_veterinarian = Veterinarian.query.all()
     
-    all_veterinarians =list(map(lambda x: x.serialize(), all_veterinarian))
-    print(all_veterinarian)
-    response_body = all_veterinarians
+    user_mascots =list(map(lambda x: x.serialize(), all_mascots))
+    user_vet = []
+    for item in user_mascots:
+        query_vet = Veterinarian.query.filter_by(id=item["veterinarian_id"])
+        user_vet.append(list(map(lambda x: x.serialize(), query_vet)))
+    print("este es el user_vet", user_vet)
+
+    print("nuestro print", user_mascots)
+
+    vet_names = []
+    for item in user_vet:
+        for key in item:           
+            vet_names.append(key)
+    print("vet_names",vet_names)
+
+    # print(all_veterinarians)
+    response_body = vet_names
     return jsonify(response_body), 200
 
 

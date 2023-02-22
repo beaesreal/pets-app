@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import PropType from "prop-types";
 import {  } from 'react-icons/fa'
 import "../../styles/petimage.css";
+import VectorLogo_Pets_APP from "../../img/VectorLogo_Pets_APP.png";
 
 
 const PetDetails = (props) => {
@@ -16,7 +17,7 @@ const PetDetails = (props) => {
                     <div className="overflow ">
                     {props.img ?
                         <img className="card-img-top" src={props.img}></img>:
-                        <img className="card-img-top" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?cs=srgb&dl=pexels-krysten-merriman-20787.jpg&fm=jpg"></img>
+                        <img className="card-img-top" src={VectorLogo_Pets_APP}></img>
                     }
                     </div>
                     
