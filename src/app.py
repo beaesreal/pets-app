@@ -548,11 +548,11 @@ def handle_event():
 
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
-    all_event = Event.query.filter_by(id=user.id)
+    all_event = Event.query.filter_by(user_id=user.id).all()
     # all_events = Event.query.all()
     
     all_events =list(map(lambda x: x.serialize(), all_event))
-    print(all_events)
+    print("Eventos", all_events)
     response_body = all_events
     return jsonify(response_body), 200
 
