@@ -502,8 +502,14 @@ def handle_all_events():
     body = request.get_json()
     print(body)
 
+    if body is None:
+        response_body = {
+            "msg" : "there's no data to save"
+        }
+        return jsonify(response_body), 400
+
     event = Event(
-        user_id = current_user_id,      
+        user_id = user.id,      
         title = body['title'],
         start = body['start'],
         end = body['end'],
