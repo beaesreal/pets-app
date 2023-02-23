@@ -173,7 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 							// Commented the function that sends de email
 
-							/*const sendEmail = (obj, str) => {
+							const sendEmail = (obj, str) => {
 
 								const templateParams = {
 								user_email: obj['email'],
@@ -186,9 +186,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 									}, function(error) {
 									console.log('FAILED...', error);
 									});
-							}*/
+							}
 
-							//sendEmail(objson, url);
+							sendEmail(objson, url);
 							setStore({emailModal: true})
 							
 						}
