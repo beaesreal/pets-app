@@ -596,6 +596,7 @@ def handle_all_diets():
     print(body)
 
     diet = Diet(
+        user_id = user.id,
         mascot_id = body['mascot_id'],     
         foodname = body['foodname'],
         quantity = body['quantity'],
@@ -643,6 +644,7 @@ def handle_all_medicine():
     print(body)
 
     medicine = Medicine(
+        user_id = user.id,
         mascot_id = body['mascot_id'],     
         name = body['name'],
         quantity = body['quantity'],
